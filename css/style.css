@@ -1,0 +1,109 @@
+#main-footer {
+  background: #000;
+  color: #fff;
+  border-bottom: #365b7d 0 solid;
+  border-top: #365b7d 0 solid; }
+
+#main-footer-2 {
+  background: #365b7d;
+  color: #fff;
+  border-bottom: #000 2px solid;
+  border-top: #000 2px solid; }
+
+.navbar {
+  border-bottom: #000 0 solid;
+  opacity: 0.95; }
+
+#page-header {
+  min-height: 200px;
+  background: url("../img/scaleflow.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #fff; }
+
+#page-header .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 200px;
+  background: rgba(54, 91, 125, 0.3); }
+
+#page-header .home-inner {
+  padding-top: 100px; }
+
+.main-image {
+  min-height: 400px; }
+
+.hidden-text {
+  margin-top: 0;
+  color: white; }
+
+.main-text {
+  color: #365b7d;
+  font-weight: 600; }
+
+.secondary-text {
+  color: #365b7d; }
+
+.bar-background {
+  background: #0b74b9; }
+
+.header-btn-color {
+  background: #2a92d8; }
+
+.card-center {
+  margin: 0 auto 10px;
+  /* Added */
+  float: none;
+  /* Added */
+  /* Added */ }
+
+#home-section {
+  background: url("../img/scaleflow.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 450px; }
+
+#home-section .dark-home-overlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 450px;
+  background: rgba(54, 91, 125, 0.2); }
+
+  #home-section .home-inner {
+    padding-top: 150px;
+  }
+
+.assesment-section {
+  color: #fff;
+  background: #008ed6;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+#home-section .fas,
+#create-section .fas {
+  color: #008ed6;
+  background: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.sign-board {
+  background-image: url("../img/scaleflow.jpg");
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0; }
+
+.sign-board .highlight {
+  background: rgba(255, 255, 255, 0.9);
+  margin: 175px 50px 75px;
+  padding: 1rem; }
