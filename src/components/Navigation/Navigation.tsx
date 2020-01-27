@@ -17,11 +17,21 @@ const Navigation: React.FC = () => {
                   <Nav.Link>
                      <Link to="/about">ABOUT</Link>
                   </Nav.Link>
-                  <Nav.Link href="#ASSESSMENTS">ASSESSMENTS</Nav.Link>
-                  <Nav.Link href="#COACHING">COACHING</Nav.Link>
-                  <Nav.Link href="#TRAINING">TRAINING</Nav.Link>
-                  <Nav.Link href="#TRENDS">TRENDS</Nav.Link>
-                  <Nav.Link href="#CONTACT">CONTACT</Nav.Link>
+                  <Nav.Link>
+                     <Link to="/assessments">ASSESSMENTS</Link>
+                  </Nav.Link>
+                  <Nav.Link>
+                     <Link to="/coaching">COACHING</Link>
+                  </Nav.Link>
+                  <Nav.Link>
+                     <Link to="/training">TRAINING</Link>
+                  </Nav.Link>
+                  <Nav.Link>
+                     <Link to="/trends">TRENDS</Link>
+                  </Nav.Link>
+                  <Nav.Link>
+                     <Link to="/contact">CONTACT</Link>
+                  </Nav.Link>
                </Nav>
             </Navbar.Collapse>
          </Container>
