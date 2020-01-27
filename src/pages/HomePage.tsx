@@ -1,6 +1,8 @@
 import * as React from "react";
 
-const HomePage: React.FC = () => {
+type Props = {};
+
+const HomePage: React.FC<Props> = () => {
    return <p>Home Page</p>;
 };
 

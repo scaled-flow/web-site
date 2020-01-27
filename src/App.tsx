@@ -2,6 +2,7 @@ import React from "react";
 import "./bootstrap.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 // components
 import Navbar from "./components/Navigation/Navigation";
@@ -15,14 +16,17 @@ const App: React.FC = () => {
    return (
       <Router>
          <Navbar />
-         <Switch>
-            <Route exact path="/">
-               <HomePage />
-            </Route>
-            <Route path="/about">
-               <AboutPage />
-            </Route>
-         </Switch>
+         <Container>
+            <Switch>
+               <Route exact path="/" render={props => <HomePage />} />
+               <Route
+                  path="/about"
+                  render={props => (
+                     <AboutPage {...props} someCustomProp="hello" />
+                  )}
+               />
+            </Switch>
+         </Container>
          <Footer />
       </Router>
    );
