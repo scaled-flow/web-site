@@ -6,7 +6,7 @@ import "./Navigation.css";
 
 const Navigation: React.FC = () => {
    return (
-      <Navbar bg="info" expand="lg">
+      <Navbar bg="info" expand="lg" className="fixed-top">
          <Container>
             <Navbar.Brand>
                <Link to="/">SCALED FLOW &reg;</Link>
@@ -14,17 +14,24 @@ const Navigation: React.FC = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                <Nav className="ml-auto">
-                  <Link to="/about">ABOUT</Link>
-
-                  <Link to="/assessments">ASSESSMENTS</Link>
-
-                  <Link to="/coaching">COACHING</Link>
-
-                  <Link to="/training">TRAINING</Link>
-
-                  <Link to="/trends">TRENDS</Link>
-
-                  <Link to="/contact">CONTACT</Link>
+                  <Link className="navlink" to="/about">
+                     ABOUT
+                  </Link>
+                  <Link className="navlink" to="/assessments">
+                     ASSESSMENTS
+                  </Link>
+                  <Link className="navlink" to="/coaching">
+                     COACHING
+                  </Link>
+                  <Link className="navlink" to="/training">
+                     TRAINING
+                  </Link>
+                  <Link className="navlink" to="/trends">
+                     TRENDS
+                  </Link>
+                  <Link className="navlink" to="/contact">
+                     CONTACT
+                  </Link>
                </Nav>
             </Navbar.Collapse>
          </Container>

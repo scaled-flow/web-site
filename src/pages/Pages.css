@@ -1,0 +1,53 @@
+.dark-overlay-main {
+   background: rgba(54, 91, 125, 0.3);
+}
+
+.header-main {
+   height: fit-content;
+   background-image: url("../img/scaleflow.jpg");
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-attachment: fixed;
+   padding: 80px 30px 30px;
+}
+
+.hero {
+   margin: 0 auto;
+   padding: 50px;
+   background: rgba(255, 255, 255, 0.8);
+   border-radius: 4px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   color: #365b7d;
+}
+
+.hero h5 {
+   margin-bottom: 20px;
+}
+
+.link-button {
+   background-color: #2a92d8;
+   color: #fff;
+   padding: 9px 15px;
+   border-radius: 4px;
+}
+
+.link-button a {
+   margin: 30px;
+}
+
+.link-button:hover {
+   color: #fff;
+   background-color: #2480bd;
+}
+
+.content {
+   margin: 10px 0 50px;
+}
