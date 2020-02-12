@@ -1,15 +1,16 @@
 import * as React from "react";
 
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
    faUsers,
    faBrain,
    faIndustry
 } from "@fortawesome/free-solid-svg-icons";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 
 import "./Pages.css";
+import ContentContainer from "../components/ContentContainer/ContentContainer";
 
 interface Props extends RouteComponentProps {}
 
@@ -25,20 +26,20 @@ const HomePage: React.FC<Props> = ({ ...props }: Props) => {
                         SCALED FLOW ® provides onsite or offsite training and
                         coaching.
                      </h5>
-                     <a href="#" className="link-button">
+                     <Link to="/" className="link-button">
                         Schedule Training
-                     </a>
+                     </Link>
                   </Col>
                </Row>
             </Container>
          </header>
-         <div className="content">
+         <ContentContainer>
             <Container>
                <Row>
-                  <Col md={{ span: 2, offset: 1 }} sm={12}>
+                  <Col md={{ span: 2 }} sm={12}>
                      <Icon icon={faUsers} size="5x" color="#87cefa" />
                   </Col>
-                  <Col md={9} sm={12}>
+                  <Col md={10} sm={12}>
                      <h3>SAFe® Coaching</h3>
                      <p>
                         Looking busy does not help the growth of the company or
@@ -55,10 +56,10 @@ const HomePage: React.FC<Props> = ({ ...props }: Props) => {
                   </Col>
                </Row>
                <Row>
-                  <Col md={{ span: 2, offset: 1 }} sm={12}>
+                  <Col md={{ span: 2 }} sm={12}>
                      <Icon icon={faBrain} size="5x" color="#87cefa" />
                   </Col>
-                  <Col md={9} sm={12}>
+                  <Col md={10} sm={12}>
                      <h3>SAFe® Training</h3>
                      <p>
                         Scaled Agile, as the name implies, can scale to the
@@ -70,10 +71,10 @@ const HomePage: React.FC<Props> = ({ ...props }: Props) => {
                   </Col>
                </Row>
                <Row>
-                  <Col md={{ span: 2, offset: 1 }} sm={12}>
+                  <Col md={{ span: 2 }} sm={12}>
                      <Icon icon={faIndustry} size="5x" color="#87cefa" />
                   </Col>
-                  <Col md={9} sm={12}>
+                  <Col md={10} sm={12}>
                      <h3>SAFe® DevOps Assessment</h3>
                      <p>
                         Learn to identify areas of strength and weakness in your
@@ -86,7 +87,7 @@ const HomePage: React.FC<Props> = ({ ...props }: Props) => {
                   </Col>
                </Row>
             </Container>
-         </div>
+         </ContentContainer>
       </>
    );
 };

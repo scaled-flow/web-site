@@ -2,7 +2,6 @@ import React from "react";
 import "./bootstrap.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Container } from "react-bootstrap";
 
 // components
 import Navbar from "./components/Navigation/Navigation";

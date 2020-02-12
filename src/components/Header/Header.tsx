@@ -13,7 +13,7 @@ const Header: React.FC<Props> = ({ title }: Props) => {
             <Container className="home-inner">
                <Row>
                   <Col className="text-center">
-                     <h1 style={{ marginTop: "90px", color: "white" }}>
+                     <h1 style={{ marginTop: "117px", color: "white" }}>
                         {title}
                      </h1>
                   </Col>

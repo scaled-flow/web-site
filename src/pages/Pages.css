@@ -27,6 +27,10 @@ h5,
 h6 {
    color: #365b7d;
 }
+p {
+   color: #365b7d;
+   font-weight: 500;
+}
 
 .hero h5 {
    margin-bottom: 20px;
