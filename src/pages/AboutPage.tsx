@@ -3,6 +3,7 @@ import { RouteComponentProps } from "react-router-dom";
 import Header from "../components/Header/Header";
 import ContentContainer from "../components/ContentContainer/ContentContainer";
 import { Container, Row, Col, Image } from "react-bootstrap";
+import network from "../img/network.jpg";
 
 interface Props extends RouteComponentProps {}
 
@@ -48,11 +49,7 @@ const AboutPage: React.FC<Props> = ({ ...props }: Props) => {
                         </p>
                      </Col>
                      <Col md={4}>
-                        <Image
-                           src={"../../img/network.jpg"}
-                           roundedCircle
-                           fluid
-                        />
+                        <Image roundedCircle fluid src={network} />
                      </Col>
                   </Row>
                </Container>

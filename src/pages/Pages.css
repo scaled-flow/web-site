@@ -55,3 +55,19 @@ p {
 .content {
    margin: 10px 0 50px;
 }
+
+.row-style {
+   padding: 10px 0;
+}
+
+.learn-more-box {
+   background-color: #365b7d;
+   border-radius: 4px;
+   padding: 20px 20px 30px;
+   height: fit-content;
+}
+
+.learn-more-box h3,
+p {
+   color: white;
+}
