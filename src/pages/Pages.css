@@ -68,6 +68,13 @@ p {
 }
 
 .learn-more-box h3,
-p {
+.learn-more-box p {
+   margin-bottom: 20px;
    color: white;
+}
+
+.contact-info-box {
+   border: 1px solid #365b7d;
+   border-radius: 4px;
+   padding: 30px 30px;
 }

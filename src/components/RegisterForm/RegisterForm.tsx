@@ -23,7 +23,7 @@ const RegisterForm: React.FC<Props> = () => {
          <Form>
             <Form.Group controlId="formUserName">
                <Form.Control
-                  onChange={(e: any) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                      setInput({ ...input, userName: e.target.value })
                   }
                   value={input.userName}
@@ -34,7 +34,7 @@ const RegisterForm: React.FC<Props> = () => {
             </Form.Group>
             <Form.Group controlId="formEmail">
                <Form.Control
-                  onChange={(e: any) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                      setInput({ ...input, email: e.target.value })
                   }
                   value={input.email}
@@ -45,7 +45,7 @@ const RegisterForm: React.FC<Props> = () => {
             </Form.Group>
             <Form.Group controlId="formPassword">
                <Form.Control
-                  onChange={(e: any) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                      setInput({ ...input, password: e.target.value })
                   }
                   value={input.password}
@@ -56,7 +56,7 @@ const RegisterForm: React.FC<Props> = () => {
             </Form.Group>
             <Form.Group controlId="formConfirmPassword">
                <Form.Control
-                  onChange={(e: any) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                      setInput({ ...input, cPassword: e.target.value })
                   }
                   value={input.cPassword}
@@ -65,7 +65,12 @@ const RegisterForm: React.FC<Props> = () => {
                   aria-label="confirm password"
                />
             </Form.Group>
-            <Button variant="outline-light" type="submit" block>
+            <Button
+               variant="outline-light"
+               type="submit"
+               block
+               onClick={(e: React.MouseEvent) => e.preventDefault()}
+            >
                Submit
             </Button>
          </Form>

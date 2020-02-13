@@ -82,8 +82,8 @@ const AssessmentsPage: React.FC<Props> = ({ ...props }: Props) => {
                      xs={{ span: 12, order: 1 }}
                      className="learn-more-box text-center"
                   >
-                     <h3>Learn more</h3>
-                     <p>Please fill out this form to register</p>
+                     <h3>Register Now to Learn More</h3>
+                     {/* <p>Please fill out this form to register</p> */}
                      <RegisterForm />
                   </Col>
                </Row>
