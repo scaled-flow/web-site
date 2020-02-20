@@ -1,0 +1,19 @@
+.class-card {
+  background-color: #365b7d;
+  border-radius: 4px;
+  margin: 5px 0;
+  padding: 10px 15px 1px;
+  border: 1px solid #365b7d;
+}
+
+.class-card:hover {
+  border: 1px solid #bbd0e4;
+}
+
+.class-card p {
+  color: white;
+}
+
+.plus-icon {
+  margin: 0 auto;
+}
