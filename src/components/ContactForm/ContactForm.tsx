@@ -21,6 +21,21 @@ const ContactForm: React.FC<Props> = () => {
       phone: "",
       message: ""
    });
+
+   function sendContactData<formInfo>(){
+      fetch("https://t5oilhwxk3.execute-api.us-east-2.amazonaws.com/dev/test", {
+         method: "POST",
+         headers: {'Content-Type': 'application/json'},
+         body: JSON.stringify(formInfo),
+      })
+      .then(res => {
+         console.log(res)
+      })
+      .catch(err => {
+         console.log(err)
+      })
+   }
+
    return (
       <>
          <div className="contact-form">
@@ -102,7 +117,7 @@ const ContactForm: React.FC<Props> = () => {
                         variant="primary"
                         type="submit"
                         block
-                        onClick={(e: React.MouseEvent) => e.preventDefault()}
+                        onClick={(e: React.MouseEvent) => {e.preventDefault(); sendContactData()}}
                      >
                         Contact Us
                      </Button>
