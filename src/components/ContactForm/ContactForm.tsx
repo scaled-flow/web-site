@@ -13,6 +13,10 @@ interface ContactInfo {
    message: string;
 }
 
+interface testInfo {
+   id: string;
+}
+
 const ContactForm: React.FC<Props> = () => {
    const [formInfo, setFormInfo] = useState<ContactInfo>({
       fname: "",
@@ -22,11 +26,13 @@ const ContactForm: React.FC<Props> = () => {
       message: ""
    });
 
-   function sendContactData<formInfo>(){
+   const testInfo = {id: "test 2"}
+
+   function sendContactData<testInfo>(){
       fetch("https://t5oilhwxk3.execute-api.us-east-2.amazonaws.com/dev/test", {
          method: "POST",
          headers: {'Content-Type': 'application/json'},
-         body: JSON.stringify(formInfo),
+         body: JSON.stringify(testInfo),
       })
       .then(res => {
          console.log(res)
