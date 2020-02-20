@@ -28,11 +28,11 @@ const ContactForm: React.FC<Props> = () => {
 
    const testInfo = {id: "test 2"}
 
-   function sendContactData<testInfo>(){
+   function sendContactData<formInfo>(){
       fetch("https://t5oilhwxk3.execute-api.us-east-2.amazonaws.com/dev/test", {
          method: "POST",
          headers: {'Content-Type': 'application/json'},
-         body: JSON.stringify(testInfo),
+         body: JSON.stringify(formInfo),
       })
       .then(res => {
          console.log(res)
