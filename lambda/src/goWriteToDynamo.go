@@ -4,6 +4,8 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"log"
+	"net/smtp"
+	"os"
 	"time"
 
 	"github.com/aws/aws-lambda-go/lambda"
@@ -47,5 +49,30 @@ func goWriteToDynamo(ctx aws.Context, d FormData) (FormData, error) {
 		log.Println("Failed to PutItem: ", err)
 		return d, err
 	}
+	MailFormData(d)
 	return d, nil
+}
+
+func MailFormData(data FormData) {
+	from := data.Email
+	smtpUser := os.Getenv("smtpuser")
+	smtpPass := os.Getenv("smtppass")
+	to := os.Getenv("mailto")
+	subject := os.Getenv("subject")
+	mailHost := os.Getenv("mailhost")
+	smtpPort := os.Getenv("smtpport")
+
+	msg := "From: " + from + "\n" +
+		"To: " + to + "\n" +
+		"Subject: " + subject + "\n\n" +
+		data.Message + "\n" +
+		data.First + " " + data.Last + "\n" +
+		"phone: " + data.Phone
+
+	err := smtp.SendMail(fmt.Sprintf("%s:%s", mailHost, smtpPort), smtp.PlainAuth("", smtpUser, smtpPass, mailHost), from, []string{to}, []byte(msg))
+	if err != nil {
+		log.Printf("smtp error: %s", err)
+		return
+	}
+
 }
