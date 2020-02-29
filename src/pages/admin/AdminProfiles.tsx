@@ -6,13 +6,13 @@ import AdminHeader from "../../components/Header/AdminHeader";
 
 interface Props extends RouteComponentProps {}
 
-const AdminHomePage: React.FC<Props> = () => {
+const AdminProfiles: React.FC<Props> = () => {
   return (
     <>
-      <AdminHeader>Admin Login</AdminHeader>
-      <p>Admin Home Page</p>
+      <AdminHeader>PROFILES</AdminHeader>
+      <p>AdminProfiles</p>
     </>
   );
 };
 
-export default AdminHomePage;
+export default AdminProfiles;

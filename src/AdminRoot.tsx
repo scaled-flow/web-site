@@ -11,9 +11,15 @@ import {
 // components
 import AdminNavigation from "./components/Navigation/AdminNavigation";
 import Footer from "./components/Footer/Footer";
-import AdminHomePage from "./pages/admin/AdminHomePage";
 
 // pages
+import AdminHomePage from "./pages/admin/AdminHomePage";
+import AdminContact from "./pages/admin/AdminContact";
+import AdminProfiles from "./pages/admin/AdminProfiles";
+import AdminSchedule from "./pages/admin/AdminSchedule";
+import AdminPayment from "./pages/admin/AdminPayment";
+import AdminPullTables from "./pages/admin/AdminPullTables";
+import AdminRegistration from "./pages/admin/AdminRegistration";
 
 interface Props extends RouteComponentProps {}
 
@@ -26,6 +32,30 @@ const ClientRoot: React.FC<Props> = () => {
           exact
           path="/admin"
           render={props => <AdminHomePage {...props} />}
+        />
+        <Route
+          path="/admin/contact"
+          render={props => <AdminContact {...props} />}
+        />
+        <Route
+          path="/admin/profiles"
+          render={props => <AdminProfiles {...props} />}
+        />
+        <Route
+          path="/admin/schedule"
+          render={props => <AdminSchedule {...props} />}
+        />
+        <Route
+          path="/admin/payment"
+          render={props => <AdminPayment {...props} />}
+        />
+        <Route
+          path="/admin/pull-tables"
+          render={props => <AdminPullTables {...props} />}
+        />
+        <Route
+          path="/admin/registration"
+          render={props => <AdminRegistration {...props} />}
         />
       </Switch>
       <Footer />
