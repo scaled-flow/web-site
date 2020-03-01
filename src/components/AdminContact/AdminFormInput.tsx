@@ -1,15 +1,14 @@
 import React from "react";
 import { InputGroup } from "react-bootstrap";
 import { FormControl } from "react-bootstrap";
-import { Input } from "./AdminContactForm";
 
 interface Props {
   title: string;
   cb: any;
-  formInfo: Input;
+  action: string;
 }
 
-const AdminFormInput: React.FC<Props> = ({ title, cb, formInfo }) => {
+const AdminFormInput: React.FC<Props> = ({ title, cb, action }) => {
   return (
     <>
       <InputGroup className="mb-3">
@@ -20,11 +19,10 @@ const AdminFormInput: React.FC<Props> = ({ title, cb, formInfo }) => {
           placeholder={title}
           aria-label={title}
           aria-describedby="basic-addon1"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            cb({ ...formInfo, fName: e.target.value })
-          }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            cb({ type: action, payload: e.target.value });
+          }}
         />
-        <p>{formInfo.fName}</p>
       </InputGroup>
     </>
   );
