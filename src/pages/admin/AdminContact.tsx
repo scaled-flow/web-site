@@ -15,7 +15,7 @@ const AdminContact: React.FC<Props> = () => {
       <AdminHeader>CONTACT</AdminHeader>
       <Container>
         <Row>
-          <Col sm={{ span: 8, offset: 2 }} className="text-center">
+          <Col sm={{ span: 8, offset: 2 }}>
             <AdminAddContact />
           </Col>
         </Row>

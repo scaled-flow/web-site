@@ -31,10 +31,12 @@ const AdminContactCard: React.FC<Props> = ({ contactName }) => {
         </Col>
       </Row>
       {!isCollapsed && (
-        <AdminContactForm
-          type="update"
-          cb={() => setIsCollapsed(!isCollapsed)}
-        />
+        <form>
+          <AdminContactForm
+            type="update"
+            cb={() => setIsCollapsed(!isCollapsed)}
+          />
+        </form>
       )}
     </div>
   );

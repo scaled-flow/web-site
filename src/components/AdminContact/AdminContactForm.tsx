@@ -1,12 +1,14 @@
-import React, { useReducer, Reducer } from "react";
-import AdminFormInput from "./AdminFormInput";
+import React, { useReducer } from "react";
+import AdminFormInput from "../Forms/FormInput";
+import FormTextarea from "../Forms/FormTextarea";
 
-import { InputGroup, FormControl, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 interface Props {
   type: "add" | "update";
   cb?: any;
 }
+
 export interface State {
   fName: string;
   lName: string;
@@ -50,11 +52,30 @@ const AdminContactForm: React.FC<Props> = ({ type, cb }) => {
 
   return (
     <>
-      <AdminFormInput title="First Name" cb={dispatch} action="fName" />
-      <AdminFormInput title="Last Name" cb={dispatch} action="lName" />
-      <AdminFormInput title="Email" cb={dispatch} action="email" />
-      <AdminFormInput title="Phone" cb={dispatch} action="phone" />
-      <Button onClick={() => console.log(state)}>Submit</Button>
+      <AdminFormInput
+        title="First Name"
+        cb={dispatch}
+        action="fName"
+        type="text"
+      />
+      <AdminFormInput
+        title="Last Name"
+        cb={dispatch}
+        action="lName"
+        type="text"
+      />
+      <AdminFormInput title="Email" cb={dispatch} action="email" type="email" />
+      <AdminFormInput title="Phone" cb={dispatch} action="phone" type="phone" />
+      <FormTextarea title="Message" rows={3} action="message" cb={dispatch} />
+      <Button
+        className="mt-2 mb-2"
+        onClick={() => {
+          cb();
+          console.log(state);
+        }}
+      >
+        Submit
+      </Button>
     </>
   );
 };
