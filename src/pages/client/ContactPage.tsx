@@ -6,6 +6,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import Header from "../../components/Header/Header";
 import ContactForm from "../../components/ContactForm/ContactForm";
+import Contact from "../../components/ContactForm/Contact";
 
 interface Props extends RouteComponentProps {}
 
@@ -36,7 +37,7 @@ const ContactPage: React.FC<Props> = ({ ...props }: Props) => {
               <p>(651) 358-1072</p>
             </Col>
             <Col md={{ span: 8, order: 2 }} sm={{ span: 12, order: 1 }}>
-              <ContactForm />
+              <Contact />
             </Col>
           </Row>
         </Container>
