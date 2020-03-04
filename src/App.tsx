@@ -15,8 +15,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" render={props => <ClientRoot {...props} />} />
-        <Route path="/admin" render={props => <AdminRoot {...props} />} />
+        <Route path="/" render={props => <ClientRoot {...props} />} />
       </Switch>
       <Footer />
     </Router>

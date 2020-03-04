@@ -7,33 +7,52 @@ import axios from "axios";
 
 interface Props {}
 
-export interface Book {
-  ID?: number;
-  Title?: string;
-  Description?: string;
-  PageCount?: number;
-  Excerpt?: string;
-  PublishDate?: string;
+export interface Class {
+  ConsultantId: number;
+  ClassID: number;
+  ConsultantProfileUserID: number;
+  FirstName: string;
+  LastName: string;
+  JobTitle: string;
+  ProfileDescription: string;
+  ProfilePhotoURL: string;
+  Phone: string;
+  Email: string;
+  ClassProfileID: number;
+  ClassTypeID: number;
+  ClassTypeFullName: string;
+  ClassTypeAbbreviation: string;
+  ClassTitle: string;
+  ClassDescription: string;
+  ClassImage: string;
+  ClassEarlyBirdPriceReduction: number;
+  ClassGroupPriceReductionPercent: number;
+  ClassInPersonStandardPrice: number;
+  ClassOnlineStandardPrice: number;
+  ClassCurrencyTypeID: number;
+  CurrencyTypeFullName: string;
+  CurrencyTypeAbbreviation: string;
 }
 
 const ClassList: React.FC<Props> = () => {
-  const [books, setBooks] = useState<Book[]>([]);
+  const [classes, setClasses] = useState<Class[]>([]);
 
   useEffect(() => {
     console.log("HELLO");
     axios
-      .get("https://fakerestapi.azurewebsites.net/api/Books")
-      .then(res => setBooks(res.data));
+      .get("https://api.testscaledflow.com/v0/classes")
+      .then(res => setClasses(res.data));
     return () => {};
   }, []);
 
-  console.log(books);
   return (
     <>
       <Container>
         <Row>
           <Col md={9}>
-            {books.map((b, i) => i < 20 && <ClassCard key={b.ID} book={b} />)}
+            {classes.map(
+              (c, i) => i < 20 && <ClassCard key={i} classData={c} />
+            )}
           </Col>
           <Col md={3}>
             <p>Checkout box</p>

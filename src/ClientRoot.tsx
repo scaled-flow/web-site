@@ -21,6 +21,8 @@ import TrainingPage from "./pages/client/TrainingPage";
 import TrendsPage from "./pages/client/TrendsPage";
 import ContactPage from "./pages/client/ContactPage";
 
+import AdminRoot from "./AdminRoot";
+
 interface Props extends RouteComponentProps {}
 
 const ClientRoot: React.FC<Props> = () => {
@@ -29,6 +31,7 @@ const ClientRoot: React.FC<Props> = () => {
       <Navbar />
       <Switch>
         <Route exact path="/" render={props => <HomePage {...props} />} />
+        <Route path="/admin" render={props => <AdminRoot {...props} />} />
         <Route path="/about" render={props => <AboutPage {...props} />} />
         <Route
           path="/assessments"
