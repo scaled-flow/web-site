@@ -21,6 +21,9 @@ import AdminPayment from "./pages/admin/AdminPayment";
 import AdminPullTables from "./pages/admin/AdminPullTables";
 import AdminRegistration from "./pages/admin/AdminRegistration";
 
+// authentication components
+import { withAuthenticator } from 'aws-amplify-react';
+
 interface Props extends RouteComponentProps {}
 
 const ClientRoot: React.FC<Props> = () => {
@@ -63,4 +66,4 @@ const ClientRoot: React.FC<Props> = () => {
   );
 };
 
-export default ClientRoot;
+export default withAuthenticator(ClientRoot);
