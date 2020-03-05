@@ -32,16 +32,15 @@ const Navigation: React.FC = () => {
               id="nav-dropdown"
               style={{ padding: 0 }}
             >
-              <NavDropdown.Item eventKey="4.1">
-                <Link to="/training/scaled-agile" className="dropdown-link">
-                  Scaled Agile Training
-                </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item eventKey="4.2">
-                <Link to="/training/LeSS" className="dropdown-link">
-                  LeSS Training
-                </Link>
-              </NavDropdown.Item>
+              <Link
+                to="/training/scaled-agile"
+                className="dropdown-link dropdown-item"
+              >
+                Scaled Agile Training
+              </Link>
+              <Link to="/training/LeSS" className="dropdown-link dropdown-item">
+                LeSS Training
+              </Link>
             </NavDropdown>
             <Link className="navlink" to="/trends">
               TRENDS

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 import ClassCard from "./ClassCard";
+import { ClassType } from "../../pages/client/TrainingPage";
 
 import axios from "axios";
 
-interface Props {}
+interface Props {
+  classType: string;
+}
 
 export interface Class {
   ConsultantId: number;
@@ -34,16 +37,20 @@ export interface Class {
   CurrencyTypeAbbreviation: string;
 }
 
-const ClassList: React.FC<Props> = () => {
+const ENDPOINT = "https://api.testscaledflow.com/v0/classes";
+
+const ClassList: React.FC<Props> = ({ classType }) => {
   const [classes, setClasses] = useState<Class[]>([]);
 
   useEffect(() => {
-    console.log("HELLO");
-    axios
-      .get("https://api.testscaledflow.com/v0/classes")
-      .then(res => setClasses(res.data));
-    return () => {};
-  }, []);
+    if (classType === "/training/scaled-agile") {
+      console.log("GET s-a ENDPOINT");
+      axios.get(ENDPOINT).then(res => setClasses(res.data));
+    } else if (classType === "/training/LeSS") {
+      console.log("Get LeSS ENDPOINT");
+      axios.get(ENDPOINT).then(res => setClasses(res.data));
+    }
+  }, [classType]);
 
   return (
     <>
