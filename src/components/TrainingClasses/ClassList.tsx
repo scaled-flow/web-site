@@ -44,9 +44,10 @@ const ClassList: React.FC<Props> = ({ classType }) => {
 
   useEffect(() => {
     if (classType === "/training/scaled-agile") {
-      console.log("GET s-a ENDPOINT");
+      // TODO: get correct endpoint, filter by in person/online
       axios.get(ENDPOINT).then(res => setClasses(res.data));
     } else if (classType === "/training/LeSS") {
+      // TODO: get correct endpoint, filter by in person/online
       console.log("Get LeSS ENDPOINT");
       axios.get(ENDPOINT).then(res => setClasses(res.data));
     }
@@ -56,13 +57,21 @@ const ClassList: React.FC<Props> = ({ classType }) => {
     <>
       <Container>
         <Row>
-          <Col md={9}>
-            {classes.map(
-              (c, i) => i < 20 && <ClassCard key={i} classData={c} />
-            )}
+          <Col md={6}>
+            <h4>In Person Classes</h4>
+            {classes.map((c, i) => (
+              <Col md={12}>
+                <ClassCard key={i} classData={c} />
+              </Col>
+            ))}
           </Col>
-          <Col md={3}>
-            <p>Checkout box</p>
+          <Col md={6}>
+            <h4>Online Classes</h4>
+            {classes.map((c, i) => (
+              <Col md={12}>
+                <ClassCard key={i} classData={c} />
+              </Col>
+            ))}
           </Col>
         </Row>
       </Container>
