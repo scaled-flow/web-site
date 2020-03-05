@@ -60,16 +60,24 @@ const ClassList: React.FC<Props> = ({ classType }) => {
           <Col md={6}>
             <h4>In Person Classes</h4>
             {classes.map((c, i) => (
-              <Col md={12}>
-                <ClassCard key={i} classData={c} />
+              <Col md={12} className="class-card">
+                <ClassCard
+                  key={i}
+                  classData={c}
+                  isOnline="In-Person, Live Instructor-led Class"
+                />
               </Col>
             ))}
           </Col>
           <Col md={6}>
             <h4>Online Classes</h4>
             {classes.map((c, i) => (
-              <Col md={12}>
-                <ClassCard key={i} classData={c} />
+              <Col md={12} className="class-card">
+                <ClassCard
+                  key={i}
+                  classData={c}
+                  isOnline="Online, Live Instructor-led Class"
+                />
               </Col>
             ))}
           </Col>
