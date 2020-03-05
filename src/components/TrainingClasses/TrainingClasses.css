@@ -22,10 +22,22 @@ h6 {
   margin-top: 10px;
 }
 
-.class-card:hover {
-  background-color: #d1d1d1;
+.date-icon {
+  margin-top: 10px;
+  background-color: #fff;
+  border: 1px solid #8b8b8b;
 }
 
-.plus-icon {
-  margin: 0 auto;
+.date-icon p {
+  font-size: 32px;
+}
+
+.date-icon .month {
+  background-color: #608bfb;
+  color: #fff;
+}
+
+.link-styled-button {
+  border: none;
+  color: #608bfb;
 }

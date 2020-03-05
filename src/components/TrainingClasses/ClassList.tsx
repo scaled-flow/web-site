@@ -41,6 +41,8 @@ const ENDPOINT = "https://api.testscaledflow.com/v0/classes";
 
 const ClassList: React.FC<Props> = ({ classType }) => {
   const [classes, setClasses] = useState<Class[]>([]);
+  const [classesFiltered, setClassesFiltered] = useState<Class[]>([]);
+  const [isFiltered, setIsFiltered] = useState(true);
 
   useEffect(() => {
     if (classType === "/training/scaled-agile") {
@@ -53,33 +55,48 @@ const ClassList: React.FC<Props> = ({ classType }) => {
     }
   }, [classType]);
 
+  useEffect(() => {
+    const filteredClasses = classes.filter((c, i) => i < 4);
+    isFiltered
+      ? setClassesFiltered(filteredClasses)
+      : setClassesFiltered(classes);
+  }, [isFiltered, classes]);
+
   return (
     <>
       <Container>
         <Row>
-          <Col md={6}>
+          <Col lg={6}>
             <h4>In Person Classes</h4>
-            {classes.map((c, i) => (
-              <Col md={12} className="class-card">
+            {classesFiltered.map((c, i) => (
+              <Col md={12} className="class-card" key={i}>
                 <ClassCard
-                  key={i}
                   classData={c}
                   isOnline="In-Person, Live Instructor-led Class"
                 />
               </Col>
             ))}
           </Col>
-          <Col md={6}>
+          <Col lg={6}>
             <h4>Online Classes</h4>
-            {classes.map((c, i) => (
-              <Col md={12} className="class-card">
+            {classesFiltered.map((c, i) => (
+              <Col md={12} className="class-card" key={i}>
                 <ClassCard
-                  key={i}
                   classData={c}
                   isOnline="Online, Live Instructor-led Class"
                 />
               </Col>
             ))}
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-center">
+            <button
+              className="link-styled-button"
+              onClick={() => setIsFiltered(!isFiltered)}
+            >
+              {isFiltered ? "See More Classes" : "See Fewer Classes"}
+            </button>
           </Col>
         </Row>
       </Container>
