@@ -5,6 +5,7 @@ import { RouteComponentProps } from "react-router-dom";
 import TrainingHeader from "../../components/Header/TrainingHeader";
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import ClassList from "../../components/TrainingClasses/ClassList";
+import Instructors from "../../components/TrainingClasses/Instructors";
 
 import { useHistory } from "react-router-dom";
 
@@ -32,6 +33,7 @@ const TrainingPage: React.FC<Props> = ({ ...props }) => {
       )}
       <ContentContainer>
         <ClassList classType={location.pathname} />
+        <Instructors /> {/* TODO: see if i need to get this info from API*/}
       </ContentContainer>
     </>
   );

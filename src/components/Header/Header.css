@@ -35,6 +35,10 @@
 }
 
 .training-header .col-md-8,
-.col-md-4 {
+.col-md-4,
+.col-8,
+.col-4,
+.col-sm-4,
+.col-sm-8 {
   margin-top: 100px;
 }

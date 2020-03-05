@@ -18,6 +18,10 @@ h6 {
   margin-top: 29px;
 }
 
+.class-card svg:hover {
+  color: #608bfb;
+}
+
 .class-card img {
   margin-top: 10px;
 }
@@ -40,4 +44,9 @@ h6 {
 .link-styled-button {
   border: none;
   color: #608bfb;
+}
+
+.instructors img,
+h3 {
+  margin: 20px 0;
 }

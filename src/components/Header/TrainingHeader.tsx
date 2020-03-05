@@ -11,11 +11,7 @@ interface Props {
   type: "SA" | "LeSS";
 }
 
-const TrainingHeader: React.FC<Props> = ({
-  title,
-  description,
-  type
-}: Props) => {
+const TrainingHeader: React.FC<Props> = ({ title, description, type }) => {
   return (
     <header className="training-header">
       <div className="overlay">
@@ -25,7 +21,7 @@ const TrainingHeader: React.FC<Props> = ({
               <h3>{title}</h3>
               <h6>{description}</h6>
             </Col>
-            <Col md={4}>
+            <Col md={4} className="d-sm-none d-md-block">
               <Image fluid src={type === "SA" ? keystone : less} />
             </Col>
           </Row>
