@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { RouteComponentProps } from "react-router-dom";
 
-import Header from "../../components/Header/Header";
+import ScaledAgileHeader from "../../components/Header/ScaledAgileHeader";
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import ClassList from "../../components/TrainingClasses/ClassList";
 
@@ -17,12 +17,10 @@ const TrainingPage: React.FC<Props> = ({ ...props }: Props) => {
 
   return (
     <>
-      <Header
-        title={
-          location.pathname === "/training/LeSS"
-            ? "LeSS Training"
-            : "Scaled Agile Training"
-        }
+      <ScaledAgileHeader
+        title="Scaled Agile 5.0 Certification Training"
+        description="Master the enterprise at scale"
+        type="SA"
       />
       <ContentContainer>
         <ClassList classType={location.pathname} />
