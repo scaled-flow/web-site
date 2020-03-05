@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Navigation.css";
 
@@ -26,6 +26,23 @@ const Navigation: React.FC = () => {
             <Link className="navlink" to="/training">
               TRAINING
             </Link>
+            <NavDropdown
+              className="navlink"
+              title="TRAINING"
+              id="nav-dropdown"
+              style={{ padding: 0 }}
+            >
+              <NavDropdown.Item eventKey="4.1">
+                <Link to="/training/scaled-agile" className="dropdown-link">
+                  Scaled Agile Training
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item eventKey="4.2">
+                <Link to="/training/LeSS" className="dropdown-link">
+                  LeSS Training
+                </Link>
+              </NavDropdown.Item>
+            </NavDropdown>
             <Link className="navlink" to="/trends">
               TRENDS
             </Link>
