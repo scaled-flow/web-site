@@ -3,8 +3,16 @@ import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Navigation.css";
+import { Auth } from 'aws-amplify'
 
 const AdminNavigation: React.FC = () => {
+
+  function userSignOut(){
+    Auth.signOut()
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
+  }
+
   return (
     <Navbar bg="danger" expand="lg" className="fixed-top">
       <Container>
@@ -31,6 +39,13 @@ const AdminNavigation: React.FC = () => {
             </Link>
             <Link className="navlink" to="/admin/registration">
               REGISTRATION
+            </Link>
+            <Link 
+            className="navlink"
+            onClick={() => userSignOut()}
+            to="/admin"
+            >
+              SIGN OUT
             </Link>
           </Nav>
         </Navbar.Collapse>
