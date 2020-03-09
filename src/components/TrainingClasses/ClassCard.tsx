@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Class } from "./ClassList";
 import { Row, Col, Image } from "react-bootstrap";
@@ -9,17 +9,41 @@ import { Link } from "react-router-dom";
 import "./TrainingClasses.css";
 import ClassDateIcon from "./ClassDateIcon";
 
+import momemt from "moment";
+
 interface Props {
   classData: Class;
   isOnline: string;
 }
 
+interface DateInfo {
+  long: string;
+  shortMonth: string;
+  day?: number | string;
+}
 const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
+  const [dateInfo, setDateInfo] = useState<DateInfo>({
+    long: "",
+    shortMonth: "",
+    day: ""
+  });
+
+  useEffect(() => {
+    setDateInfo({
+      long: momemt(classData.class_start_date, "YYYY-MM-DD").format("MMMM Do YYYY"),
+      shortMonth: momemt(classData.class_start_date, "YYYY-MM-DD")
+        .format("MMM")
+        .toUpperCase(),
+      day: momemt(classData.class_start_date, "YYYY-MM-DD").format("DD")
+    });
+  }, [classData]);
+
+  console.log(dateInfo);
   return (
     <>
       <Row>
         <Col xs={2}>
-          <ClassDateIcon date={{ month: "MAR", day: 24 }} /> {/* TODO: get date from API */}
+          <ClassDateIcon date={{ month: dateInfo.shortMonth, day: dateInfo.day }} /> {/* TODO: get date from API */}
         </Col>{" "}
         {/* TODO: get date from API */}
         <Col xs={6}>

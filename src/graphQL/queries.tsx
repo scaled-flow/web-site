@@ -11,6 +11,7 @@ export const GET_IN_PERSON_CLASSES = gql`
         class_in_person_state
         class_is_online
         profile_photo_url
+        class_start_time
       }
     }
   }

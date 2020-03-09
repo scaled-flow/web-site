@@ -13,13 +13,14 @@ interface Props {
 }
 
 export interface Class {
-  class_start_date: Date;
-  class_end_date: Date;
+  class_start_date: string;
+  class_end_date: string;
   class_title: string;
-  class_in_person_city: string;
-  class_in_person_state: string;
+  class_in_person_city?: string;
+  class_in_person_state?: string;
   class_is_in_person: boolean;
   profile_photo_url: string;
+  class_start_time?: string;
 }
 
 const ClassList: React.FC<Props> = ({ classType }) => {
@@ -40,7 +41,6 @@ const ClassList: React.FC<Props> = ({ classType }) => {
     setClassesFiltered(temp);
   }, [classes]);
 
-  console.log(classes);
   return (
     <>
       <Container>
