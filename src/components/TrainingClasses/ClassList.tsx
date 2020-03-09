@@ -3,64 +3,79 @@ import { Container, Row, Col } from "react-bootstrap";
 
 import ClassCard from "./ClassCard";
 
-import axios from "axios";
-
-import ApolloClient from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
-import { ApolloProvider } from "@apollo/react-hooks";
+// queries
+import { GET_CLASSES } from "../../graphQL/queries";
+import { useQuery } from "@apollo/react-hooks";
 
 interface Props {}
-
-export interface Class {
-  ConsultantId: number;
-  ClassID: number;
-  ConsultantProfileUserID: number;
-  FirstName: string;
-  LastName: string;
-  JobTitle: string;
-  ProfileDescription: string;
-  ProfilePhotoURL: string;
-  Phone: string;
-  Email: string;
-  ClassProfileID: number;
-  ClassTypeID: number;
-  ClassTypeFullName: string;
-  ClassTypeAbbreviation: string;
-  ClassTitle: string;
-  ClassDescription: string;
-  ClassImage: string;
-  ClassEarlyBirdPriceReduction: number;
-  ClassGroupPriceReductionPercent: number;
-  ClassInPersonStandardPrice: number;
-  ClassOnlineStandardPrice: number;
-  ClassCurrencyTypeID: number;
-  CurrencyTypeFullName: string;
-  CurrencyTypeAbbreviation: string;
+interface Props {
+  classType: string;
 }
 
-const ClassList: React.FC<Props> = () => {
+export interface Class {
+  class_start_date: string;
+  class_end_date: string;
+  class_title: string;
+  class_in_person_city: string;
+  class_in_person_state: string;
+  class_is_in_person: boolean;
+  profile_photo_url: string;
+}
+
+const ClassList: React.FC<Props> = ({ classType }) => {
   const [classes, setClasses] = useState<Class[]>([]);
+  const [classesFiltered, setClassesFiltered] = useState<Class[]>([]);
+  const [isFiltered, setIsFiltered] = useState(true);
+
+  const { loading, error, data } = useQuery(GET_CLASSES);
 
   useEffect(() => {
-    console.log("HELLO");
-    axios
-      .get("https://api.testscaledflow.com/v0/classes")
-      .then(res => setClasses(res.data));
-    return () => {};
-  }, []);
+    const temp =
+      !loading && data.class_consultant_schedule_view_aggregate.nodes;
+    setClasses(temp);
+  }, [loading, error, data]);
 
+  useEffect(() => {
+    const temp = classes.length > 0 ? classes.filter((c, i) => i < 5) : [];
+    setClassesFiltered(temp);
+  }, [classes]);
+
+  console.log(classes);
   return (
     <>
       <Container>
         <Row>
-          <Col md={9}>
-            {classes.map(
-              (c, i) => i < 20 && <ClassCard key={i} classData={c} />
-            )}
+          <Col lg={6}>
+            <h4>In Person Classes</h4>
+            {classesFiltered.map((c, i) => (
+              <Col md={12} className="class-card" key={i}>
+                <ClassCard
+                  classData={c}
+                  isOnline="In-Person, Live Instructor-led Class"
+                />
+              </Col>
+            ))}
           </Col>
-          <Col md={3}>
-            <p>Checkout box</p>
+          <Col lg={6}>
+            <h4>Online Classes</h4>
+            {classesFiltered.map((c, i) => (
+              <Col md={12} className="class-card" key={i}>
+                <ClassCard
+                  classData={c}
+                  isOnline="Online, Live Instructor-led Class"
+                />
+              </Col>
+            ))}
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-center">
+            <button
+              className="link-styled-button"
+              onClick={() => setIsFiltered(!isFiltered)}
+            >
+              {isFiltered ? "See More Classes" : "See Fewer Classes"}
+            </button>
           </Col>
         </Row>
       </Container>

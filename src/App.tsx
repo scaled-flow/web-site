@@ -8,12 +8,10 @@ import { createApolloClient } from "./graphQL/createApolloClient";
 import { ApolloProvider } from "@apollo/react-hooks";
 
 // components
-import Navbar from "./components/Navigation/Navigation";
 import Footer from "./components/Footer/Footer";
 
 // pages
 import ClientRoot from "./ClientRoot";
-import AdminRoot from "./AdminRoot";
 
 const App: React.FC = () => {
   const client = createApolloClient();
