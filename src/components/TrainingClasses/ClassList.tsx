@@ -13,8 +13,8 @@ interface Props {
 }
 
 export interface Class {
-  class_start_date: string;
-  class_end_date: string;
+  class_start_date: Date;
+  class_end_date: Date;
   class_title: string;
   class_in_person_city: string;
   class_in_person_state: string;
