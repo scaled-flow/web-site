@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import ClassCard from "./ClassCard";
 
 // queries
-import { GET_CLASSES } from "../../graphQL/queries";
+import { GET_IN_PERSON_CLASSES } from "../../graphQL/queries";
 import { useQuery } from "@apollo/react-hooks";
 
 interface Props {}
@@ -27,11 +27,11 @@ const ClassList: React.FC<Props> = ({ classType }) => {
   const [classesFiltered, setClassesFiltered] = useState<Class[]>([]);
   const [isFiltered, setIsFiltered] = useState(true);
 
-  const { loading, error, data } = useQuery(GET_CLASSES);
+  const { loading, error, data } = useQuery(GET_IN_PERSON_CLASSES);
 
   useEffect(() => {
-    const temp =
-      !loading && data.class_consultant_schedule_view_aggregate.nodes;
+    console.log(!error ? "no error" : error);
+    const temp = !loading && data.class_consultant_schedule_view_aggregate.nodes;
     setClasses(temp);
   }, [loading, error, data]);
 
@@ -49,10 +49,7 @@ const ClassList: React.FC<Props> = ({ classType }) => {
             <h4>In Person Classes</h4>
             {classesFiltered.map((c, i) => (
               <Col md={12} className="class-card" key={i}>
-                <ClassCard
-                  classData={c}
-                  isOnline="In-Person, Live Instructor-led Class"
-                />
+                <ClassCard classData={c} isOnline="In-Person, Live Instructor-led Class" />
               </Col>
             ))}
           </Col>
@@ -60,20 +57,14 @@ const ClassList: React.FC<Props> = ({ classType }) => {
             <h4>Online Classes</h4>
             {classesFiltered.map((c, i) => (
               <Col md={12} className="class-card" key={i}>
-                <ClassCard
-                  classData={c}
-                  isOnline="Online, Live Instructor-led Class"
-                />
+                <ClassCard classData={c} isOnline="Online, Live Instructor-led Class" />
               </Col>
             ))}
           </Col>
         </Row>
         <Row>
           <Col className="text-center">
-            <button
-              className="link-styled-button"
-              onClick={() => setIsFiltered(!isFiltered)}
-            >
+            <button className="link-styled-button" onClick={() => setIsFiltered(!isFiltered)}>
               {isFiltered ? "See More Classes" : "See Fewer Classes"}
             </button>
           </Col>
