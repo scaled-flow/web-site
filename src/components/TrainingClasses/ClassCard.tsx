@@ -17,20 +17,24 @@ interface Props {
 }
 
 interface DateInfo {
-  long: string;
+  longStart: string;
+  longEnd: string;
   shortMonth: string;
   day?: number | string;
 }
+
 const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
   const [dateInfo, setDateInfo] = useState<DateInfo>({
-    long: "",
+    longStart: "",
+    longEnd: "",
     shortMonth: "",
     day: ""
   });
 
   useEffect(() => {
     setDateInfo({
-      long: momemt(classData.class_start_date, "YYYY-MM-DD").format("MMMM Do YYYY"),
+      longStart: momemt(classData.class_start_date, "YYYY-MM-DD").format("MMMM Do YYYY"),
+      longEnd: momemt(classData.class_end_date, "YYYY-MM-DD").format("MMMM Do YYYY"),
       shortMonth: momemt(classData.class_start_date, "YYYY-MM-DD")
         .format("MMM")
         .toUpperCase(),
@@ -38,24 +42,23 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
     });
   }, [classData]);
 
-  console.log(dateInfo);
   return (
     <>
       <Row>
         <Col xs={2}>
-          <ClassDateIcon date={{ month: dateInfo.shortMonth, day: dateInfo.day }} /> {/* TODO: get date from API */}
+          <ClassDateIcon date={{ month: dateInfo.shortMonth, day: dateInfo.day }} />
         </Col>{" "}
-        {/* TODO: get date from API */}
         <Col xs={6}>
           <h6>{classData.class_title}</h6>
-          <p>{`${classData.class_start_date} - ${classData.class_end_date}`}</p> {/* TODO: get date from API */}
-          <p>location</p> {/* TODO: get location from API */}
-          <p>{isOnline}</p> {/* TODO: get online info from API */}
+          <p>{`${dateInfo.longStart} - ${dateInfo.longEnd}`}</p>
+          <p>
+            {classData.class_in_person_city}, {classData.class_in_person_state}
+          </p>
+          <p>{isOnline}</p>
         </Col>
         <Col xs={2}>
           <Image src={classData.profile_photo_url} fluid roundedCircle />
-        </Col>{" "}
-        {/* TODO: get icon src from API */}
+        </Col>
         <Col xs={2}>
           <Link to="/">
             <Icon icon={faPlusCircle} size="2x" color="#C4C4C4" />

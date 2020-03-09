@@ -33,13 +33,14 @@ const ClassList: React.FC<Props> = ({ classType }) => {
   useEffect(() => {
     console.log(!error ? "no error" : error);
     const temp = !loading && data.class_consultant_schedule_view_aggregate.nodes;
+
     setClasses(temp);
   }, [loading, error, data]);
 
   useEffect(() => {
-    const temp = classes.length > 0 ? classes.filter((c, i) => i < 5) : [];
-    setClassesFiltered(temp);
-  }, [classes]);
+    const temp = classes.length > 0 ? classes.filter((c, i) => i < 1) : [];
+    isFiltered ? setClassesFiltered(temp) : setClassesFiltered(classes);
+  }, [classes, isFiltered]);
 
   return (
     <>

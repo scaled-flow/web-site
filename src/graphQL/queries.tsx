@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const GET_IN_PERSON_CLASSES = gql`
-  query GetClasses {
+  query GetInPersonClasses {
     class_consultant_schedule_view_aggregate(where: { class_is_in_person: { _eq: true } }) {
       nodes {
         class_start_date
@@ -17,7 +17,7 @@ export const GET_IN_PERSON_CLASSES = gql`
   }
 `;
 export const GET_ONLINE_CLASSES = gql`
-  query GetClasses {
+  query GetOnlineClasses {
     class_consultant_schedule_view_aggregate(where: { class_is_in_person: { _eq: false } }) {
       nodes {
         class_start_date
