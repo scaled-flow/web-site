@@ -2,7 +2,7 @@ import React from "react";
 
 interface ClassDate {
   month: string;
-  day: number;
+  day?: number | string;
 }
 
 interface Props {

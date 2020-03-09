@@ -2,65 +2,45 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 import ClassCard from "./ClassCard";
-import { ClassType } from "../../pages/client/TrainingPage";
 
-import axios from "axios";
+// queries
+import { GET_IN_PERSON_CLASSES } from "../../graphQL/queries";
+import { useQuery } from "@apollo/react-hooks";
 
+interface Props {}
 interface Props {
   classType: string;
 }
 
 export interface Class {
-  ConsultantId: number;
-  ClassID: number;
-  ConsultantProfileUserID: number;
-  FirstName: string;
-  LastName: string;
-  JobTitle: string;
-  ProfileDescription: string;
-  ProfilePhotoURL: string;
-  Phone: string;
-  Email: string;
-  ClassProfileID: number;
-  ClassTypeID: number;
-  ClassTypeFullName: string;
-  ClassTypeAbbreviation: string;
-  ClassTitle: string;
-  ClassDescription: string;
-  ClassImage: string;
-  ClassEarlyBirdPriceReduction: number;
-  ClassGroupPriceReductionPercent: number;
-  ClassInPersonStandardPrice: number;
-  ClassOnlineStandardPrice: number;
-  ClassCurrencyTypeID: number;
-  CurrencyTypeFullName: string;
-  CurrencyTypeAbbreviation: string;
+  class_start_date: string;
+  class_end_date: string;
+  class_title: string;
+  class_in_person_city?: string;
+  class_in_person_state?: string;
+  class_is_in_person: boolean;
+  profile_photo_url: string;
+  class_start_time?: string;
 }
-
-const ENDPOINT = "https://api.testscaledflow.com/v0/classes";
 
 const ClassList: React.FC<Props> = ({ classType }) => {
   const [classes, setClasses] = useState<Class[]>([]);
   const [classesFiltered, setClassesFiltered] = useState<Class[]>([]);
   const [isFiltered, setIsFiltered] = useState(true);
 
-  useEffect(() => {
-    if (classType === "/training/scaled-agile") {
-      // TODO: get correct endpoint, filter by in person/online
-      axios.get(ENDPOINT).then(res => setClasses(res.data));
-    } else if (classType === "/training/LeSS") {
-      // TODO: get correct endpoint, filter by in person/online
-      console.log("Get LeSS ENDPOINT");
-      axios.get(ENDPOINT).then(res => setClasses(res.data));
-    }
-  }, [classType]);
+  const { loading, error, data } = useQuery(GET_IN_PERSON_CLASSES);
 
   useEffect(() => {
-    const filteredClasses = classes.filter((c, i) => i < 4);
-    isFiltered
-      ? setClassesFiltered(filteredClasses)
-      : setClassesFiltered(classes);
-  }, [isFiltered, classes]);
+    console.log(!error ? "no error" : error);
+    const temp = !loading && data.class_consultant_schedule_view_aggregate.nodes;
+
+    setClasses(temp);
+  }, [loading, error, data]);
+
+  useEffect(() => {
+    const temp = classes.length > 0 ? classes.filter((c, i) => i < 1) : [];
+    isFiltered ? setClassesFiltered(temp) : setClassesFiltered(classes);
+  }, [classes, isFiltered]);
 
   return (
     <>
@@ -70,10 +50,7 @@ const ClassList: React.FC<Props> = ({ classType }) => {
             <h4>In Person Classes</h4>
             {classesFiltered.map((c, i) => (
               <Col md={12} className="class-card" key={i}>
-                <ClassCard
-                  classData={c}
-                  isOnline="In-Person, Live Instructor-led Class"
-                />
+                <ClassCard classData={c} isOnline="In-Person, Live Instructor-led Class" />
               </Col>
             ))}
           </Col>
@@ -81,20 +58,14 @@ const ClassList: React.FC<Props> = ({ classType }) => {
             <h4>Online Classes</h4>
             {classesFiltered.map((c, i) => (
               <Col md={12} className="class-card" key={i}>
-                <ClassCard
-                  classData={c}
-                  isOnline="Online, Live Instructor-led Class"
-                />
+                <ClassCard classData={c} isOnline="Online, Live Instructor-led Class" />
               </Col>
             ))}
           </Col>
         </Row>
         <Row>
           <Col className="text-center">
-            <button
-              className="link-styled-button"
-              onClick={() => setIsFiltered(!isFiltered)}
-            >
+            <button className="link-styled-button" onClick={() => setIsFiltered(!isFiltered)}>
               {isFiltered ? "See More Classes" : "See Fewer Classes"}
             </button>
           </Col>

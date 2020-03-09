@@ -1,0 +1,17 @@
+  useEffect(() => {
+    if (classType === "/training/scaled-agile") {
+      // TODO: get correct endpoint, filter by in person/online
+      axios.get(ENDPOINT).then(res => setClasses(res.data));
+    } else if (classType === "/training/LeSS") {
+      // TODO: get correct endpoint, filter by in person/online
+      console.log("Get LeSS ENDPOINT");
+      axios.get(ENDPOINT).then(res => setClasses(res.data));
+    }
+  }, [classType]);
+
+  useEffect(() => {
+    const filteredClasses = classes.filter((c, i) => i < 4);
+    isFiltered
+      ? setClassesFiltered(filteredClasses)
+      : setClassesFiltered(classes);
+  }, [isFiltered, classes]);
