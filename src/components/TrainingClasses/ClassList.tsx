@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 import ClassCard from "./ClassCard";
+import { ClassType } from "../../pages/client/TrainingPage";
 
 import axios from "axios";
 
-interface Props {}
+interface Props {
+  classType: string;
+}
 
 export interface Class {
   ConsultantId: number;
@@ -34,28 +37,66 @@ export interface Class {
   CurrencyTypeAbbreviation: string;
 }
 
-const ClassList: React.FC<Props> = () => {
+const ENDPOINT = "https://api.testscaledflow.com/v0/classes";
+
+const ClassList: React.FC<Props> = ({ classType }) => {
   const [classes, setClasses] = useState<Class[]>([]);
+  const [classesFiltered, setClassesFiltered] = useState<Class[]>([]);
+  const [isFiltered, setIsFiltered] = useState(true);
 
   useEffect(() => {
-    console.log("HELLO");
-    axios
-      .get("https://api.testscaledflow.com/v0/classes")
-      .then(res => setClasses(res.data));
-    return () => {};
-  }, []);
+    if (classType === "/training/scaled-agile") {
+      // TODO: get correct endpoint, filter by in person/online
+      axios.get(ENDPOINT).then(res => setClasses(res.data));
+    } else if (classType === "/training/LeSS") {
+      // TODO: get correct endpoint, filter by in person/online
+      console.log("Get LeSS ENDPOINT");
+      axios.get(ENDPOINT).then(res => setClasses(res.data));
+    }
+  }, [classType]);
+
+  useEffect(() => {
+    const filteredClasses = classes.filter((c, i) => i < 4);
+    isFiltered
+      ? setClassesFiltered(filteredClasses)
+      : setClassesFiltered(classes);
+  }, [isFiltered, classes]);
 
   return (
     <>
       <Container>
         <Row>
-          <Col md={9}>
-            {classes.map(
-              (c, i) => i < 20 && <ClassCard key={i} classData={c} />
-            )}
+          <Col lg={6}>
+            <h4>In Person Classes</h4>
+            {classesFiltered.map((c, i) => (
+              <Col md={12} className="class-card" key={i}>
+                <ClassCard
+                  classData={c}
+                  isOnline="In-Person, Live Instructor-led Class"
+                />
+              </Col>
+            ))}
           </Col>
-          <Col md={3}>
-            <p>Checkout box</p>
+          <Col lg={6}>
+            <h4>Online Classes</h4>
+            {classesFiltered.map((c, i) => (
+              <Col md={12} className="class-card" key={i}>
+                <ClassCard
+                  classData={c}
+                  isOnline="Online, Live Instructor-led Class"
+                />
+              </Col>
+            ))}
+          </Col>
+        </Row>
+        <Row>
+          <Col className="text-center">
+            <button
+              className="link-styled-button"
+              onClick={() => setIsFiltered(!isFiltered)}
+            >
+              {isFiltered ? "See More Classes" : "See Fewer Classes"}
+            </button>
           </Col>
         </Row>
       </Container>

@@ -3,6 +3,10 @@
   min-height: 250px;
 }
 
+.overlay {
+  min-height: 341px;
+}
+
 .header {
   background-image: url("../../img/scaleflow.jpg");
   background-position: center;
@@ -17,4 +21,24 @@
   color: white;
   background: black;
   text-align: center;
+}
+
+.training-header {
+  background-color: #eff9ff;
+}
+.training-header h3 {
+  color: #115288 !important;
+}
+.training-header h6 {
+  margin-top: 31px;
+  color: #000 !important;
+}
+
+.training-header .col-md-8,
+.col-md-4,
+.col-8,
+.col-4,
+.col-sm-4,
+.col-sm-8 {
+  margin-top: 100px;
 }
