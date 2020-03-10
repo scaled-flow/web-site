@@ -15,6 +15,7 @@ import TrainingPage from "./pages/client/TrainingPage";
 import BlogPage from "./pages/client/BlogPage";
 import ContactPage from "./pages/client/ContactPage";
 import ServicesPage from "./pages/client/ServicesPage";
+import ClassRegistrationPage from "./pages/client/ClassRegistrationPage";
 
 import AdminRoot from "./AdminRoot";
 
@@ -34,6 +35,7 @@ const ClientRoot: React.FC<Props> = () => {
         <Route path="/blog" render={props => <BlogPage {...props} />} />
         <Route path="/services" render={props => <ServicesPage {...props} />} />
         <Route path="/contact" render={props => <ContactPage {...props} />} />
+        <Route path="/training/class/:classNameAndId" render={props => <ClassRegistrationPage {...props} />} />
       </Switch>
       <Footer />
     </Router>

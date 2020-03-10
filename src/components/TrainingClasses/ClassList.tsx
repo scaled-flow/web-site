@@ -21,6 +21,8 @@ export interface Class {
   class_is_in_person: boolean;
   profile_photo_url: string;
   class_start_time?: string;
+  class_profile_id_fk: number;
+  class_desc: string;
 }
 
 const ClassList: React.FC<Props> = ({ classType }) => {
@@ -38,7 +40,7 @@ const ClassList: React.FC<Props> = ({ classType }) => {
   }, [loading, error, data]);
 
   useEffect(() => {
-    const temp = classes.length > 0 ? classes.filter((c, i) => i < 1) : [];
+    const temp = classes.length > 0 ? classes.filter((c, i) => i < 2) : [];
     isFiltered ? setClassesFiltered(temp) : setClassesFiltered(classes);
   }, [classes, isFiltered]);
 

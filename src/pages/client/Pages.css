@@ -78,3 +78,8 @@ p {
   border-radius: 4px;
   padding: 30px 30px;
 }
+
+h6.light-grey-header {
+  color: #444;
+  font-weight: 800;
+}

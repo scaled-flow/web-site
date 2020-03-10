@@ -12,6 +12,8 @@ export const GET_IN_PERSON_CLASSES = gql`
         class_is_online
         profile_photo_url
         class_start_time
+        class_profile_id_fk
+        class_desc
       }
     }
   }
@@ -26,6 +28,8 @@ export const GET_ONLINE_CLASSES = gql`
         class_is_online
         profile_photo_url
         class_start_time
+        class_profile_id_fk
+        class_desc
       }
     }
   }

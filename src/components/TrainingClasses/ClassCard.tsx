@@ -42,6 +42,7 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
     });
   }, [classData]);
 
+  console.log(classData);
   return (
     <>
       <Row>
@@ -60,7 +61,12 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
           <Image src={classData.profile_photo_url} fluid roundedCircle />
         </Col>
         <Col xs={2}>
-          <Link to="/">
+          <Link
+            to={{
+              pathname: `class/${classData.class_title.split(" ").join("-")}-${classData.class_profile_id_fk}`,
+              state: classData
+            }}
+          >
             <Icon icon={faPlusCircle} size="2x" color="#C4C4C4" />
           </Link>
         </Col>
