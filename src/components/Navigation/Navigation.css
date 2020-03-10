@@ -1,6 +1,6 @@
 .navbar-light .navbar-brand a {
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .navbar-light .navbar-brand:hover,
@@ -10,7 +10,7 @@
 
 .navbar-light .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.5);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .navbar-light .navbar-nav .show > .nav-link,
