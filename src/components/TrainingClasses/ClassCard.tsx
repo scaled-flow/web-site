@@ -42,7 +42,7 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
     });
   }, [classData]);
 
-  console.log(classData);
+  // console.log(classData);
   return (
     <>
       <Row>
