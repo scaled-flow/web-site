@@ -6,23 +6,31 @@ import { Class } from "../../components/TrainingClasses/ClassList";
 import moment from "moment";
 
 import Header from "../../components/Header/Header";
+import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import RegistrationInfo from "../../components/Registration/RegistrationInfo";
+import RegistrationForm from "../../components/Registration/RegistrationForm";
 
 interface Props extends RouteComponentProps {}
 
-const ClassRegistrationPage: React.FC<Props> = ({ location, ...props }) => {
+const ClassRegistrationPage: React.FC<Props> = ({ location, history, ...props }) => {
   const [classInfo, setClassInfo] = useState<Class>();
 
   useEffect(() => {
     setClassInfo(location.state as Class);
-  }, []);
+    if (location.state === undefined) {
+      history.replace("/");
+    }
+  }, [location]);
+
   console.log(classInfo);
   return (
     <>
-      <Header title="Register" />
-      <Container>
-        <RegistrationInfo classInfo={classInfo} />
-      </Container>
+      <ContentContainer>
+        <Container>
+          <RegistrationInfo classInfo={classInfo} />
+          <RegistrationForm />
+        </Container>
+      </ContentContainer>
     </>
   );
 };

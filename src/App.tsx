@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./bootstrap.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -15,6 +15,7 @@ import ClientRoot from "./ClientRoot";
 
 const App: React.FC = () => {
   const client = createApolloClient();
+
   return (
     <ApolloProvider client={client}>
       <Router>
