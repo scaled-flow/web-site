@@ -13,13 +13,21 @@ import Footer from "./components/Footer/Footer";
 // pages
 import ClientRoot from "./ClientRoot";
 
+
+const NoMatchPage = () => {
+  return (
+    <h3>404 - Not found</h3>
+  );
+};
+
 const App: React.FC = () => {
   const client = createApolloClient();
   return (
     <ApolloProvider client={client}>
       <Router>
         <Switch>
-          <Route path="/" render={props => <ClientRoot {...props} />} />
+          <Route exact path="/" render={props => <ClientRoot {...props} />} />
+          <Route component={NoMatchPage} />
         </Switch>
         <Footer />
       </Router>
