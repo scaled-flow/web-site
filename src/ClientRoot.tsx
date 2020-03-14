@@ -26,7 +26,9 @@ const ClientRoot: React.FC<Props> = () => {
     <Router>
       <Navbar />
       <Switch>
+        {/* These are all the major pages */}
         <Route exact path="/" render={props => <HomePage {...props} />} />
+        {/* Admin Root */}
         <Route path="/admin" render={props => <AdminRoot {...props} />} />
         <Route path="/about" render={props => <AboutPage {...props} />} />
         <Route path="/assessment" render={props => <AssessmentsPage {...props} />} />

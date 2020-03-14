@@ -43,6 +43,7 @@ const AttendeeForm: React.FC<Props> = ({ attendeeInfo, cb, action }) => {
     const attendee = new Attendee(attendeeInfo.i, state.fName, state.lName, state.email);
     cb({ type: "attendees", payload: attendee });
   }, [state]);
+
   return (
     <>
       <Row>

@@ -34,3 +34,17 @@ export const GET_ONLINE_CLASSES = gql`
     }
   }
 `;
+
+export const GetClassPrice = (classScheduleId: number) => {
+  // TODO: use correct ID
+  return gql`
+    query MyQuery2 {
+      class_consultant_schedule_view_aggregate(where: { class_schedule_id_fk: { _eq: ${classScheduleId} } }) {
+        nodes {
+          class_in_person_standard_price
+          class_number_of_days
+        }
+      }
+    }
+  `;
+};
