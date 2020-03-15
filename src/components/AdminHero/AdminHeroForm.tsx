@@ -3,10 +3,9 @@ import React, { useReducer } from "react";
 import FormTextarea from "../Forms/FormTextarea";
 import FormSelect from "../Forms/FormSelect";
 import { INSERT_HERO_TEXT } from "../../graphQL/mutations";
-import { GET_HERO_TEXT } from "../../graphQL/queries";
 
 import { Button } from "react-bootstrap";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 
 interface Props {}
 
@@ -42,6 +41,7 @@ const AdminHeroForm: React.FC<Props> = () => {
         onClick={() => {
           console.log(state);
           addHeroText({ variables: { heroText: state.heroText, active: state.active } });
+          window.location.reload();
         }}
       >
         Submit

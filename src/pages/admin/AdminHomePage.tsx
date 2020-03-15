@@ -4,14 +4,15 @@ import { RouteComponentProps } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 
 import AdminHeader from "../../components/Header/AdminHeader";
-import AdminHeroForm from "../../components/AdminHeroForm/AdminHeroForm";
+import AdminHeroForm from "../../components/AdminHero/AdminHeroForm";
+import AdminHeroList from "../../components/AdminHero/AdminHeroList";
 
 interface Props extends RouteComponentProps {}
 
 const AdminHomePage: React.FC<Props> = () => {
   return (
     <>
-      <AdminHeader>Admin Login</AdminHeader>
+      <AdminHeader>Home Page</AdminHeader>
       <Container>
         <Row>
           <Col>
@@ -20,7 +21,7 @@ const AdminHomePage: React.FC<Props> = () => {
         </Row>
         <Row>
           <Col>
-            <p>Content Form</p>
+            <AdminHeroList />
           </Col>
         </Row>
       </Container>
