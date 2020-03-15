@@ -5,12 +5,12 @@ import Header from "../../components/Header/Header";
 
 interface Props extends RouteComponentProps {}
 
-const CoachingPage: React.FC<Props> = ({ ...props }: Props) => {
+const ServicesPage: React.FC<Props> = ({ ...props }: Props) => {
   return (
     <>
-      <Header title="Coaching" />
+      <Header title="Services" />
     </>
   );
 };
 
-export default CoachingPage;
+export default ServicesPage;
