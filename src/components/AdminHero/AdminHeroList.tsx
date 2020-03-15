@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer, useEffect } from "react";
 
 import { useQuery } from "@apollo/react-hooks";
 
@@ -7,18 +7,58 @@ import HeroItem from "./HeroItem";
 
 interface Props {}
 
-interface HeroItem {
+export interface HeroItem {
   active: boolean;
   hero_text: string;
   id: number;
 }
 
+interface State {
+  items: HeroItem[];
+}
+
+type Action =
+  | { type: "switch_active"; payload: HeroItem }
+  | { type: "change_text"; payload: string }
+  | { type: "init_state"; payload: HeroItem[] };
+
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case "init_state":
+      return { items: action.payload };
+    case "change_text":
+      return { ...state };
+    case "switch_active":
+      const index = action.payload.id - 1;
+      let tempArr = state.items;
+      console.log("before", tempArr);
+      tempArr[index] = action.payload;
+      console.log("after", tempArr);
+      return { ...state };
+    default:
+      return { ...state };
+  }
+};
+
 const AdminHeroList: React.FC<Props> = () => {
   const { loading, error, data: heroData } = useQuery(GET_HERO_TEXT);
+  const [state, dispatch] = useReducer(reducer, { items: [] });
 
-  !loading && console.log(heroData);
+  // initialize state
+  useEffect(() => {
+    const temp = !loading ? heroData.main_page : [];
+    dispatch({ type: "init_state", payload: temp });
+  }, [loading, heroData]);
+
   return (
-    <>{!loading && heroData.main_page.map((item: HeroItem, i: number) => <HeroItem>{item.hero_text}</HeroItem>)}</>
+    <>
+      {!loading &&
+        heroData.main_page.map((item: HeroItem, i: number) => (
+          <HeroItem key={i} item={item} cb={dispatch}>
+            {item.hero_text}
+          </HeroItem>
+        ))}
+    </>
   );
 };
 

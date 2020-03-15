@@ -17,7 +17,6 @@ const FormSelect: React.FC<Props> = ({ options, cb, action }) => {
             as="select"
             custom
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              console.log(e.target.value);
               cb({ type: action, payload: e.target.value });
             }}
           >
