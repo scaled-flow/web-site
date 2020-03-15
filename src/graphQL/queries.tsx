@@ -48,3 +48,13 @@ export const GetClassPrice = (classScheduleId: number) => {
     }
   `;
 };
+
+export const GET_HERO_TEXT = gql`
+  query MyQuery {
+    main_page {
+      active
+      hero_text
+      id
+    }
+  }
+`;
