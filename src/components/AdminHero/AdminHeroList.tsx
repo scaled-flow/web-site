@@ -31,10 +31,19 @@ const reducer = (state: State, action: Action) => {
     case "switch_active":
       const index = action.payload.id - 1;
       let tempArr = state.items;
-      console.log("before", tempArr);
-      tempArr[index] = action.payload;
-      console.log("after", tempArr);
-      return { ...state };
+      tempArr.forEach(item => {
+        if (item.id !== action.payload.id) {
+          if (action.payload.active === true) {
+            item.active = false;
+          }
+        } else {
+          if (action.payload.active === true) {
+            item.active = true;
+          }
+        }
+      });
+      console.log(tempArr);
+      return { ...state, items: tempArr };
     default:
       return { ...state };
   }
@@ -53,7 +62,7 @@ const AdminHeroList: React.FC<Props> = () => {
   return (
     <>
       {!loading &&
-        heroData.main_page.map((item: HeroItem, i: number) => (
+        state.items.map((item: HeroItem, i: number) => (
           <HeroItem key={i} item={item} cb={dispatch}>
             {item.hero_text}
           </HeroItem>

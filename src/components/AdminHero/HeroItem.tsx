@@ -46,6 +46,7 @@ const HeroItem: React.FC<Props> = ({ children, cb, item }) => {
         </Col>
         <Col className="align-self-center" md={2}>
           <FormSelect options={["active", "inactive"]} cb={dispatch} action="switch_active" />
+          {/* TODO: Change this to a check maybe? */}
         </Col>
         <Col className="align-self-center" md={3}>
           <button>delete</button>
