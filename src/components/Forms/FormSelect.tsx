@@ -1,20 +1,29 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-interface Props {}
+interface Props {
+  options: string[];
+  cb: any;
+  action: string;
+}
 
-const FormSelect: React.FC<Props> = ({}) => {
+const FormSelect: React.FC<Props> = ({ options, cb, action }) => {
   return (
     <>
       <Form>
         <Form.Group controlId="exampleForm.SelectCustom">
           <Form.Label>Custom select</Form.Label>
-          <Form.Control as="select" custom>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <Form.Control
+            as="select"
+            custom
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              console.log(e.target.value);
+              cb({ type: action, payload: e.target.value });
+            }}
+          >
+            {options.map((o, i) => (
+              <option key={i}>{o}</option>
+            ))}
           </Form.Control>
         </Form.Group>
       </Form>
