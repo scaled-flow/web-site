@@ -44,6 +44,7 @@ const ClassList: React.FC<Props> = ({ classType }) => {
     isFiltered ? setClassesFiltered(temp) : setClassesFiltered(classes);
   }, [classes, isFiltered]);
 
+  console.log(classes);
   return (
     <>
       <Container>
