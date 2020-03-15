@@ -14,16 +14,8 @@
   font-weight: 700;
 }
 
-.class-card svg {
-  margin-top: 29px;
-}
-
 .class-card svg:hover {
   color: #608bfb;
-}
-
-.class-card img {
-  margin-top: 10px;
 }
 
 .date-icon {

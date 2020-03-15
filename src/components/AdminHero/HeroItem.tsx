@@ -1,8 +1,9 @@
 import React, { useReducer, useEffect } from "react";
 
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Form } from "react-bootstrap";
 
 import FormSelect from "../Forms/FormSelect";
+import FormCheck from "../Forms/FormCheck";
 import { HeroItem as State } from "./AdminHeroList";
 import "./AdminHero.css";
 
@@ -45,8 +46,11 @@ const HeroItem: React.FC<Props> = ({ children, cb, item }) => {
           {children}
         </Col>
         <Col className="align-self-center" md={2}>
-          <FormSelect options={["active", "inactive"]} cb={dispatch} action="switch_active" />
+          {/* <FormSelect options={["active", "inactive"]} cb={dispatch} action="switch_active" /> */}
           {/* TODO: Change this to a check maybe? */}
+          <Form>
+            <FormCheck />
+          </Form>
         </Col>
         <Col className="align-self-center" md={3}>
           <button>delete</button>
