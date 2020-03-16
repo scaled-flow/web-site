@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./bootstrap.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -14,20 +14,16 @@ import Footer from "./components/Footer/Footer";
 import ClientRoot from "./ClientRoot";
 
 
-const NoMatchPage = () => {
-  return (
-    <h3>404 - Not found</h3>
-  );
-};
 
 const App: React.FC = () => {
   const client = createApolloClient();
+
   return (
     <ApolloProvider client={client}>
       <Router>
         <Switch>
-          <Route exact path="/" render={props => <ClientRoot {...props} />} />
-          <Route component={NoMatchPage} />
+          {/* there use to be two roots, but I moved the admin into client in order for it to work */}
+          <Route path="/" render={props => <ClientRoot {...props} />} />
         </Switch>
         <Footer />
       </Router>

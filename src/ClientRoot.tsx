@@ -1,12 +1,7 @@
 import React from "react";
 import "./bootstrap.css";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  RouteComponentProps
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, RouteComponentProps } from "react-router-dom";
 
 // components
 import Navbar from "./components/Navigation/Navigation";
@@ -16,38 +11,40 @@ import Footer from "./components/Footer/Footer";
 import AboutPage from "./pages/client/AboutPage";
 import HomePage from "./pages/client/HomePage";
 import AssessmentsPage from "./pages/client/AssessmentsPage";
-import CoachingPage from "./pages/client/CoachingPage";
 import TrainingPage from "./pages/client/TrainingPage";
-import TrendsPage from "./pages/client/TrendsPage";
+import BlogPage from "./pages/client/BlogPage";
 import ContactPage from "./pages/client/ContactPage";
+import ServicesPage from "./pages/client/ServicesPage";
+import ClassRegistrationPage from "./pages/client/ClassRegistrationPage";
 
 import AdminRoot from "./AdminRoot";
 
 interface Props extends RouteComponentProps {}
+
+const NoMatchPage = () => {
+  return (
+    <h3>404 - Not found</h3>
+  );
+};
 
 const ClientRoot: React.FC<Props> = () => {
   return (
     <Router>
       <Navbar />
       <Switch>
+        {/* These are all the major pages */}
         <Route exact path="/" render={props => <HomePage {...props} />} />
+        {/* Admin Root */}
         <Route path="/admin" render={props => <AdminRoot {...props} />} />
         <Route path="/about" render={props => <AboutPage {...props} />} />
-        <Route
-          path="/assessments"
-          render={props => <AssessmentsPage {...props} />}
-        />
-        <Route
-          path="/coaching/scaled-agile"
-          render={props => <CoachingPage {...props} />}
-        />
-        <Route
-          path="/coaching/LeSS"
-          render={props => <CoachingPage {...props} />}
-        />
-        <Route path="/training" render={props => <TrainingPage {...props} />} />
-        <Route path="/trends" render={props => <TrendsPage {...props} />} />
+        <Route path="/assessment" render={props => <AssessmentsPage {...props} />} />
+        <Route path="/training/scaled-agile" render={props => <TrainingPage {...props} />} />
+        <Route path="/training/LeSS" render={props => <TrainingPage {...props} />} />
+        <Route path="/blog" render={props => <BlogPage {...props} />} />
+        <Route path="/services" render={props => <ServicesPage {...props} />} />
         <Route path="/contact" render={props => <ContactPage {...props} />} />
+        <Route path="/training/class/:classNameAndId" render={props => <ClassRegistrationPage {...props} />} />
+        <Route component={NoMatchPage} />
       </Switch>
       <Footer />
     </Router>

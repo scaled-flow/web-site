@@ -6,9 +6,10 @@ interface Props {
   cb: any;
   action: string;
   type: string;
+  placeholder?: string;
 }
 
-const AdminFormInput: React.FC<Props> = ({ title, cb, action, type }) => {
+const AdminFormInput: React.FC<Props> = ({ title, cb, action, type, placeholder }) => {
   return (
     <>
       <Form.Label>{title}</Form.Label>
@@ -19,6 +20,7 @@ const AdminFormInput: React.FC<Props> = ({ title, cb, action, type }) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           cb({ type: action, payload: e.target.value });
         }}
+        placeholder={placeholder ? placeholder : ""}
       ></Form.Control>
     </>
   );
