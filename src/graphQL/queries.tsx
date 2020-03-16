@@ -2,34 +2,48 @@ import gql from "graphql-tag";
 
 export const GET_IN_PERSON_CLASSES = gql`
   query GetInPersonClasses {
-    class_consultant_schedule_view_aggregate(where: { class_is_in_person: { _eq: true } }) {
-      nodes {
-        class_start_date
-        class_end_date
+    consultant_profiles_link_class_profiles_link_class_schedules(where: {class_schedule: {class_is_in_person: {_eq: true}}}) {
+      class_profile {
+        class_desc
         class_title
+        class_profile_id
+      }
+      class_schedule {
+        class_end_date
+        class_end_time
         class_in_person_city
         class_in_person_state
         class_is_online
-        profile_photo_url
+        class_start_date
         class_start_time
-        class_profile_id_fk
-        class_desc
+      }
+      consultant_profile {
+        profile_photo_url
       }
     }
   }
 `;
+
+
 export const GET_ONLINE_CLASSES = gql`
   query GetOnlineClasses {
-    class_consultant_schedule_view_aggregate(where: { class_is_in_person: { _eq: false } }) {
-      nodes {
-        class_start_date
-        class_end_date
-        class_title
-        class_is_online
-        profile_photo_url
-        class_start_time
-        class_profile_id_fk
+    consultant_profiles_link_class_profiles_link_class_schedules(where: {class_schedule: {class_is_in_person: {_eq: false}}}) {
+      class_profile {
         class_desc
+        class_title
+        class_profile_id
+      }
+      class_schedule {
+        class_end_date
+        class_end_time
+        class_in_person_city
+        class_in_person_state
+        class_is_online
+        class_start_date
+        class_start_time
+      }
+      consultant_profile {
+        profile_photo_url
       }
     }
   }
