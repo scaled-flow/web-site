@@ -1,8 +1,10 @@
 import React, { useReducer } from "react";
 
+import FormInput from "../Forms/FormInput";
 import FormTextarea from "../Forms/FormTextarea";
 import FormSelect from "../Forms/FormSelect";
-import { INSERT_HERO_TEXT } from "../../graphQL/mutations";
+import { INSERT_MAIN_PAGE_HEADER } from "../../graphQL/mutations";
+import { GET_ALL_HERO_INFO } from "../../graphQL/queries";
 
 import { Button } from "react-bootstrap";
 import { useMutation } from "@apollo/react-hooks";
@@ -10,38 +12,60 @@ import { useMutation } from "@apollo/react-hooks";
 interface Props {}
 
 export interface State {
-  heroText: string;
+  heroHeadlineText?: string;
+  heroSubHeadlineText?: string;
+  heroButtonText?: string;
+  heroButtonPointer?: string;
   active: boolean;
 }
 
-type Action = { type: "heroText"; payload: string } | { type: "active"; payload: string };
+type Action =
+  | { type: "heroHeadlineText"; payload: string }
+  | { type: "heroSubHeadlineText"; payload: string }
+  | { type: "heroButtonText"; payload: string }
+  | { type: "heroButtonPointer"; payload: string };
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case "heroText":
-      return { ...state, heroText: action.payload };
-    case "active":
-      const temp = action.payload === "active" ? true : false;
-      return { ...state, active: temp };
+    case "heroHeadlineText":
+      return { ...state, heroHeadlineText: action.payload };
+    case "heroSubHeadlineText":
+      return { ...state, heroSubHeadlineText: action.payload };
+    case "heroButtonText":
+      return { ...state, heroButtonText: action.payload };
+    case "heroButtonPointer":
+      return { ...state, heroButtonPointer: action.payload };
     default:
       return { ...state };
   }
 };
 const AdminHeroForm: React.FC<Props> = () => {
-  const [state, dispatch] = useReducer(reducer, { heroText: "", active: false });
+  const [state, dispatch] = useReducer(reducer, { active: false });
 
-  const [addHeroText] = useMutation(INSERT_HERO_TEXT);
+  const [addHeroInfo] = useMutation(INSERT_MAIN_PAGE_HEADER);
   return (
     <>
-      <FormTextarea title="Hero Text" rows={5} cb={dispatch} action="heroText" />
-      <FormSelect options={["active", "inactive"]} action="active" cb={dispatch} />
+      <FormInput title="Hero Headline Text" cb={dispatch} action="heroHeadlineText" type="text" />
+      <FormTextarea title="Hero Sub-Headline Text" rows={5} cb={dispatch} action="heroSubHeadlineText" />
+      <FormInput title="Hero Button Text" cb={dispatch} action="heroButtonText" type="text" />
+      <FormInput title="Hero Button Pointer (eg. /classes/SaFE)" cb={dispatch} action="heroButtonPointer" type="text" />
       <Button
         className="mt-3"
         title="submit"
         onClick={() => {
           console.log(state);
-          addHeroText({ variables: { heroText: state.heroText, active: state.active } });
-          window.location.reload();
+          addHeroInfo({
+            variables: {
+              heroHeadlineText: state.heroHeadlineText,
+              heroSubHeadlineText: state.heroSubHeadlineText,
+              heroButtonText: state.heroButtonText,
+              heroButtonPointer: state.heroButtonPointer,
+              active: state.active
+            }
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         }}
       >
         Submit

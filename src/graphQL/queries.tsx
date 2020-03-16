@@ -49,11 +49,36 @@ export const GetClassPrice = (classScheduleId: number) => {
   `;
 };
 
-export const GET_HERO_TEXT = gql`
-  query MyQuery {
-    main_page {
+export const GET_ALL_HERO_INFO = gql`
+  query GetAllHeroInfo {
+    main_page_header {
       active
-      hero_text
+      hero_button_text
+      hero_headline_text
+      hero_sub_headline_text
+      id
+      hero_button_pointer
+    }
+  }
+`;
+
+export const GET_CURRENT_HERO_INFO = gql`
+  query GetCurrentHeroInfo {
+    main_page_header(where: { active: { _eq: true } }) {
+      hero_button_text
+      hero_headline_text
+      hero_sub_headline_text
+      id
+    }
+  }
+`;
+
+export const GET_MAIN_PAGE_INFO = gql`
+  query GetMainPageContent {
+    main_page_services(where: { active: { _eq: true } }) {
+      service_offering_body
+      service_offering_font_awesome_icon
+      service_offering_header
       id
     }
   }

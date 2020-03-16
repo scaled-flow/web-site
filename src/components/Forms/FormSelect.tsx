@@ -5,14 +5,15 @@ interface Props {
   options: string[];
   cb: any;
   action: string;
+  title: string;
 }
 
-const FormSelect: React.FC<Props> = ({ options, cb, action }) => {
+const FormSelect: React.FC<Props> = ({ options, cb, action, title }) => {
   return (
     <>
       <Form>
         <Form.Group controlId="exampleForm.SelectCustom">
-          <Form.Label>Custom select</Form.Label>
+          <Form.Label>{title}</Form.Label>
           <Form.Control
             as="select"
             custom

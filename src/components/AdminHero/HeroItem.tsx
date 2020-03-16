@@ -1,6 +1,6 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 
-import { Row, Col, Form } from "react-bootstrap";
+import { Row, Col, Form, Button } from "react-bootstrap";
 
 import FormSelect from "../Forms/FormSelect";
 import FormCheck from "../Forms/FormCheck";
@@ -13,49 +13,71 @@ interface Props {
 }
 
 class Item implements State {
-  constructor(public active: boolean, public hero_text: string, public id: number) {}
+  constructor(
+    public active?: boolean,
+    public hero_headline_text?: string,
+    public hero_sub_headline_text?: string,
+    public hero_button_text?: string,
+    public hero_button_pointer?: string,
+    public id?: number
+  ) {}
 }
 
-type Action = { type: "switch_active"; payload: string } | { type: "change_text"; payload: string };
+type Action = { type: "switch_active"; payload: boolean } | { type: "change_text"; payload: string };
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case "change_text":
       return { ...state };
     case "switch_active":
-      console.log(action.payload);
-      const temp = action.payload === "active" ? true : false;
-      return { ...state, active: temp };
+      return { ...state, active: action.payload };
     default:
       return { ...state };
   }
 };
 
-const HeroItem: React.FC<Props> = ({ children, cb, item }) => {
-  const [state, dispatch] = useReducer(reducer, { hero_text: item.hero_text, active: item.active, id: item.id });
+const HeroItem: React.FC<Props> = ({ cb, item }) => {
+  const [state, dispatch] = useReducer(reducer, {});
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
 
   useEffect(() => {
-    const temp = new Item(state.active, state.hero_text, state.id);
+    const temp = new Item(
+      state.active,
+      state.hero_headline_text,
+      state.hero_sub_headline_text,
+      state.hero_button_text,
+      state.hero_button_pointer,
+      state.id
+    );
     cb({ type: "switch_active", payload: temp });
   }, [state]);
 
+  // console.log(state.hero_text, state.active);
   return (
     <div className="hero-list-item">
       <Row>
-        <Col className="align-self-center" md={6}>
-          {children}
+        <Col className="align-self-center" md={11}>
+          <h3>{item.hero_headline_text}</h3>
         </Col>
-        <Col className="align-self-center" md={2}>
-          {/* <FormSelect options={["active", "inactive"]} cb={dispatch} action="switch_active" /> */}
-          {/* TODO: Change this to a check maybe? */}
-          <Form>
-            <FormCheck />
-          </Form>
-        </Col>
-        <Col className="align-self-center" md={3}>
-          <button>delete</button>
+        <Col className="align-self-center" md={1}>
+          <button className="no-style" onClick={() => setIsCollapsed(!isCollapsed)}>
+            {isCollapsed ? <i className="fas fa-caret-right fa-2x"></i> : <i className="fas fa-caret-down fa-2x"></i>}
+          </button>
         </Col>
       </Row>
+      {!isCollapsed && (
+        <>
+          <Row>
+            <Col>
+              <h4>{item.hero_sub_headline_text}</h4>
+              <p>
+                <Button>{item.hero_button_text}</Button> links to:{" "}
+                <span className="link-style">{item.hero_button_pointer || "'no link'"}</span>
+              </p>
+            </Col>
+          </Row>
+        </>
+      )}
     </div>
   );
 };
