@@ -1,9 +1,10 @@
 import React, { useReducer, useEffect, useState } from "react";
 
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 
 import FormSelect from "../Forms/FormSelect";
 import FormCheck from "../Forms/FormCheck";
+import HeroEditModal from "./HeroEditModal";
 import { HeroItem as State } from "./AdminHeroList";
 import "./AdminHero.css";
 
@@ -38,7 +39,8 @@ const reducer = (state: State, action: Action) => {
 
 const HeroItem: React.FC<Props> = ({ cb, item }) => {
   const [state, dispatch] = useReducer(reducer, {});
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const [isModalShown, setIsModalShown] = useState<boolean>(false);
 
   useEffect(() => {
     const temp = new Item(
@@ -54,31 +56,46 @@ const HeroItem: React.FC<Props> = ({ cb, item }) => {
 
   // console.log(state.hero_text, state.active);
   return (
-    <div className="hero-list-item">
-      <Row>
-        <Col className="align-self-center" md={11}>
-          <h3>{item.hero_headline_text}</h3>
-        </Col>
-        <Col className="align-self-center" md={1}>
-          <button className="no-style" onClick={() => setIsCollapsed(!isCollapsed)}>
-            {isCollapsed ? <i className="fas fa-caret-right fa-2x"></i> : <i className="fas fa-caret-down fa-2x"></i>}
-          </button>
-        </Col>
-      </Row>
-      {!isCollapsed && (
-        <>
-          <Row>
-            <Col>
-              <h4>{item.hero_sub_headline_text}</h4>
-              <p>
-                <Button>{item.hero_button_text}</Button> links to:{" "}
-                <span className="link-style">{item.hero_button_pointer || "'no link'"}</span>
-              </p>
-            </Col>
-          </Row>
-        </>
-      )}
-    </div>
+    <>
+      <div className="hero-list-item">
+        <Row>
+          <Col className="align-self-center" md={11}>
+            <h3>{item.hero_headline_text}</h3>
+          </Col>
+          <Col className="align-self-center" md={1}>
+            <button className="no-style" onClick={() => setIsCollapsed(!isCollapsed)}>
+              {isCollapsed ? <i className="fas fa-caret-right fa-2x"></i> : <i className="fas fa-caret-down fa-2x"></i>}
+            </button>
+          </Col>
+        </Row>
+        {!isCollapsed && (
+          <>
+            <Row>
+              <Col>
+                <h4>{item.hero_sub_headline_text}</h4>
+                <p>
+                  <Button>{item.hero_button_text}</Button> links to:{" "}
+                  <span className="link-style">{item.hero_button_pointer || "'no link'"}</span>
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={{ span: 1, offset: 10 }}>
+                <button className="no-style" onClick={() => setIsModalShown(!isModalShown)}>
+                  <i className="far fa-edit fa-2x"></i>
+                </button>
+              </Col>
+              <Col md={1}>
+                <button className="no-style">
+                  <i className="far fa-trash-alt fa-2x"></i>
+                </button>
+              </Col>
+            </Row>
+          </>
+        )}
+      </div>
+      <HeroEditModal show={isModalShown} cb={() => setIsModalShown(!isModalShown)} />
+    </>
   );
 };
 
