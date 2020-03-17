@@ -6,7 +6,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import AdminHeader from "../../components/Header/AdminHeader";
 import AdminHeroForm from "../../components/AdminHero/AdminHeroForm";
 import AdminHeroList from "../../components/AdminHero/AdminHeroList";
-import AdminHeroTest from "../../components/AdminHero/AdminTest";
 
 interface Props extends RouteComponentProps {}
 
@@ -31,7 +30,6 @@ const AdminHomePage: React.FC<Props> = () => {
         <Row>
           <Col>
             <AdminHeroList />
-            <AdminHeroTest />
           </Col>
         </Row>
       </Container>

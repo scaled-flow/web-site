@@ -32,18 +32,7 @@ const reducer = (state: State, action: Action) => {
     case "change_text":
       return { ...state };
     case "switch_active":
-      let tempArr = state.items;
-      tempArr.forEach(item => {
-        if (item.id !== action.payload.id) {
-          item.active = false;
-        } else {
-          if (action.payload.active === true) {
-            item.active = true;
-          }
-        }
-      });
-      // console.log(tempArr);
-      return { ...state, items: tempArr };
+      return { ...state };
     default:
       return { ...state };
   }
