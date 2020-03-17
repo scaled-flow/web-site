@@ -43,7 +43,7 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: any, collapseCb: any) => {
+const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: any) => {
   console.log(state);
 
   if (
@@ -56,7 +56,8 @@ const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: any
     return setTimeout(() => setSaveTextCb("Submit"), 2500);
   }
 
-  addHeroInfoCb({
+  setSaveTextCb("Saving...");
+  await addHeroInfoCb({
     variables: {
       heroHeadlineText: state.heroHeadlineText,
       heroSubHeadlineText: state.heroSubHeadlineText,
@@ -65,8 +66,7 @@ const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: any
       active: state.active
     }
   });
-  setSaveTextCb("Saving...");
-  setTimeout(collapseCb, 3000);
+  window.location.reload();
 };
 
 const AdminHeroForm: React.FC<Props> = ({ cb }) => {
@@ -98,7 +98,7 @@ const AdminHeroForm: React.FC<Props> = ({ cb }) => {
           // setTimeout(() => {
           //   window.location.reload();
           // }, 2000);
-          handleSubmit(state, addHeroInfo, setSaveText, cb);
+          handleSubmit(state, addHeroInfo, setSaveText);
         }}
       >
         {saveText}

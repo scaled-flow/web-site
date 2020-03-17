@@ -1,8 +1,12 @@
 import React, { useReducer, useEffect, useState } from "react";
 
 import { Row, Col, Button } from "react-bootstrap";
+import { useMutation } from "@apollo/client";
+
+import { UPDATE_ACTIVE_HEADER } from "../../graphQL/mutations";
 
 import HeroEditModal from "./HeroEditModal";
+import HeroDeleteModal from "./HeroDeleteModal";
 import { HeroItem as State } from "./AdminHeroList";
 import "./AdminHero.css";
 
@@ -38,7 +42,15 @@ const reducer = (state: State, action: Action) => {
 const HeroItem: React.FC<Props> = ({ cb, item }) => {
   const [state, dispatch] = useReducer(reducer, {});
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
-  const [isModalShown, setIsModalShown] = useState<boolean>(false);
+  const [isEditModalShown, setIsEditModalShown] = useState<boolean>(false);
+  const [isDeleteModalShown, setIsDeleteModalShown] = useState<boolean>(false);
+  const [activeButtonText, setActiveButtonText] = useState<string>("");
+
+  useEffect(() => {
+    setActiveButtonText(item.active ? "Active Header" : "Set as Active Header");
+  }, [state]);
+
+  const [updateActiveHeader] = useMutation(UPDATE_ACTIVE_HEADER);
 
   useEffect(() => {
     const temp = new Item(
@@ -61,8 +73,20 @@ const HeroItem: React.FC<Props> = ({ cb, item }) => {
             <h3>{item.hero_headline_text}</h3>
           </Col>
           <Col className="align-self-center" md={3}>
-            <Button className={item.active ? "btn-success" : "btn-warning"}>
-              {item.active ? "Active Header" : "Set as Active Header"}
+            <Button
+              className={item.active ? "btn-success" : "btn-warning"}
+              onClick={async () => {
+                if (!item.active) {
+                  setActiveButtonText("Setting as active...");
+                  await updateActiveHeader({ variables: { id: item.id } });
+                  window.location.reload();
+                } else {
+                  setActiveButtonText("This one is already active");
+                  setTimeout(() => setActiveButtonText("Active Header"), 2000);
+                }
+              }}
+            >
+              {activeButtonText}
             </Button>
             {/* <p>{item.active ? "active" : "inactive"}</p> */}
           </Col>
@@ -85,12 +109,17 @@ const HeroItem: React.FC<Props> = ({ cb, item }) => {
             </Row>
             <Row>
               <Col md={{ span: 1, offset: 10 }}>
-                <button className="no-style" onClick={() => setIsModalShown(!isModalShown)}>
+                <button className="no-style" onClick={() => setIsEditModalShown(!isEditModalShown)}>
                   <i className="far fa-edit fa-2x"></i>
                 </button>
               </Col>
               <Col md={1}>
-                <button className="no-style">
+                <button
+                  className="no-style"
+                  onClick={() => {
+                    setIsDeleteModalShown(!isDeleteModalShown);
+                  }}
+                >
                   <i className="far fa-trash-alt fa-2x"></i>
                 </button>
               </Col>
@@ -98,7 +127,8 @@ const HeroItem: React.FC<Props> = ({ cb, item }) => {
           </>
         )}
       </div>
-      <HeroEditModal show={isModalShown} cb={() => setIsModalShown(!isModalShown)} />
+      <HeroEditModal show={isEditModalShown} cb={() => setIsEditModalShown(!isEditModalShown)} />
+      <HeroDeleteModal show={isDeleteModalShown} cb={() => setIsDeleteModalShown(!isDeleteModalShown)} item={item} />
     </>
   );
 };
