@@ -33,12 +33,12 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
 
   useEffect(() => {
     setDateInfo({
-      longStart: momemt(classData.class_start_date, "YYYY-MM-DD").format("MMMM Do YYYY"),
-      longEnd: momemt(classData.class_end_date, "YYYY-MM-DD").format("MMMM Do YYYY"),
-      shortMonth: momemt(classData.class_start_date, "YYYY-MM-DD")
+      longStart: momemt(classData.class_schedule.class_start_date, "YYYY-MM-DD").format("MMMM Do YYYY"),
+      longEnd: momemt(classData.class_schedule.class_end_date, "YYYY-MM-DD").format("MMMM Do YYYY"),
+      shortMonth: momemt(classData.class_schedule.class_start_date, "YYYY-MM-DD")
         .format("MMM")
         .toUpperCase(),
-      day: momemt(classData.class_start_date, "YYYY-MM-DD").format("DD")
+      day: momemt(classData.class_schedule.class_start_date, "YYYY-MM-DD").format("DD")
     });
   }, [classData]);
 
@@ -49,21 +49,22 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
         <Col xs={2}>
           <ClassDateIcon date={{ month: dateInfo.shortMonth, day: dateInfo.day }} />
         </Col>{" "}
+        
         <Col xs={6}>
-          <h6>{classData.class_title}</h6>
+           <h6>{classData.class_profile.class_title}</h6>
           <p>{`${dateInfo.longStart} - ${dateInfo.longEnd}`}</p>
           <p>
-            {classData.class_in_person_city}, {classData.class_in_person_state}
+            {classData.class_schedule.class_in_person_city}, {classData.class_schedule.class_in_person_state}
           </p>
           <p>{isOnline}</p>
         </Col>
         <Col xs={2}>
-          <Image src={classData.profile_photo_url} fluid roundedCircle />
+          <Image src={classData.consultant_profile.profile_photo_url} fluid roundedCircle />
         </Col>
         <Col xs={2}>
           <Link
             to={{
-              pathname: `class/${classData.class_title.split(" ").join("-")}-${classData.class_profile_id_fk}`,
+              pathname: `class/${classData.class_profile.class_title.split(" ").join("-")}-${classData.class_profile.class_profile_id}`,
               state: classData
             }}
           >

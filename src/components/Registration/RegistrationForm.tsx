@@ -75,10 +75,9 @@ const RegistrationForm: React.FC<Props> = () => {
     numOfDays: 0
   });
   const { loading, error, data } = useQuery(GetClassPrice(1)); // TODO: get correct ID
-
   useEffect(() => {
-    const tempPrice = !loading && data.class_consultant_schedule_view_aggregate.nodes[0].class_in_person_standard_price;
-    const tempDays = !loading && data.class_consultant_schedule_view_aggregate.nodes[0].class_number_of_days;
+    const tempPrice = !loading && data.consultant_profiles_link_class_profiles_link_class_schedules[0].class_profile.class_in_person_standard_price;
+    const tempDays = !loading && data.consultant_profiles_link_class_profiles_link_class_schedules[0].class_schedule.class_number_of_days;
     dispatch({ type: "pricePerPerson", payload: tempPrice });
     dispatch({ type: "numOfDays", payload: tempDays });
   }, [data]);
