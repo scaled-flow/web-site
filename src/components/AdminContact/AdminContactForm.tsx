@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import AdminFormInput from "../Forms/FormInput";
 import FormTextarea from "../Forms/FormTextarea";
 
-import { Form, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 interface Props {
   type: "add" | "update";
@@ -52,18 +52,8 @@ const AdminContactForm: React.FC<Props> = ({ type, cb }) => {
 
   return (
     <>
-      <AdminFormInput
-        title="First Name"
-        cb={dispatch}
-        action="fName"
-        type="text"
-      />
-      <AdminFormInput
-        title="Last Name"
-        cb={dispatch}
-        action="lName"
-        type="text"
-      />
+      <AdminFormInput title="First Name" cb={dispatch} action="fName" type="text" />
+      <AdminFormInput title="Last Name" cb={dispatch} action="lName" type="text" />
       <AdminFormInput title="Email" cb={dispatch} action="email" type="email" />
       <AdminFormInput title="Phone" cb={dispatch} action="phone" type="phone" />
       <FormTextarea title="Message" rows={3} action="message" cb={dispatch} />

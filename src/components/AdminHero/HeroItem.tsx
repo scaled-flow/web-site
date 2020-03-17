@@ -1,9 +1,7 @@
 import React, { useReducer, useEffect, useState } from "react";
 
-import { Row, Col, Form, Button, Modal } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
-import FormSelect from "../Forms/FormSelect";
-import FormCheck from "../Forms/FormCheck";
 import HeroEditModal from "./HeroEditModal";
 import { HeroItem as State } from "./AdminHeroList";
 import "./AdminHero.css";
@@ -63,8 +61,10 @@ const HeroItem: React.FC<Props> = ({ cb, item }) => {
             <h3>{item.hero_headline_text}</h3>
           </Col>
           <Col className="align-self-center" md={3}>
-            {/* <Button>{item.active ? "Active Header" : "Set as Active Header"}</Button> */}
-            <p>{item.active ? "active" : "inactive"}</p>
+            <Button className={item.active ? "btn-success" : "btn-warning"}>
+              {item.active ? "Active Header" : "Set as Active Header"}
+            </Button>
+            {/* <p>{item.active ? "active" : "inactive"}</p> */}
           </Col>
           <Col className="align-self-center" md={1}>
             <button className="no-style" onClick={() => setIsCollapsed(!isCollapsed)}>

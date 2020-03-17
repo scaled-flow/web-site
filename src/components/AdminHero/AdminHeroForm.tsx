@@ -42,6 +42,33 @@ const reducer = (state: State, action: Action) => {
       return { ...state };
   }
 };
+
+const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: any, collapseCb: any) => {
+  console.log(state);
+
+  if (
+    state.heroButtonPointer === undefined ||
+    state.heroButtonText === undefined ||
+    state.heroHeadlineText === undefined ||
+    state.heroSubHeadlineText === undefined
+  ) {
+    setSaveTextCb("Please enter all fields");
+    return setTimeout(() => setSaveTextCb("Submit"), 2500);
+  }
+
+  addHeroInfoCb({
+    variables: {
+      heroHeadlineText: state.heroHeadlineText,
+      heroSubHeadlineText: state.heroSubHeadlineText,
+      heroButtonText: state.heroButtonText,
+      heroButtonPointer: state.heroButtonPointer,
+      active: state.active
+    }
+  });
+  setSaveTextCb("Saving...");
+  setTimeout(collapseCb, 3000);
+};
+
 const AdminHeroForm: React.FC<Props> = ({ cb }) => {
   const [state, dispatch] = useReducer(reducer, { active: false });
   const [saveText, setSaveText] = useState<string>("Submit");
@@ -54,23 +81,24 @@ const AdminHeroForm: React.FC<Props> = ({ cb }) => {
       <FormInput title="Hero Button Text" cb={dispatch} action="heroButtonText" type="text" />
       <FormInput title="Hero Button Pointer (eg. /classes/SaFE)" cb={dispatch} action="heroButtonPointer" type="text" />
       <Button
-        className="mt-3"
         title="submit"
+        className={`mt-3 ${saveText === "Please enter all fields" ? "btn-danger" : "btn-primary"}`}
         onClick={() => {
-          console.log(state);
-          addHeroInfo({
-            variables: {
-              heroHeadlineText: state.heroHeadlineText,
-              heroSubHeadlineText: state.heroSubHeadlineText,
-              heroButtonText: state.heroButtonText,
-              heroButtonPointer: state.heroButtonPointer,
-              active: state.active
-            }
-          });
-          setSaveText("Saving...");
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
+          // console.log(state);
+          // addHeroInfo({
+          //   variables: {
+          //     heroHeadlineText: state.heroHeadlineText,
+          //     heroSubHeadlineText: state.heroSubHeadlineText,
+          //     heroButtonText: state.heroButtonText,
+          //     heroButtonPointer: state.heroButtonPointer,
+          //     active: state.active
+          //   }
+          // });
+          // setSaveText("Saving...");
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 2000);
+          handleSubmit(state, addHeroInfo, setSaveText, cb);
         }}
       >
         {saveText}
