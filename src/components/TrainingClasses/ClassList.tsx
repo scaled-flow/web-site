@@ -5,6 +5,7 @@ import ClassCard from "./ClassCard";
 
 // queries
 import { GET_IN_PERSON_CLASSES } from "../../graphQL/queries";
+import {ClassProfile, ClassSchedule, ConsultantProfile} from "../../graphQL/types";
 import { useQuery } from "@apollo/react-hooks";
 
 interface Props {}
@@ -13,20 +14,13 @@ interface Props {
 }
 
 export interface Class {
-  class_start_date: string;
-  class_end_date: string;
-  class_title: string;
-  class_in_person_city?: string;
-  class_in_person_state?: string;
-  class_is_in_person: boolean;
-  profile_photo_url: string;
-  class_start_time?: string;
-  class_profile_id_fk: number;
-  class_desc: string;
+  class_profile: ClassProfile
+  class_schedule: ClassSchedule
+  consultant_profile: ConsultantProfile
 }
 
 const ClassList: React.FC<Props> = ({ classType }) => {
-  const [classes, setClasses] = useState<Class[]>([]);
+  const [classes, setClasses] = useState<Class[]>([] as Class[]);
   const [classesFiltered, setClassesFiltered] = useState<Class[]>([]);
   const [isFiltered, setIsFiltered] = useState(true);
 
@@ -34,7 +28,7 @@ const ClassList: React.FC<Props> = ({ classType }) => {
 
   useEffect(() => {
     console.log(!error ? "no error" : error);
-    const temp = !loading && data.class_consultant_schedule_view_aggregate.nodes;
+    const temp = !loading && data.consultant_profiles_link_class_profiles_link_class_schedules;
 
     setClasses(temp);
   }, [loading, error, data]);
