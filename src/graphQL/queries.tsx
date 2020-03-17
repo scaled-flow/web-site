@@ -51,13 +51,13 @@ export const GetClassPrice = (classScheduleId: number) => {
 
 export const GET_ALL_HERO_INFO = gql`
   query GetAllHeroInfo {
-    main_page_header {
+    main_page_header(order_by: { id: asc }) {
       active
+      hero_button_pointer
       hero_button_text
       hero_headline_text
       hero_sub_headline_text
       id
-      hero_button_pointer
     }
   }
 `;

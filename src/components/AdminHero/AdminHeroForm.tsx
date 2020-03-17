@@ -1,15 +1,15 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 
 import FormInput from "../Forms/FormInput";
 import FormTextarea from "../Forms/FormTextarea";
-import FormSelect from "../Forms/FormSelect";
 import { INSERT_MAIN_PAGE_HEADER } from "../../graphQL/mutations";
-import { GET_ALL_HERO_INFO } from "../../graphQL/queries";
 
 import { Button } from "react-bootstrap";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 
-interface Props {}
+interface Props {
+  cb: any;
+}
 
 export interface State {
   heroHeadlineText?: string;
@@ -23,7 +23,8 @@ type Action =
   | { type: "heroHeadlineText"; payload: string }
   | { type: "heroSubHeadlineText"; payload: string }
   | { type: "heroButtonText"; payload: string }
-  | { type: "heroButtonPointer"; payload: string };
+  | { type: "heroButtonPointer"; payload: string }
+  | { type: "resetForm" };
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -35,12 +36,15 @@ const reducer = (state: State, action: Action) => {
       return { ...state, heroButtonText: action.payload };
     case "heroButtonPointer":
       return { ...state, heroButtonPointer: action.payload };
+    case "resetForm":
+      return { active: false };
     default:
       return { ...state };
   }
 };
-const AdminHeroForm: React.FC<Props> = () => {
+const AdminHeroForm: React.FC<Props> = ({ cb }) => {
   const [state, dispatch] = useReducer(reducer, { active: false });
+  const [saveText, setSaveText] = useState<string>("Submit");
 
   const [addHeroInfo] = useMutation(INSERT_MAIN_PAGE_HEADER);
   return (
@@ -63,12 +67,22 @@ const AdminHeroForm: React.FC<Props> = () => {
               active: state.active
             }
           });
+          setSaveText("Saving...");
           setTimeout(() => {
             window.location.reload();
           }, 2000);
         }}
       >
-        Submit
+        {saveText}
+      </Button>
+      <Button
+        className="mt-3 ml-2 btn-warning"
+        onClick={() => {
+          dispatch({ type: "resetForm" });
+          cb();
+        }}
+      >
+        Cancel
       </Button>
     </>
   );

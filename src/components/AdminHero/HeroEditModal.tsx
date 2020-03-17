@@ -9,8 +9,6 @@ interface Props {
 const HeroEditModal: React.FC<Props> = ({ show, cb }) => {
   return (
     <>
-      <Button variant="primary">Launch demo modal</Button>
-
       <Modal show={show}>
         <Modal.Header closeButton onClick={cb}>
           <Modal.Title>Modal heading</Modal.Title>

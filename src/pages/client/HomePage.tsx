@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Container, Row, Col } from "react-bootstrap";
 import { RouteComponentProps, Link } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 
 import "./Pages.css";
 import ContentContainer from "../../components/ContentContainer/ContentContainer";

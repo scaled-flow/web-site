@@ -5,7 +5,7 @@ import ClassCard from "./ClassCard";
 
 // queries
 import { GET_IN_PERSON_CLASSES } from "../../graphQL/queries";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 
 interface Props {}
 interface Props {

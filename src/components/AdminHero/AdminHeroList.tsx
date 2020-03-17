@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 
 import { GET_ALL_HERO_INFO } from "../../graphQL/queries";
 import HeroItem from "./HeroItem";
@@ -51,6 +51,7 @@ const reducer = (state: State, action: Action) => {
 
 const AdminHeroList: React.FC<Props> = () => {
   const { loading, error, data: heroData } = useQuery(GET_ALL_HERO_INFO);
+  // console.log(heroData);
   const [state, dispatch] = useReducer(reducer, { items: [] });
 
   // initialize state
@@ -59,11 +60,10 @@ const AdminHeroList: React.FC<Props> = () => {
     dispatch({ type: "init_state", payload: temp });
   }, [loading, heroData]);
 
-  console.log(state);
   return (
     <>
       {state.items.map(item => (
-        <HeroItem cb={dispatch} item={item} />
+        <HeroItem cb={dispatch} item={item} key={item.id} />
       ))}
     </>
   );

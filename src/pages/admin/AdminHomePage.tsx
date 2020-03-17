@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { RouteComponentProps } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
@@ -6,22 +6,32 @@ import { Container, Row, Col } from "react-bootstrap";
 import AdminHeader from "../../components/Header/AdminHeader";
 import AdminHeroForm from "../../components/AdminHero/AdminHeroForm";
 import AdminHeroList from "../../components/AdminHero/AdminHeroList";
+import AdminHeroTest from "../../components/AdminHero/AdminTest";
 
 interface Props extends RouteComponentProps {}
 
 const AdminHomePage: React.FC<Props> = () => {
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+
   return (
     <>
       <AdminHeader>Home Page</AdminHeader>
-      <Container>
+      <Container className="mb-5">
         <Row>
-          <Col>
-            <AdminHeroForm />
+          <Col className="text-center">
+            {isCollapsed ? (
+              <button className="no-style" onClick={() => setIsCollapsed(!isCollapsed)}>
+                <i className="far fa-plus-square fa-4x"></i>
+              </button>
+            ) : (
+              <AdminHeroForm cb={() => setIsCollapsed(!isCollapsed)} />
+            )}
           </Col>
         </Row>
         <Row>
           <Col>
             <AdminHeroList />
+            <AdminHeroTest />
           </Col>
         </Row>
       </Container>

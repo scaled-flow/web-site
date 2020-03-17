@@ -1,18 +1,5 @@
 import gql from "graphql-tag";
 
-export const INSERT_HERO_TEXT = gql`
-  mutation InsertHeroText($heroText: String!, $active: Boolean!) {
-    insert_main_page(objects: { hero_text: $heroText, active: $active }) {
-      affected_rows
-      returning {
-        active
-        hero_text
-        id
-      }
-    }
-  }
-`;
-
 export const INSERT_MAIN_PAGE_HEADER = gql`
   mutation InsertMainPageHeader(
     $heroHeadlineText: String!
@@ -37,6 +24,33 @@ export const INSERT_MAIN_PAGE_HEADER = gql`
         hero_button_text
         hero_headline_text
         hero_sub_headline_text
+      }
+    }
+  }
+`;
+
+export const UPDATE_ACTIVE_HEADER = gql`
+  mutation UpdateActiveHeader($id: number) {
+    true: update_main_page_header(where: { id: { _eq: $id } }, _set: { active: true }) {
+      affected_rows
+      returning {
+        active
+        hero_button_pointer
+        hero_button_text
+        hero_headline_text
+        hero_sub_headline_text
+        id
+      }
+    }
+    update_main_page_header(where: { id: { _neq: $id } }, _set: { active: false }) {
+      affected_rows
+      returning {
+        active
+        hero_button_pointer
+        hero_button_text
+        hero_headline_text
+        hero_sub_headline_text
+        id
       }
     }
   }

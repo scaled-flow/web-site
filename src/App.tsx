@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // graphql
 import { createApolloClient } from "./graphQL/createApolloClient";
-import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloProvider } from "@apollo/client";
 
 // components
 import Footer from "./components/Footer/Footer";

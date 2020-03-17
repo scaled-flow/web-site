@@ -39,7 +39,7 @@ const reducer = (state: State, action: Action) => {
 
 const HeroItem: React.FC<Props> = ({ cb, item }) => {
   const [state, dispatch] = useReducer(reducer, {});
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
 
   useEffect(() => {
@@ -59,8 +59,12 @@ const HeroItem: React.FC<Props> = ({ cb, item }) => {
     <>
       <div className="hero-list-item">
         <Row>
-          <Col className="align-self-center" md={11}>
+          <Col className="align-self-center" md={8}>
             <h3>{item.hero_headline_text}</h3>
+          </Col>
+          <Col className="align-self-center" md={3}>
+            {/* <Button>{item.active ? "Active Header" : "Set as Active Header"}</Button> */}
+            <p>{item.active ? "active" : "inactive"}</p>
           </Col>
           <Col className="align-self-center" md={1}>
             <button className="no-style" onClick={() => setIsCollapsed(!isCollapsed)}>
