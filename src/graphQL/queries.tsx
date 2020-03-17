@@ -53,10 +53,13 @@ export const GetClassPrice = (classScheduleId: number) => {
   // TODO: use correct ID
   return gql`
     query GetClassPrices {
-      class_consultant_schedule_view_aggregate(where: { class_schedule_id_fk: { _eq: ${classScheduleId} } }) {
-        nodes {
-          class_in_person_standard_price
+      consultant_profiles_link_class_profiles_link_class_schedules(where: {class_schedule: {class_schedule_id: {_eq: ${classScheduleId}}}}) {
+        class_schedule {
           class_number_of_days
+          class_schedule_id
+        }
+        class_profile {
+          class_in_person_standard_price
         }
       }
     }

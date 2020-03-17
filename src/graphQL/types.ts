@@ -1,5 +1,5 @@
 export interface ClassProfile {
-    class_profile_id: number
+    class_profile_id?: number
     class_title: string
     class_desc?: string
     class_image?: string
