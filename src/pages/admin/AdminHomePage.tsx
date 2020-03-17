@@ -11,6 +11,9 @@ interface Props extends RouteComponentProps {}
 
 const AdminHomePage: React.FC<Props> = () => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+  const [isHeaderSectionCollapsed, setIsHeaderSectionCollapsed] = useState<boolean>(true);
+  const [isBodySectionCollapsed, setIsBodySectionCollapsed] = useState<boolean>(true);
+  const [bodyBtnText, setBodyBtnText] = useState<string>("Open");
 
   return (
     <>
@@ -18,21 +21,41 @@ const AdminHomePage: React.FC<Props> = () => {
       <Container className="mb-5">
         <Row>
           <Col className="text-center">
-            {isCollapsed ? (
-              <Button onClick={() => setIsCollapsed(!isCollapsed)}>Add New Header</Button>
-            ) : (
-              // <button className="no-style" onClick={() => setIsCollapsed(!isCollapsed)}>
-              //   <i className="far fa-plus-square fa-4x"></i>
-              // </button>
-              <AdminHeroForm cb={() => setIsCollapsed(!isCollapsed)} />
-            )}
+            <Button
+              onClick={() => {
+                setIsHeaderSectionCollapsed(!isHeaderSectionCollapsed);
+                setIsBodySectionCollapsed(true);
+                setIsCollapsed(true);
+                setBodyBtnText(bodyBtnText === "Open" ? "Close" : "Open");
+              }}
+              className="mb-3"
+              variant={bodyBtnText === "Open" ? "success" : "danger"}
+            >
+              {bodyBtnText} Edit Home Page Header
+            </Button>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <AdminHeroList />
-          </Col>
-        </Row>
+        {!isHeaderSectionCollapsed && (
+          <>
+            <Row>
+              <Col className="text-center">
+                {isCollapsed ? (
+                  <Button onClick={() => setIsCollapsed(!isCollapsed)}>Add New Header</Button>
+                ) : (
+                  // <button className="no-style" onClick={() => setIsCollapsed(!isCollapsed)}>
+                  //   <i className="far fa-plus-square fa-4x"></i>
+                  // </button>
+                  <AdminHeroForm cb={() => setIsCollapsed(!isCollapsed)} />
+                )}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <AdminHeroList />
+              </Col>
+            </Row>
+          </>
+        )}
       </Container>
     </>
   );

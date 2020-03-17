@@ -41,7 +41,7 @@ const reducer = (state: State, action: Action) => {
 
 const HeroItem: React.FC<Props> = ({ cb, item }) => {
   const [state, dispatch] = useReducer(reducer, {});
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false); // FIXME: turn back to true
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [isEditModalShown, setIsEditModalShown] = useState<boolean>(false);
   const [isDeleteModalShown, setIsDeleteModalShown] = useState<boolean>(false);
   const [activeButtonText, setActiveButtonText] = useState<string>("");

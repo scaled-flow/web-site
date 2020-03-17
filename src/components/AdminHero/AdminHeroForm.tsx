@@ -48,16 +48,36 @@ const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: Rea
 
   if (
     state.heroButtonPointer === undefined ||
+    state.heroButtonPointer === "" ||
     state.heroButtonText === undefined ||
+    state.heroButtonText === "" ||
     state.heroHeadlineText === undefined ||
-    state.heroSubHeadlineText === undefined
+    state.heroHeadlineText === "" ||
+    state.heroSubHeadlineText === undefined ||
+    state.heroSubHeadlineText === ""
   ) {
     setSaveTextCb("Please enter all fields");
     return setTimeout(() => setSaveTextCb("Submit"), 2500);
   }
 
+  // This block checks for spaces at the end of the string, and recursively deletes them
+  const lastCharIndex = state.heroButtonPointer.length! - 1;
+  if (state.heroButtonPointer.charAt(lastCharIndex) === " ") {
+    const temp = state.heroButtonPointer.slice(0, lastCharIndex);
+    state.heroButtonPointer = temp;
+    console.log(temp, temp.length);
+    handleSubmit(state, addHeroInfoCb, setSaveTextCb);
+    return;
+  }
+
   if (state.heroButtonPointer.includes(" ")) {
     let temp = state.heroButtonPointer.split(" ").join("-");
+    state.heroButtonPointer = temp;
+  }
+
+  // this block adds a / if need be
+  if (state.heroButtonPointer?.charAt(0) !== "/") {
+    const temp = `/${state.heroButtonPointer}`;
     state.heroButtonPointer = temp;
   }
 
