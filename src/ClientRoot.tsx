@@ -16,16 +16,11 @@ import BlogPage from "./pages/client/BlogPage";
 import ContactPage from "./pages/client/ContactPage";
 import ServicesPage from "./pages/client/ServicesPage";
 import ClassRegistrationPage from "./pages/client/ClassRegistrationPage";
+import ErrorPage from "./pages/client/ErrorPage"
 
 import AdminRoot from "./AdminRoot";
 
 interface Props extends RouteComponentProps {}
-
-const NoMatchPage = () => {
-  return (
-    <h3>404 - Not found</h3>
-  );
-};
 
 const ClientRoot: React.FC<Props> = () => {
   return (
@@ -44,7 +39,7 @@ const ClientRoot: React.FC<Props> = () => {
         <Route path="/services" render={props => <ServicesPage {...props} />} />
         <Route path="/contact" render={props => <ContactPage {...props} />} />
         <Route path="/training/class/:classNameAndId" render={props => <ClassRegistrationPage {...props} />} />
-        <Route component={NoMatchPage} />
+        <Route render={props => <ErrorPage {...props} />} />
       </Switch>
       <Footer />
     </Router>
