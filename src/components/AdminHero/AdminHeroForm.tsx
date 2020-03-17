@@ -5,7 +5,7 @@ import FormTextarea from "../Forms/FormTextarea";
 import { INSERT_MAIN_PAGE_HEADER } from "../../graphQL/mutations";
 
 import { Button } from "react-bootstrap";
-import { useMutation } from "@apollo/client";
+import { useMutation, MutationTuple } from "@apollo/client";
 
 interface Props {
   cb: any;
@@ -43,7 +43,7 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: any) => {
+const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: React.Dispatch<string>) => {
   console.log(state);
 
   if (
@@ -54,6 +54,11 @@ const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: any
   ) {
     setSaveTextCb("Please enter all fields");
     return setTimeout(() => setSaveTextCb("Submit"), 2500);
+  }
+
+  if (state.heroButtonPointer.includes(" ")) {
+    let temp = state.heroButtonPointer.split(" ").join("-");
+    state.heroButtonPointer = temp;
   }
 
   setSaveTextCb("Saving...");
@@ -67,6 +72,7 @@ const handleSubmit = async (state: State, addHeroInfoCb: any, setSaveTextCb: any
     }
   });
   window.location.reload();
+  // setTimeout(() => window.location.reload(), 2000); // For testing
 };
 
 const AdminHeroForm: React.FC<Props> = ({ cb }) => {
@@ -84,20 +90,6 @@ const AdminHeroForm: React.FC<Props> = ({ cb }) => {
         title="submit"
         className={`mt-3 ${saveText === "Please enter all fields" ? "btn-danger" : "btn-primary"}`}
         onClick={() => {
-          // console.log(state);
-          // addHeroInfo({
-          //   variables: {
-          //     heroHeadlineText: state.heroHeadlineText,
-          //     heroSubHeadlineText: state.heroSubHeadlineText,
-          //     heroButtonText: state.heroButtonText,
-          //     heroButtonPointer: state.heroButtonPointer,
-          //     active: state.active
-          //   }
-          // });
-          // setSaveText("Saving...");
-          // setTimeout(() => {
-          //   window.location.reload();
-          // }, 2000);
           handleSubmit(state, addHeroInfo, setSaveText);
         }}
       >
