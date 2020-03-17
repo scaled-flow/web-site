@@ -13,8 +13,6 @@ import Footer from "./components/Footer/Footer";
 // pages
 import ClientRoot from "./ClientRoot";
 
-
-
 const App: React.FC = () => {
   const client = createApolloClient();
 
