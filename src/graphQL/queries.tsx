@@ -18,6 +18,7 @@ export const GET_IN_PERSON_SAFE_CLASSES = gql`
         class_in_person_city
         class_in_person_state
         class_is_online
+        class_is_in_person
         class_start_date
         class_start_time
       }
@@ -32,7 +33,7 @@ export const GET_IN_PERSON_SAFE_CLASSES = gql`
 export const GET_ONLINE_SAFE_CLASSES = gql`
   query GetOnlineSafeClasses {
     consultant_profiles_link_class_profiles_link_class_schedules(
-      where: { class_schedule: { class_is_in_person: { _eq: false } }, class_profile: { class_type_id_fk: { _eq: 1 } } }
+      where: { class_schedule: { class_is_online: { _eq: true } }, class_profile: { class_type_id_fk: { _eq: 1 } } }
     ) {
       class_profile {
         class_desc
@@ -46,10 +47,13 @@ export const GET_ONLINE_SAFE_CLASSES = gql`
         class_in_person_city
         class_in_person_state
         class_is_online
+        class_is_in_person
         class_start_date
         class_start_time
+        class_schedule_id
       }
       consultant_profile {
+        consultant_profile_user_id
         profile_photo_url
       }
     }
@@ -72,11 +76,14 @@ export const GET_IN_PERSON_LESS_CLASSES = gql`
         class_in_person_city
         class_in_person_state
         class_is_online
+        class_is_in_person
         class_start_date
         class_start_time
+        class_schedule_id
       }
       consultant_profile {
         profile_photo_url
+        consultant_profile_user_id
       }
     }
   }
@@ -85,7 +92,7 @@ export const GET_IN_PERSON_LESS_CLASSES = gql`
 export const GET_ONLINE_LESS_CLASSES = gql`
   query GetOnlineLess {
     consultant_profiles_link_class_profiles_link_class_schedules(
-      where: { class_schedule: { class_is_in_person: { _eq: false } }, class_profile: { class_type_id_fk: { _eq: 2 } } }
+      where: { class_schedule: { class_is_online: { _eq: false } }, class_profile: { class_type_id_fk: { _eq: 2 } } }
     ) {
       class_profile {
         class_desc
@@ -100,6 +107,7 @@ export const GET_ONLINE_LESS_CLASSES = gql`
         class_in_person_city
         class_in_person_state
         class_is_online
+        class_is_in_person
         class_start_date
         class_start_time
       }
@@ -174,8 +182,8 @@ export const GetClassData = (consultantId: number, classId: number, scheduleId: 
     }
   }
   
-  `
-}
+  `;
+};
 
 export const GET_ALL_HERO_INFO = gql`
   query GetAllHeroInfo {

@@ -13,11 +13,12 @@ interface Props {
   consultantId: number;
   classId: number;
   scheduleId: number;
+  isOnline: "in-person" | "online";
 }
 
-const ClassRegistrationPage: React.FC<Props> = ({ ...props }) => {
+const ClassRegistrationPage: React.FC<Props> = ({ consultantId, classId, scheduleId, isOnline }) => {
   const [classInfo, setClassInfo] = useState<Class>();
-  const { loading, error, data } = useQuery(GetClassData(props.consultantId, props.classId, props.scheduleId));
+  const { loading, error, data } = useQuery(GetClassData(consultantId, classId, scheduleId));
 
   useEffect(() => {
     !error && !loading && setClassInfo(data.consultant_profiles_link_class_profiles_link_class_schedules_by_pk);
@@ -29,7 +30,7 @@ const ClassRegistrationPage: React.FC<Props> = ({ ...props }) => {
       <ContentContainer>
         <Container>
           <RegistrationInfo classInfo={classInfo} />
-          <RegistrationForm />
+          <RegistrationForm classInfo={classInfo} isOnline={isOnline} />
         </Container>
       </ContentContainer>
     </>

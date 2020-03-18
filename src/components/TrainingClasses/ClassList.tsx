@@ -67,6 +67,8 @@ function toggleFilter(classType: "online" | "in-person", dispatch: any, state: S
   }
 }
 
+const NUMBER_OF_CLASSES_TO_DISPLAY = 3;
+
 const ClassList: React.FC<Props> = ({ classType }) => {
   const [state, dispatch] = useReducer(reducer, {
     isInPersonClassesFiltered: true,
@@ -110,7 +112,7 @@ const ClassList: React.FC<Props> = ({ classType }) => {
   useEffect(() => {
     let temp: Class[];
     if (state.isInPersonClassesFiltered) {
-      temp = state.inPersonClasses ? state.inPersonClasses.filter((c, i) => i < 2) : [];
+      temp = state.inPersonClasses ? state.inPersonClasses.filter((c, i) => i < NUMBER_OF_CLASSES_TO_DISPLAY) : [];
     } else {
       temp = state.inPersonClasses ? state.inPersonClasses : [];
     }
@@ -140,7 +142,7 @@ const ClassList: React.FC<Props> = ({ classType }) => {
   useEffect(() => {
     let temp: Class[];
     if (state.isOnlineClassesFiltered) {
-      temp = state.onlineClasses ? state.onlineClasses.filter((c, i) => i < 2) : [];
+      temp = state.onlineClasses ? state.onlineClasses.filter((c, i) => i < NUMBER_OF_CLASSES_TO_DISPLAY) : [];
     } else {
       temp = state.onlineClasses ? state.onlineClasses : [];
     }
