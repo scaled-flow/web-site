@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { GetClassData } from "../../graphQL/queries";
 import { Class } from "../../graphQL/types";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 
 
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
