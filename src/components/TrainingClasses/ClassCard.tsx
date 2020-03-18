@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Class } from "./ClassList";
+import { Class } from "../../graphQL/types";
 import { Row, Col, Image } from "react-bootstrap";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -43,7 +43,6 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
     });
   }, [classData]);
 
-  // console.log(classData);
   return (
     <>
       <Row className="align-items-center">
@@ -64,16 +63,11 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
           <Image src={classData.class_profile.class_image} fluid />
         </Col>
         <Col xs={2}>
-          <Link
-            to={{
-              pathname: `class/${classData.class_profile.class_title.split(" ").join("-")}-${
-                classData.class_profile.class_profile_id
-              }`,
-              state: classData
-            }}
-          >
+
+          <a href={`/training/class/${classData.class_profile.class_profile_id}/${classData.class_schedule.class_schedule_id}/${classData.consultant_profile.consultant_profile_user_id}/${classData.class_profile.class_title.split(" ").join("-")}-${classData.class_profile.class_profile_id}`}>
+
             <Icon icon={faPlusCircle} size="2x" color="#C4C4C4" />
-          </Link>
+          </a>
         </Col>
       </Row>
     </>

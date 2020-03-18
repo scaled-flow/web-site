@@ -49,3 +49,9 @@ export interface Country {
     country_id: number
     country: string
 }
+
+export interface Class {
+    class_profile: ClassProfile
+    class_schedule: ClassSchedule
+    consultant_profile: ConsultantProfile
+  }
