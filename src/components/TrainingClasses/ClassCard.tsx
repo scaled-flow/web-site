@@ -25,12 +25,7 @@ interface DateInfo {
 }
 
 const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
-  const [dateInfo, setDateInfo] = useState<DateInfo>({
-    longStart: "",
-    longEnd: "",
-    shortMonth: "",
-    day: ""
-  });
+  const [dateInfo, setDateInfo] = useState<DateInfo>({} as DateInfo);
 
   useEffect(() => {
     setDateInfo({
