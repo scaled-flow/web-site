@@ -1,9 +1,9 @@
 import gql from "graphql-tag";
 
-export const GET_IN_PERSON_CLASSES = gql`
-  query GetInPersonClasses {
+export const GET_IN_PERSON_SAFE_CLASSES = gql`
+  query GetInPersonSafeClasses {
     consultant_profiles_link_class_profiles_link_class_schedules(
-      where: { class_schedule: { class_is_in_person: { _eq: true } } }
+      where: { class_schedule: { class_is_in_person: { _eq: true } }, class_profile: { class_type_id_fk: { _eq: 1 } } }
     ) {
       class_profile {
         class_desc
@@ -27,10 +27,10 @@ export const GET_IN_PERSON_CLASSES = gql`
   }
 `;
 
-export const GET_ONLINE_CLASSES = gql`
-  query GetOnlineClasses {
+export const GET_ONLINE_SAFE_CLASSES = gql`
+  query GetOnlineSafeClasses {
     consultant_profiles_link_class_profiles_link_class_schedules(
-      where: { class_schedule: { class_is_in_person: { _eq: false } } }
+      where: { class_schedule: { class_is_in_person: { _eq: false } }, class_profile: { class_type_id_fk: { _eq: 1 } } }
     ) {
       class_profile {
         class_desc

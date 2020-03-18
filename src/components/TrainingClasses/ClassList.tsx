@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import ClassCard from "./ClassCard";
 
 // queries
-import { GET_IN_PERSON_CLASSES, GET_ONLINE_CLASSES } from "../../graphQL/queries";
+import { GET_IN_PERSON_SAFE_CLASSES, GET_ONLINE_SAFE_CLASSES } from "../../graphQL/queries";
 import { useQuery } from "@apollo/client";
 import { ClassProfile, ClassSchedule, ConsultantProfile } from "../../graphQL/types";
 
@@ -68,8 +68,8 @@ const ClassList: React.FC<Props> = ({ classType }) => {
     isOnlineClassesFiltered: true
   } as State);
 
-  const { loading: inPersonLoading, error: inPersonError, data: inPersonData } = useQuery(GET_IN_PERSON_CLASSES);
-  const { loading: onlineLoading, error: onlineError, data: onlineData } = useQuery(GET_ONLINE_CLASSES);
+  const { loading: inPersonLoading, error: inPersonError, data: inPersonData } = useQuery(GET_IN_PERSON_SAFE_CLASSES);
+  const { loading: onlineLoading, error: onlineError, data: onlineData } = useQuery(GET_ONLINE_SAFE_CLASSES);
 
   // init in person data
   useEffect(() => {
@@ -115,7 +115,6 @@ const ClassList: React.FC<Props> = ({ classType }) => {
     });
   }, [state.onlineClasses, state.isOnlineClassesFiltered]);
 
-  console.log(state);
   return (
     <>
       <Container>
@@ -125,7 +124,7 @@ const ClassList: React.FC<Props> = ({ classType }) => {
             {!inPersonLoading &&
               state.inPersonClassesFiltered.map((c, i) => (
                 <Col md={12} className="class-card" key={i}>
-                  <ClassCard classData={c} isOnline="In-Person, Live Instructor-led Class" />
+                  <ClassCard classData={c} isOnline={false} isOnlineText="In-Person, Live Instructor-led Class" />
                 </Col>
               ))}
             <Row>
@@ -141,7 +140,7 @@ const ClassList: React.FC<Props> = ({ classType }) => {
             {!onlineLoading &&
               state.onlineClassesFiltered.map((c, i) => (
                 <Col md={12} className="class-card" key={i}>
-                  <ClassCard classData={c} isOnline="Online, Live Instructor-led Class" />
+                  <ClassCard classData={c} isOnline={true} isOnlineText="Online, Live Instructor-led Class" />
                 </Col>
               ))}
             <Row>
