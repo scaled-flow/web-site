@@ -13,7 +13,8 @@ import momemt from "moment";
 
 interface Props {
   classData: Class;
-  isOnline: string;
+  isOnline: boolean;
+  isOnlineText: string;
 }
 
 interface DateInfo {
@@ -23,7 +24,7 @@ interface DateInfo {
   day?: number | string;
 }
 
-const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
+const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
   const [dateInfo, setDateInfo] = useState<DateInfo>({
     longStart: "",
     longEnd: "",
@@ -48,20 +49,23 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
         <Col xs={2}>
           <ClassDateIcon date={{ month: dateInfo.shortMonth, day: dateInfo.day }} />
         </Col>{" "}
-        
         <Col xs={6}>
-           <h6>{classData.class_profile.class_title}</h6>
+          <h6>{classData.class_profile.class_title}</h6>
           <p>{`${dateInfo.longStart} - ${dateInfo.longEnd}`}</p>
           <p>
-            {classData.class_schedule.class_in_person_city}, {classData.class_schedule.class_in_person_state}
+            {!isOnline
+              ? `${classData.class_schedule.class_in_person_city}, ${classData.class_schedule.class_in_person_state}`
+              : `${momemt(classData.class_schedule.class_start_time, "HH:mm:ss").format("hh:mm A")} CST, USA`}
           </p>
-          <p>{isOnline}</p>
+          <p>{isOnlineText}</p>
         </Col>
         <Col xs={2}>
-          <Image src={classData.consultant_profile.profile_photo_url} fluid roundedCircle />
+          <Image src={classData.class_profile.class_image} fluid />
         </Col>
         <Col xs={2}>
+
           <a href={`/training/class/${classData.class_profile.class_profile_id}/${classData.class_schedule.class_schedule_id}/${classData.consultant_profile.consultant_profile_user_id}/${classData.class_profile.class_title.split(" ").join("-")}-${classData.class_profile.class_profile_id}`}>
+
             <Icon icon={faPlusCircle} size="2x" color="#C4C4C4" />
           </a>
         </Col>

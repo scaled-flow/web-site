@@ -13,9 +13,8 @@ interface Props extends RouteComponentProps {}
 
 export type ClassType = "LeSS" | "scaled-agile" | undefined;
 
-const TrainingPage: React.FC<Props> = ({ ...props }) => {
-  const { location } = useHistory();
-
+const TrainingPage: React.FC<Props> = ({ location }) => {
+  // const { location } = useHistory();
   return (
     <>
       {location.pathname === "/training/scaled-agile" ? (
@@ -25,11 +24,7 @@ const TrainingPage: React.FC<Props> = ({ ...props }) => {
           type="SA"
         />
       ) : (
-        <TrainingHeader
-          title="LeSS Certification Training"
-          description="Do more with LeSS"
-          type="LeSS"
-        />
+        <TrainingHeader title="LeSS Certification Training" description="Do more with LeSS" type="LeSS" />
       )}
       <ContentContainer>
         <ClassList classType={location.pathname} />
