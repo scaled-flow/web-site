@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faCaretRight, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -32,10 +32,7 @@ const AdminContactCard: React.FC<Props> = ({ contactName }) => {
       </Row>
       {!isCollapsed && (
         <form>
-          <AdminContactForm
-            type="update"
-            cb={() => setIsCollapsed(!isCollapsed)}
-          />
+          <AdminContactForm type="update" cb={() => setIsCollapsed(!isCollapsed)} />
         </form>
       )}
     </div>

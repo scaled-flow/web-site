@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from "react";
 
 import { Row, Col, Button } from "react-bootstrap";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 
 import { GetClassPrice } from "../../graphQL/queries";
 import FormInput from "../Forms/FormInput";

@@ -5,8 +5,8 @@ import ClassCard from "./ClassCard";
 
 // queries
 import { GET_IN_PERSON_CLASSES } from "../../graphQL/queries";
-import {ClassProfile, ClassSchedule, ConsultantProfile} from "../../graphQL/types";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
+import { ClassProfile, ClassSchedule, ConsultantProfile } from "../../graphQL/types";
 
 interface Props {}
 interface Props {
@@ -14,9 +14,9 @@ interface Props {
 }
 
 export interface Class {
-  class_profile: ClassProfile
-  class_schedule: ClassSchedule
-  consultant_profile: ConsultantProfile
+  class_profile: ClassProfile;
+  class_schedule: ClassSchedule;
+  consultant_profile: ConsultantProfile;
 }
 
 const ClassList: React.FC<Props> = ({ classType }) => {
