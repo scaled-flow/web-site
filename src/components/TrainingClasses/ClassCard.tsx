@@ -49,9 +49,8 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
         <Col xs={2}>
           <ClassDateIcon date={{ month: dateInfo.shortMonth, day: dateInfo.day }} />
         </Col>{" "}
-        
         <Col xs={6}>
-           <h6>{classData.class_profile.class_title}</h6>
+          <h6>{classData.class_profile.class_title}</h6>
           <p>{`${dateInfo.longStart} - ${dateInfo.longEnd}`}</p>
           <p>
             {classData.class_schedule.class_in_person_city}, {classData.class_schedule.class_in_person_state}
@@ -59,12 +58,14 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
           <p>{isOnline}</p>
         </Col>
         <Col xs={2}>
-          <Image src={classData.consultant_profile.profile_photo_url} fluid roundedCircle />
+          <Image src={classData.class_profile.class_image} fluid />
         </Col>
         <Col xs={2}>
           <Link
             to={{
-              pathname: `class/${classData.class_profile.class_title.split(" ").join("-")}-${classData.class_profile.class_profile_id}`,
+              pathname: `class/${classData.class_profile.class_title.split(" ").join("-")}-${
+                classData.class_profile.class_profile_id
+              }`,
               state: classData
             }}
           >

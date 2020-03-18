@@ -2,11 +2,14 @@ import gql from "graphql-tag";
 
 export const GET_IN_PERSON_CLASSES = gql`
   query GetInPersonClasses {
-    consultant_profiles_link_class_profiles_link_class_schedules(where: {class_schedule: {class_is_in_person: {_eq: true}}}) {
+    consultant_profiles_link_class_profiles_link_class_schedules(
+      where: { class_schedule: { class_is_in_person: { _eq: true } } }
+    ) {
       class_profile {
         class_desc
         class_title
         class_profile_id
+        class_image
       }
       class_schedule {
         class_end_date
@@ -24,14 +27,16 @@ export const GET_IN_PERSON_CLASSES = gql`
   }
 `;
 
-
 export const GET_ONLINE_CLASSES = gql`
   query GetOnlineClasses {
-    consultant_profiles_link_class_profiles_link_class_schedules(where: {class_schedule: {class_is_in_person: {_eq: false}}}) {
+    consultant_profiles_link_class_profiles_link_class_schedules(
+      where: { class_schedule: { class_is_in_person: { _eq: false } } }
+    ) {
       class_profile {
         class_desc
         class_title
         class_profile_id
+        class_image
       }
       class_schedule {
         class_end_date
