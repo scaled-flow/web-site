@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
 
-import { RouteComponentProps } from "react-router-dom";
-import { Container, Row, Col, Image } from "react-bootstrap";
-import { Class } from "../../components/TrainingClasses/ClassList";
-import moment from "moment";
+import { Container } from "react-bootstrap";
+import { GetClassData } from "../../graphQL/queries";
+import { Class } from "../../graphQL/types";
+import { useQuery } from "@apollo/react-hooks";
 
-import Header from "../../components/Header/Header";
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import RegistrationInfo from "../../components/Registration/RegistrationInfo";
 import RegistrationForm from "../../components/Registration/RegistrationForm";
 
-interface Props extends RouteComponentProps {}
+interface Props {
+  consultantId: number
+  classId: number
+  scheduleId: number
+}
 
-const ClassRegistrationPage: React.FC<Props> = ({ location, history, ...props }) => {
+const ClassRegistrationPage: React.FC<Props> = ({ ...props }) => {
   const [classInfo, setClassInfo] = useState<Class>();
+  const { loading, error, data } = useQuery(GetClassData(props.consultantId,props.classId,props.scheduleId));
 
   useEffect(() => {
-    setClassInfo(location.state as Class);
-    if (location.state === undefined) {
-      history.replace("/");
-    }
-  }, [location]);
+    !error && !loading && setClassInfo(data.consultant_profiles_link_class_profiles_link_class_schedules_by_pk)  
+  }, [loading, error, data]);
 
   console.log(classInfo);
   return (
