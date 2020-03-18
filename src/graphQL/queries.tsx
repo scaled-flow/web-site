@@ -81,7 +81,7 @@ export const GET_IN_PERSON_LESS_CLASSES = gql`
 `;
 
 export const GET_ONLINE_LESS_CLASSES = gql`
-  query GetOnlineLeSSClasses {
+  query GetOnlineLess {
     consultant_profiles_link_class_profiles_link_class_schedules(
       where: { class_schedule: { class_is_in_person: { _eq: false } }, class_profile: { class_type_id_fk: { _eq: 2 } } }
     ) {
