@@ -44,7 +44,7 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline }) => {
 
   return (
     <>
-      <Row>
+      <Row className="align-items-center">
         <Col xs={2}>
           <ClassDateIcon date={{ month: dateInfo.shortMonth, day: dateInfo.day }} />
         </Col>{" "}

@@ -5,6 +5,7 @@ import { GetClassData } from "../../graphQL/queries";
 import { Class } from "../../graphQL/types";
 import { useQuery } from "@apollo/react-hooks";
 
+
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import RegistrationInfo from "../../components/Registration/RegistrationInfo";
 import RegistrationForm from "../../components/Registration/RegistrationForm";
