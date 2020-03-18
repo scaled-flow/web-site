@@ -54,7 +54,7 @@ export const GET_ONLINE_SAFE_CLASSES = gql`
   }
 `;
 export const GET_IN_PERSON_LESS_CLASSES = gql`
-  query GetInPersonLeSSClasses {
+  query GetInPersonLessClasses {
     consultant_profiles_link_class_profiles_link_class_schedules(
       where: { class_schedule: { class_is_in_person: { _eq: true } }, class_profile: { class_type_id_fk: { _eq: 2 } } }
     ) {
