@@ -40,9 +40,10 @@ const handleSubmit = async (state: State, insertContentCb: any, setSubmitBtnCb: 
     state.service_offering_header === ""
   ) {
     setSubmitBtnCb({ variant: "danger", text: "Please fill out all fields..." });
-    return setTimeout(() => setSubmitBtnCb({ variant: "primary", text: "Submit" }), 2000);
+    return setTimeout(() => setSubmitBtnCb({ variant: "primary", text: "Submit" }), 3000);
   }
 
+  setSubmitBtnCb({ variant: "primary", text: "Saving..." });
   await insertContentCb({
     variables: {
       body: state.service_offering_body,
