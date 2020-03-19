@@ -202,6 +202,7 @@ export const GET_CURRENT_HERO_INFO = gql`
   query GetCurrentHeroInfo {
     main_page_header(where: { active: { _eq: true } }) {
       hero_button_text
+      hero_button_pointer
       hero_headline_text
       hero_sub_headline_text
       id

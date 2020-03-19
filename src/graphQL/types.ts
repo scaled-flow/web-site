@@ -55,3 +55,18 @@ export interface Class {
   class_schedule: ClassSchedule;
   consultant_profile: ConsultantProfile;
 }
+
+export interface MainPageHeader {
+  hero_button_text: string;
+  hero_button_pointer: string;
+  hero_headline_text: string;
+  hero_sub_headline_text: string;
+  id: number;
+}
+
+export interface MainPageContent {
+  service_offering_body: string;
+  service_offering_font_awesome_icon: string;
+  service_offering_header: string;
+  id: number;
+}
