@@ -7,13 +7,17 @@ import { UPDATE_ACTIVE_CONTENT_ITEMS } from "../../graphQL/mutations";
 import { MainPageContent } from "../../graphQL/types";
 
 import "./AdminMainContent.css";
+import ContentDeleteModal from "./ContentDeleteModal";
+import ContentEditModal from "./ContentEditModal";
 
 interface Props {
   item: MainPageContent;
 }
 
 const ContentItem: React.FC<Props> = ({ item }) => {
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+  const [isDeleteModalShown, setIsDeleteModalShown] = useState<boolean>(false);
+  const [isEditModalShown, setIsEditModalShown] = useState<boolean>(false);
 
   const [updateActiveContent] = useMutation(UPDATE_ACTIVE_CONTENT_ITEMS);
 
@@ -49,10 +53,14 @@ const ContentItem: React.FC<Props> = ({ item }) => {
                 <p>{item.service_offering_body}</p>
               </Col>
               <Col md={3} className="align-self-center">
-                <button className="no-style">
+                <button aria-label="edit" className="no-style" onClick={() => setIsEditModalShown(!isEditModalShown)}>
                   <i className="far fa-edit fa-2x"></i>
                 </button>
-                <button className="no-style ml-4">
+                <button
+                  aria-label="delete"
+                  className="no-style ml-4"
+                  onClick={() => setIsDeleteModalShown(!isDeleteModalShown)}
+                >
                   <i className="far fa-trash-alt fa-2x"></i>
                 </button>
               </Col>
@@ -60,6 +68,8 @@ const ContentItem: React.FC<Props> = ({ item }) => {
           )}
         </Col>
       </Row>
+      <ContentDeleteModal item={item} cb={() => setIsDeleteModalShown(!isDeleteModalShown)} show={isDeleteModalShown} />
+      <ContentEditModal item={item} cb={() => setIsEditModalShown(!isEditModalShown)} show={isEditModalShown} />
     </>
   );
 };

@@ -41,7 +41,7 @@ const reducer = (state: State, action: Action) => {
         isBodySectionCollapsed: true,
         isAddHeroCollapsed: true,
         isAddContentCollapsed: true,
-        headerBtnText: state.isHeaderSectionCollapsed ? "Open" : "Close",
+        headerBtnText: !state.isHeaderSectionCollapsed ? "Open" : "Close",
         bodyBtnText: "Open"
       };
     case "toggle_body_section":
@@ -51,8 +51,8 @@ const reducer = (state: State, action: Action) => {
         isHeaderSectionCollapsed: true,
         isAddHeroCollapsed: true,
         isAddContentCollapsed: true,
-        bodyBtnText: state.isBodySectionCollapsed ? "Open" : "Close",
-        headerBtnTest: "Close"
+        bodyBtnText: !state.isBodySectionCollapsed ? "Open" : "Close",
+        headerBtnText: "Open"
       };
     case "toggle_add_new_header":
       return { ...state, isAddHeroCollapsed: !state.isAddHeroCollapsed };
@@ -79,7 +79,7 @@ const AdminHomePage: React.FC<Props> = () => {
     isAddHeroCollapsed: true,
     isHeaderSectionCollapsed: true,
     headerBtnText: "Open",
-    isBodySectionCollapsed: false, // FIXME: Change back to true
+    isBodySectionCollapsed: true,
     bodyBtnText: "Open",
     isAddContentCollapsed: true
   } as State);
