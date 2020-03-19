@@ -220,3 +220,15 @@ export const GET_MAIN_PAGE_INFO = gql`
     }
   }
 `;
+
+export const GET_ALL_MAIN_PAGE_INFO = gql`
+  query GetAllMainPageInfo {
+    main_page_services(order_by: { id: asc }) {
+      active
+      id
+      service_offering_body
+      service_offering_font_awesome_icon
+      service_offering_header
+    }
+  }
+`;

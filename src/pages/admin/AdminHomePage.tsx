@@ -9,6 +9,8 @@ import AdminHeader from "../../components/Header/AdminHeader";
 import AdminHeroForm from "../../components/AdminHero/AdminHeroForm";
 import AdminHeroList from "../../components/AdminHero/AdminHeroList";
 
+import ContentList from "../../components/AdminMainContent/ContentList";
+
 import { GET_CURRENT_HERO_INFO, GET_MAIN_PAGE_INFO } from "../../graphQL/queries";
 import { MainPageHeader, MainPageContent } from "../../graphQL/types";
 
@@ -32,7 +34,7 @@ const reducer = (state: State, action: Action) => {
         isHeaderSectionCollapsed: !state.isHeaderSectionCollapsed,
         isBodySectionCollapsed: true,
         isAddHeroCollapsed: true,
-        headerBtnText: "Close",
+        headerBtnText: state.isHeaderSectionCollapsed ? "Open" : "Close",
         bodyBtnText: "Open"
       };
     case "toggle_body_section":
@@ -41,7 +43,7 @@ const reducer = (state: State, action: Action) => {
         isBodySectionCollapsed: !state.isBodySectionCollapsed,
         isHeaderSectionCollapsed: true,
         isAddHeroCollapsed: true,
-        bodyBtnText: "Open",
+        bodyBtnText: state.isBodySectionCollapsed ? "Open" : "Close",
         headerBtnTest: "Close"
       };
     case "toggle_add_new_header":
@@ -68,7 +70,7 @@ const AdminHomePage: React.FC<Props> = () => {
     isAddHeroCollapsed: true,
     isHeaderSectionCollapsed: true,
     headerBtnText: "Open",
-    isBodySectionCollapsed: true,
+    isBodySectionCollapsed: false, // FIXME: Change back to true
     bodyBtnText: "Open"
   } as State);
 
@@ -100,7 +102,7 @@ const AdminHomePage: React.FC<Props> = () => {
             </Button>
           </Col>
         </Row>
-        {!state.isHeaderSectionCollapsed && (
+        {!state.isHeaderSectionCollapsed && state.isBodySectionCollapsed && (
           <>
             <Row>
               <Col className="text-center">
@@ -127,6 +129,13 @@ const AdminHomePage: React.FC<Props> = () => {
               </Col>
             </Row>
           </>
+        )}
+        {state.isHeaderSectionCollapsed && !state.isBodySectionCollapsed && (
+          <Row>
+            <Col>
+              <ContentList />
+            </Col>
+          </Row>
         )}
         {state.isBodySectionCollapsed && state.isHeaderSectionCollapsed && (
           <Row>
