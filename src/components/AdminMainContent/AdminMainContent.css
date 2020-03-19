@@ -1,0 +1,11 @@
+.content-item {
+  background-color: #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.no-style {
+  background: none;
+  border: none;
+}

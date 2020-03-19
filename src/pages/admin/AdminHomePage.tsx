@@ -65,7 +65,6 @@ const AdminHomePage: React.FC<Props> = () => {
     setCurrentContent(!mainLoading ? mainData.main_page_services : []);
   }, [heroLoading, heroData, mainLoading, mainData]);
 
-  console.log(currentContent);
   const [state, dispatch] = useReducer(reducer, {
     isAddHeroCollapsed: true,
     isHeaderSectionCollapsed: true,
@@ -102,6 +101,7 @@ const AdminHomePage: React.FC<Props> = () => {
             </Button>
           </Col>
         </Row>
+        {/* ======= EDIT HERO CONTENT SECTION =========== */}
         {!state.isHeaderSectionCollapsed && state.isBodySectionCollapsed && (
           <>
             <Row>
@@ -130,6 +130,7 @@ const AdminHomePage: React.FC<Props> = () => {
             </Row>
           </>
         )}
+        {/* ========== EDIT CONTENT LIST SECTION ============= */}
         {state.isHeaderSectionCollapsed && !state.isBodySectionCollapsed && (
           <Row>
             <Col>

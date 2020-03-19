@@ -69,4 +69,5 @@ export interface MainPageContent {
   service_offering_font_awesome_icon: string;
   service_offering_header: string;
   id: number;
+  active: boolean;
 }

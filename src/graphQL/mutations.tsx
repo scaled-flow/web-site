@@ -101,3 +101,18 @@ export const UPDATE_MAIN_PAGE_HEADER_CONTENT = gql`
     }
   }
 `;
+
+export const UPDATE_ACTIVE_CONTENT_ITEMS = gql`
+  mutation UpdateActiveContentItems($id: Int!, $active: Boolean!) {
+    update_main_page_services(where: { id: { _eq: $id } }, _set: { active: $active }) {
+      affected_rows
+      returning {
+        active
+        id
+        service_offering_body
+        service_offering_font_awesome_icon
+        service_offering_header
+      }
+    }
+  }
+`;
