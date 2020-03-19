@@ -116,3 +116,25 @@ export const UPDATE_ACTIVE_CONTENT_ITEMS = gql`
     }
   }
 `;
+
+export const INSERT_MAIN_PAGE_CONTENT = gql`
+  mutation MyMutation2($body: String!, $icon: String!, $header: String!) {
+    insert_main_page_services(
+      objects: {
+        service_offering_body: $body
+        service_offering_font_awesome_icon: $icon
+        service_offering_header: $header
+        active: false
+      }
+    ) {
+      affected_rows
+      returning {
+        active
+        id
+        service_offering_body
+        service_offering_font_awesome_icon
+        service_offering_header
+      }
+    }
+  }
+`;
