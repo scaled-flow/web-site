@@ -13,7 +13,7 @@ interface Props {
 }
 
 const ContentItem: React.FC<Props> = ({ item }) => {
-  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
 
   const [updateActiveContent] = useMutation(UPDATE_ACTIVE_CONTENT_ITEMS);
 
@@ -47,6 +47,14 @@ const ContentItem: React.FC<Props> = ({ item }) => {
               <Col md={9}>
                 <i className={`fa-2x ${item.service_offering_font_awesome_icon}`}></i>
                 <p>{item.service_offering_body}</p>
+              </Col>
+              <Col md={3} className="align-self-center">
+                <button className="no-style">
+                  <i className="far fa-edit fa-2x"></i>
+                </button>
+                <button className="no-style ml-4">
+                  <i className="far fa-trash-alt fa-2x"></i>
+                </button>
               </Col>
             </Row>
           )}
