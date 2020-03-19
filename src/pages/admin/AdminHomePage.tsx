@@ -10,6 +10,7 @@ import AdminHeroForm from "../../components/AdminHero/AdminHeroForm";
 import AdminHeroList from "../../components/AdminHero/AdminHeroList";
 
 import ContentList from "../../components/AdminMainContent/ContentList";
+import NewContentForm from "../../components/AdminMainContent/NewContentForm";
 
 import { GET_CURRENT_HERO_INFO, GET_MAIN_PAGE_INFO } from "../../graphQL/queries";
 import { MainPageHeader, MainPageContent } from "../../graphQL/types";
@@ -148,7 +149,7 @@ const AdminHomePage: React.FC<Props> = () => {
                 {state.isAddContentCollapsed ? (
                   <Button onClick={() => dispatch({ type: "toggle_add_new_content" })}>Add New Service</Button>
                 ) : (
-                  <p>add new content</p>
+                  <NewContentForm cb={() => dispatch({ type: "toggle_add_new_content" })} />
                 )}
               </Col>
             </Row>
