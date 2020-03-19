@@ -21,10 +21,15 @@ interface State {
   isHeaderSectionCollapsed: boolean;
   headerBtnText: string;
   isBodySectionCollapsed: boolean;
+  isAddContentCollapsed: boolean;
   bodyBtnText: string;
 }
 
-type Action = { type: "toggle_header_section" } | { type: "toggle_body_section" } | { type: "toggle_add_new_header" };
+type Action =
+  | { type: "toggle_header_section" }
+  | { type: "toggle_body_section" }
+  | { type: "toggle_add_new_header" }
+  | { type: "toggle_add_new_content" };
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -34,6 +39,7 @@ const reducer = (state: State, action: Action) => {
         isHeaderSectionCollapsed: !state.isHeaderSectionCollapsed,
         isBodySectionCollapsed: true,
         isAddHeroCollapsed: true,
+        isAddContentCollapsed: true,
         headerBtnText: state.isHeaderSectionCollapsed ? "Open" : "Close",
         bodyBtnText: "Open"
       };
@@ -43,11 +49,14 @@ const reducer = (state: State, action: Action) => {
         isBodySectionCollapsed: !state.isBodySectionCollapsed,
         isHeaderSectionCollapsed: true,
         isAddHeroCollapsed: true,
+        isAddContentCollapsed: true,
         bodyBtnText: state.isBodySectionCollapsed ? "Open" : "Close",
         headerBtnTest: "Close"
       };
     case "toggle_add_new_header":
       return { ...state, isAddHeroCollapsed: !state.isAddHeroCollapsed };
+    case "toggle_add_new_content":
+      return { ...state, isAddContentCollapsed: !state.isAddContentCollapsed };
     default:
       return { ...state };
   }
@@ -70,7 +79,8 @@ const AdminHomePage: React.FC<Props> = () => {
     isHeaderSectionCollapsed: true,
     headerBtnText: "Open",
     isBodySectionCollapsed: false, // FIXME: Change back to true
-    bodyBtnText: "Open"
+    bodyBtnText: "Open",
+    isAddContentCollapsed: true
   } as State);
 
   return (
@@ -132,12 +142,24 @@ const AdminHomePage: React.FC<Props> = () => {
         )}
         {/* ========== EDIT CONTENT LIST SECTION ============= */}
         {state.isHeaderSectionCollapsed && !state.isBodySectionCollapsed && (
-          <Row>
-            <Col>
-              <ContentList />
-            </Col>
-          </Row>
+          <>
+            <Row>
+              <Col className="text-center">
+                {state.isAddContentCollapsed ? (
+                  <Button onClick={() => dispatch({ type: "toggle_add_new_content" })}>Add New Service</Button>
+                ) : (
+                  <p>add new content</p>
+                )}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <ContentList />
+              </Col>
+            </Row>
+          </>
         )}
+        {/* =========== CURRENT CONTENT SECTION ============= */}
         {state.isBodySectionCollapsed && state.isHeaderSectionCollapsed && (
           <Row>
             <Col sm={{ span: 6 }} className="text-center hero">
