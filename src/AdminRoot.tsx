@@ -26,7 +26,7 @@ import { withAuthenticator } from 'aws-amplify-react';
 
 interface Props extends RouteComponentProps {}
 
-const ClientRoot: React.FC<Props> = () => {
+const AdminRoot: React.FC<Props> = () => {
   return (
     <Router>
       <AdminNavigation />
@@ -66,4 +66,5 @@ const ClientRoot: React.FC<Props> = () => {
   );
 };
 
-export default withAuthenticator(ClientRoot);
+export default AdminRoot;
+// export default withAuthenticator(ClientRoot);

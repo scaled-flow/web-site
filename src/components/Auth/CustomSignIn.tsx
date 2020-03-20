@@ -1,16 +1,24 @@
 import React from "react";
 import { SignIn } from "aws-amplify-react";
+import { Container, Row, Col } from "react-bootstrap";
 
 export class CustomSignIn extends SignIn {
+  //@ts-ignore  
   constructor(props) {
     super(props);
     this._validAuthStates = ["signIn", "signedOut", "signedUp"];
   }
-
+  //@ts-ignore
   showComponent(theme) {
     return (
       <div className="mx-auto w-full max-w-xs">
-        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form 
+        style={{
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%"
+        }}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <label
               className="block text-grey-darker text-sm font-bold mb-2"
@@ -58,6 +66,7 @@ export class CustomSignIn extends SignIn {
             <button
               className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
+              //@ts-ignore
               onClick={() => super.signIn()}
             >
               Login
