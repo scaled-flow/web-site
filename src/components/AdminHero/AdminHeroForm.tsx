@@ -5,7 +5,7 @@ import FormTextarea from "../Forms/FormTextarea";
 import { INSERT_MAIN_PAGE_HEADER } from "../../graphQL/mutations";
 
 import { Button } from "react-bootstrap";
-import { useMutation, MutationTuple } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 interface Props {
   cb: any;

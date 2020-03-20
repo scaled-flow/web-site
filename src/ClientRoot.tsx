@@ -35,7 +35,7 @@ const ClientRoot: React.FC<Props> = () => {
         <Route path="/training/scaled-agile" render={props => <TrainingPage {...props} />} />
         <Route path="/training/LeSS" render={props => <TrainingPage {...props} />} />
         <Route path="/blog" render={props => <BlogPage {...props} />} />
-        <Route path="/services" render={props => <ServicesPage {...props} />} />
+        {/* <Route path="/services" render={props => <ServicesPage {...props} />} /> */}
         <Route path="/contact" render={props => <ContactPage {...props} />} />
         <Route
           path="/training/class/:classId/:scheduleID/:consultantId/:classNameAndId/:isOnline"

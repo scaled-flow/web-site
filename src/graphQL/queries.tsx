@@ -232,3 +232,30 @@ export const GET_ALL_MAIN_PAGE_INFO = gql`
     }
   }
 `;
+
+export const GET_ALL_CONSULTANTS = gql`
+  query GetAllConsultants {
+    consultant_profiles(order_by: { first_name: asc }) {
+      consultant_profile_user_id
+      email
+      first_name
+      job_title
+      last_name
+      phone
+      profile_description
+      profile_photo_url
+      consultant_profiles_link_class_profiles_link_class_schedules {
+        class_profile {
+          class_type {
+            class_type_abbreviation
+            class_type_full_name
+          }
+          class_type_id_fk
+          class_title
+          class_profile_id
+          class_image
+        }
+      }
+    }
+  }
+`;

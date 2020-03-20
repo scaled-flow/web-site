@@ -9,6 +9,10 @@ export interface ClassProfile {
   class_online_standard_price?: number;
   class_currency_type_fk?: number;
   class_type_id_fk?: number;
+  class_type?: {
+    class_type_abbreviation?: string;
+    class_type_full_name?: string;
+  };
 }
 
 export interface ConsultantProfile {
@@ -20,6 +24,18 @@ export interface ConsultantProfile {
   profile_photo_url?: string;
   phone?: string;
   email?: string;
+}
+
+export interface ConsultantProfileLinkClassProfile {
+  consultant_profile_user_id?: number;
+  first_name?: string;
+  last_name?: string;
+  job_title?: string;
+  profile_description?: string;
+  profile_photo_url?: string;
+  phone?: string;
+  email?: string;
+  class_profile?: ClassProfile[];
 }
 
 export interface ClassSchedule {
