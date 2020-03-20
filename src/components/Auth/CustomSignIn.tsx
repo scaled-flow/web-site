@@ -15,8 +15,8 @@ export class CustomSignIn extends SignIn {
         <form 
         style={{
             "position": "absolute",
-            "top": "50%",
-            "left": "50%"
+            "top": "40vh",
+            "left": "40vw"
         }}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
@@ -52,19 +52,10 @@ export class CustomSignIn extends SignIn {
               type="password"
               placeholder="******************"
             />
-            <p className="text-grey-dark text-xs">
-              Forgot your password?{" "}
-              <button
-                className="text-indigo cursor-pointer hover:text-indigo-darker"
-                onClick={() => super.changeState("forgotPassword")}
-              >
-                Reset Password
-              </button>
-            </p>
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue hover:bg-blue-dark text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
               //@ts-ignore
               onClick={() => super.signIn()}
