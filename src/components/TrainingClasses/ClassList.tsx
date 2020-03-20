@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useReducer, ReducerAction } from "react";
+import React, { useEffect, useReducer } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 import ClassCard from "./ClassCard";
 
 // queries
-import { GET_IN_PERSON_SAFE_CLASSES, GET_ONLINE_SAFE_CLASSES } from "../../graphQL/queries";
+import {
+  GET_IN_PERSON_SAFE_CLASSES,
+  GET_ONLINE_SAFE_CLASSES,
+  GET_ONLINE_LESS_CLASSES,
+  GET_IN_PERSON_LESS_CLASSES
+} from "../../graphQL/queries";
 import { useQuery } from "@apollo/client";
 import { ClassProfile, ClassSchedule, ConsultantProfile } from "../../graphQL/types";
 
@@ -62,6 +67,8 @@ function toggleFilter(classType: "online" | "in-person", dispatch: any, state: S
   }
 }
 
+const NUMBER_OF_CLASSES_TO_DISPLAY = 3;
+
 const ClassList: React.FC<Props> = ({ classType }) => {
   const [state, dispatch] = useReducer(reducer, {
     isInPersonClassesFiltered: true,
@@ -70,20 +77,42 @@ const ClassList: React.FC<Props> = ({ classType }) => {
 
   const { loading: inPersonLoading, error: inPersonError, data: inPersonData } = useQuery(GET_IN_PERSON_SAFE_CLASSES);
   const { loading: onlineLoading, error: onlineError, data: onlineData } = useQuery(GET_ONLINE_SAFE_CLASSES);
+  const { loading: inPersonLessLoading, error: inPersonLessError, data: inPersonLessData } = useQuery(
+    GET_IN_PERSON_LESS_CLASSES
+  );
+  const { loading: onlineLessLoading, error: onlineLessError, data: onlineLessData } = useQuery(
+    GET_ONLINE_LESS_CLASSES
+  );
 
   // init in person data
   useEffect(() => {
-    const temp = inPersonData;
+    let temp: any;
+    if (classType === "/training/scaled-agile") {
+      temp = inPersonData ? inPersonData : [];
+    } else {
+      temp = inPersonLessData ? inPersonLessData : [];
+    }
     dispatch({
       type: "set_in_person_classes",
-      payload: !inPersonLoading && temp.consultant_profiles_link_class_profiles_link_class_schedules
+      payload:
+        !inPersonLoading || !inPersonLessLoading || temp !== undefined
+          ? temp.consultant_profiles_link_class_profiles_link_class_schedules
+          : []
     });
-  }, [inPersonLoading, inPersonError, inPersonData]);
+  }, [
+    inPersonLoading,
+    inPersonError,
+    inPersonData,
+    inPersonLessLoading,
+    inPersonLessError,
+    inPersonLessData,
+    classType
+  ]);
   // init filtered list
   useEffect(() => {
     let temp: Class[];
     if (state.isInPersonClassesFiltered) {
-      temp = state.inPersonClasses ? state.inPersonClasses.filter((c, i) => i < 2) : [];
+      temp = state.inPersonClasses ? state.inPersonClasses.filter((c, i) => i < NUMBER_OF_CLASSES_TO_DISPLAY) : [];
     } else {
       temp = state.inPersonClasses ? state.inPersonClasses : [];
     }
@@ -95,17 +124,25 @@ const ClassList: React.FC<Props> = ({ classType }) => {
 
   // init online data
   useEffect(() => {
-    const temp = onlineData;
+    let temp: any;
+    if (classType === "/training/scaled-agile") {
+      temp = onlineData ? onlineData : [];
+    } else {
+      temp = onlineLessData ? onlineLessData : [];
+    }
     dispatch({
       type: "set_online_classes",
-      payload: !onlineLoading && temp.consultant_profiles_link_class_profiles_link_class_schedules
+      payload:
+        !onlineLoading || !onlineLessLoading || temp !== undefined
+          ? temp.consultant_profiles_link_class_profiles_link_class_schedules
+          : []
     });
-  }, [onlineLoading, onlineError, onlineData]);
+  }, [onlineLoading, onlineError, onlineData, onlineLessLoading, onlineLessError, onlineLessData, classType]);
   // init filtered list
   useEffect(() => {
     let temp: Class[];
     if (state.isOnlineClassesFiltered) {
-      temp = state.onlineClasses ? state.onlineClasses.filter((c, i) => i < 2) : [];
+      temp = state.onlineClasses ? state.onlineClasses.filter((c, i) => i < NUMBER_OF_CLASSES_TO_DISPLAY) : [];
     } else {
       temp = state.onlineClasses ? state.onlineClasses : [];
     }

@@ -31,9 +31,9 @@ const Navigation: React.FC = () => {
             <Link className="navlink" to="/blog">
               BLOG
             </Link>
-            <Link className="navlink" to="/services">
+            {/* <Link className="navlink" to="/services">
               SERVICES
-            </Link>
+            </Link> */}
             <Link className="navlink" to="/contact">
               CONTACT
             </Link>

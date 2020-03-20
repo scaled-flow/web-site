@@ -3,14 +3,13 @@ import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Navigation.css";
-import { Auth } from 'aws-amplify'
+import { Auth } from "aws-amplify";
 
 const AdminNavigation: React.FC = () => {
-
-  function userSignOut(){
+  function userSignOut() {
     Auth.signOut()
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
   }
 
   return (
@@ -25,8 +24,8 @@ const AdminNavigation: React.FC = () => {
             <Link className="navlink" to="/admin/contact">
               CONTACT
             </Link>
-            <Link className="navlink" to="/admin/profiles">
-              PROFILES
+            <Link className="navlink" to="/admin/consultants">
+              CONSULTANTS
             </Link>
             <Link className="navlink" to="/admin/schedule">
               SCHEDULE
@@ -40,11 +39,7 @@ const AdminNavigation: React.FC = () => {
             <Link className="navlink" to="/admin/registration">
               REGISTRATION
             </Link>
-            <Link 
-            className="navlink"
-            onClick={() => userSignOut()}
-            to="/admin"
-            >
+            <Link className="navlink" onClick={() => userSignOut()} to="/admin">
               SIGN OUT
             </Link>
           </Nav>

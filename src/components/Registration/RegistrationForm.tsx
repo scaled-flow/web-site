@@ -2,12 +2,17 @@ import React, { useReducer, useEffect } from "react";
 
 import { Row, Col, Button } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 
+import { Class } from "../../graphQL/types";
 import { GetClassPrice } from "../../graphQL/queries";
 import FormInput from "../Forms/FormInput";
 import AttendeeForm from "./AttendeeForm";
 
-interface Props {}
+interface Props {
+  classInfo: Class | undefined;
+  isOnline: "in-person" | "online";
+}
 
 export class Attendee {
   constructor(public i: number, public fName: string, public lName: string, public email: string) {}
@@ -66,7 +71,7 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-const RegistrationForm: React.FC<Props> = () => {
+const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline }) => {
   const [state, dispatch] = useReducer(reducer, {
     attendees: [],
     numOfAttendees: 0,
@@ -74,19 +79,29 @@ const RegistrationForm: React.FC<Props> = () => {
     totalPrice: 0,
     numOfDays: 0
   });
-  const { loading, error, data } = useQuery(GetClassPrice(1)); // TODO: get correct ID
+
+  const history = useHistory();
   useEffect(() => {
-    const tempPrice = !loading && data.consultant_profiles_link_class_profiles_link_class_schedules[0].class_profile.class_in_person_standard_price;
-    const tempDays = !loading && data.consultant_profiles_link_class_profiles_link_class_schedules[0].class_schedule.class_number_of_days;
-    dispatch({ type: "pricePerPerson", payload: tempPrice });
-    dispatch({ type: "numOfDays", payload: tempDays });
-  }, [data]);
+    if (isOnline === "in-person") {
+      dispatch({
+        type: "pricePerPerson",
+        payload: classInfo !== undefined ? classInfo!.class_profile!.class_in_person_standard_price! : 0
+      });
+    } else if (isOnline === "online") {
+      dispatch({
+        type: "pricePerPerson",
+        payload: classInfo !== undefined ? classInfo!.class_profile!.class_online_standard_price! : 0
+      });
+    } else {
+      history.replace("/"); // FIXME: 404?
+    }
+  }, [classInfo, isOnline]);
 
   useEffect(() => {
     const tempPrice = state.pricePerPerson * state.numOfAttendees;
     console.log(tempPrice);
     dispatch({ type: "totalPrice", payload: tempPrice });
-  }, [state.numOfAttendees]);
+  }, [state.numOfAttendees, state.pricePerPerson]);
 
   console.log(state);
   return (
