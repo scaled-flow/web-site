@@ -99,21 +99,17 @@ const HeroItem: React.FC<Props> = ({ cb, item }) => {
         {!isCollapsed && (
           <>
             <Row>
-              <Col>
+              <Col md={8}>
                 <h4>{item.hero_sub_headline_text}</h4>
                 <p>
                   <Button>{item.hero_button_text}</Button> links to:{" "}
                   <span className="link-style">{item.hero_button_pointer || "'no link'"}</span>
                 </p>
               </Col>
-            </Row>
-            <Row>
-              <Col md={{ span: 1, offset: 10 }}>
+              <Col md={4}>
                 <button className="no-style" onClick={() => setIsEditModalShown(!isEditModalShown)}>
                   <i className="far fa-edit fa-2x"></i>
                 </button>
-              </Col>
-              <Col md={1}>
                 <button
                   className="no-style"
                   onClick={() => {

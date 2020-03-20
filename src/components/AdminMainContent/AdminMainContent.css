@@ -1,0 +1,29 @@
+.content-item {
+  background-color: #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 5px 0;
+}
+
+.no-style {
+  background: none;
+  border: none;
+}
+
+.fa-instructions {
+  border: black solid 1px;
+  border-radius: 4px;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: mistyrose;
+}
+
+.fa-instructions a {
+  color: blue;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.fa-instructions ol li span {
+  font-weight: 800;
+}

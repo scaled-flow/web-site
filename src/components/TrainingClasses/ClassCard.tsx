@@ -25,12 +25,7 @@ interface DateInfo {
 }
 
 const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
-  const [dateInfo, setDateInfo] = useState<DateInfo>({
-    longStart: "",
-    longEnd: "",
-    shortMonth: "",
-    day: ""
-  });
+  const [dateInfo, setDateInfo] = useState<DateInfo>({} as DateInfo);
 
   useEffect(() => {
     setDateInfo({
@@ -63,11 +58,17 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
           <Image src={classData.class_profile.class_image} fluid />
         </Col>
         <Col xs={2}>
-
-          <a href={`/training/class/${classData.class_profile.class_profile_id}/${classData.class_schedule.class_schedule_id}/${classData.consultant_profile.consultant_profile_user_id}/${classData.class_profile.class_title.split(" ").join("-")}-${classData.class_profile.class_profile_id}`}>
-
+          <Link
+            to={`/training/class/${classData.class_profile.class_profile_id}/${
+              classData.class_schedule.class_schedule_id
+            }/${classData.consultant_profile.consultant_profile_user_id}/${classData.class_profile.class_title
+              .split(" ")
+              .join("-")}-${classData.class_profile.class_profile_id}/${(classData.class_schedule.class_is_online &&
+              "online") ||
+              (classData.class_schedule.class_is_in_person && "in-person")}`}
+          >
             <Icon icon={faPlusCircle} size="2x" color="#C4C4C4" />
-          </a>
+          </Link>
         </Col>
       </Row>
     </>
