@@ -87,3 +87,17 @@ export interface MainPageContent {
   id: number;
   active: boolean;
 }
+
+export interface PurchaserInfo {
+  purchaser_id: number;
+  first_name: string;
+  last_name: string;
+  company?: string;
+  address_1: string;
+  address_2?: string;
+  city: string;
+  postal_code: string;
+  email: string;
+  discount_applied: number | undefined;
+  total_purchase_ammount: number;
+}

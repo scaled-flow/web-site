@@ -8,6 +8,7 @@ import { Class } from "../../graphQL/types";
 import { GetClassPrice } from "../../graphQL/queries";
 import FormInput from "../Forms/FormInput";
 import AttendeeForm from "./AttendeeForm";
+import "./Registration.css";
 
 interface Props {
   classInfo: Class | undefined;
@@ -105,10 +106,10 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline }) => {
 
   console.log(state);
   return (
-    <>
+    <div className="reg-row">
       <Row>
         <Col md={10}>
-          <h2>Attendee Registration</h2>
+          <h2 className="reg-header">Attendee Registration</h2>
         </Col>
       </Row>
       <Row>
@@ -130,12 +131,14 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline }) => {
           ))}
         </Col>
       </Row>
-      <Row>
+      {/* <Row>
         <Col>
-          <Button onClick={() => console.log(state)}>Submit</Button>
+          <button className="submit-btn" onClick={() => console.log(state)}>
+            Submit
+          </button>
         </Col>
-      </Row>
-    </>
+      </Row> */}
+    </div>
   );
 };
 

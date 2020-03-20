@@ -8,6 +8,8 @@ import { useQuery } from "@apollo/client";
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import RegistrationInfo from "../../components/Registration/RegistrationInfo";
 import RegistrationForm from "../../components/Registration/RegistrationForm";
+import PurchaserInfo from "../../components/Registration/PurchaserInfo";
+import "../../components/Registration/Registration.css";
 
 interface Props {
   consultantId: number;
@@ -27,10 +29,11 @@ const ClassRegistrationPage: React.FC<Props> = ({ consultantId, classId, schedul
   console.log(classInfo);
   return (
     <>
-      <ContentContainer>
+      <ContentContainer customColor="#EFF9FF">
         <Container>
           <RegistrationInfo classInfo={classInfo} />
           <RegistrationForm classInfo={classInfo} isOnline={isOnline} />
+          <PurchaserInfo />
         </Container>
       </ContentContainer>
     </>

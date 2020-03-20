@@ -2,14 +2,18 @@ import React from "react";
 
 import "./ContentContainer.css";
 
-interface Props {}
+interface Props {
+  customColor?: string;
+}
 
-const ContentContainer: React.FC<Props> = ({ children }) => {
-   return (
-      <>
-         <div className="content">{children}</div>
-      </>
-   );
+const ContentContainer: React.FC<Props> = ({ children, customColor }) => {
+  return (
+    <>
+      <div className="content" style={{ backgroundColor: customColor }}>
+        {children}
+      </div>
+    </>
+  );
 };
 
 export default ContentContainer;

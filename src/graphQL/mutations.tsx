@@ -175,3 +175,51 @@ export const UPDATE_MAIN_PAGE_CONTENT = gql`
     }
   }
 `;
+
+export const ISNERT_PURCHASER = gql`
+  mutation InsertPurchaser(
+    $address1: String!
+    $address2: String!
+    $city: String!
+    $company: String!
+    $email: String!
+    $fName: String!
+    $lName: String!
+    $postal: String!
+    $stateRegion: String!
+    $totalPurchase: Number!
+    $discountApplied: Number!
+  ) {
+    insert_purchasers(
+      objects: {
+        address_1: $address1
+        address_2: $address2
+        city: $city
+        company: $company
+        email: $email
+        first_name: $fName
+        last_name: $lName
+        postal_code: $postal
+        state_region: $stateRegion
+        total_purchase_amount: $totalPurchase
+        discount_applied: $discountApplied
+      }
+    ) {
+      affected_rows
+      returning {
+        address_1
+        address_2
+        city
+        company
+        discount_applied
+        email
+        first_name
+        last_name
+        postal_code
+        purchaser_id
+        state_region
+        total_purchase_amount
+      }
+    }
+  }
+`;
