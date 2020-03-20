@@ -8,11 +8,13 @@ import { Class } from "../../graphQL/types";
 import { GetClassPrice } from "../../graphQL/queries";
 import FormInput from "../Forms/FormInput";
 import AttendeeForm from "./AttendeeForm";
+import { Transaction } from "../../pages/client/ClassRegistrationPage";
 import "./Registration.css";
 
 interface Props {
   classInfo: Class | undefined;
   isOnline: "in-person" | "online";
+  cb: any;
 }
 
 export class Attendee {
@@ -72,7 +74,7 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline }) => {
+const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline, cb }) => {
   const [state, dispatch] = useReducer(reducer, {
     attendees: [],
     numOfAttendees: 0,
@@ -103,6 +105,14 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline }) => {
     console.log(tempPrice);
     dispatch({ type: "totalPrice", payload: tempPrice });
   }, [state.numOfAttendees, state.pricePerPerson]);
+
+  useEffect(() => {
+    cb({ type: "attendees", payload: state.attendees });
+    cb({ type: "numOfAttendees", payload: state.numOfAttendees });
+    cb({ type: "pricePerPerson", payload: state.pricePerPerson });
+    cb({ type: "totalPrice", payload: state.totalPrice });
+    cb({ type: "numOfDays", payload: state.numOfDays });
+  }, [state]);
 
   console.log(state);
   return (

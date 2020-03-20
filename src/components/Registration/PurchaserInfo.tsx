@@ -2,11 +2,13 @@ import React, { useReducer } from "react";
 
 import { Row, Col } from "react-bootstrap";
 
-import { PurchaserInfo } from "../../graphQL/types";
+import { PurchaserInfo, Class } from "../../graphQL/types";
 import "./Registration.css";
 import FormInput from "../Forms/FormInput";
 
-interface Props {}
+interface Props {
+  classInfo: Class;
+}
 
 type Action =
   | { type: "fName"; payload: string }
@@ -50,7 +52,7 @@ const reducer = (state: PurchaserInfo, action: Action) => {
   }
 };
 
-const PurchaserInfoForm: React.FC<Props> = () => {
+const PurchaserInfoForm: React.FC<Props> = ({ classInfo }) => {
   const [state, dispatch] = useReducer(reducer, {} as PurchaserInfo);
 
   return (
