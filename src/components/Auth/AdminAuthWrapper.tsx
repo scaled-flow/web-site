@@ -18,10 +18,7 @@ import { Auth } from "aws-amplify"
 interface Props extends RouteComponentProps { }
 
 const AdminAuthWrapper: React.FC<Props> = () => {
-  
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
-
 
     function checkAuth() {
         setTimeout(() => {
@@ -31,9 +28,7 @@ const AdminAuthWrapper: React.FC<Props> = () => {
                 console.log(data)
             })
             .catch(err => console.log(err));
-
-
-        }, 2000)
+        }, 1000)
     }
 
     switch (isAuthenticated) {
