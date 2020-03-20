@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./bootstrap.css";
 
 import {
@@ -22,12 +22,36 @@ import AdminPullTables from "./pages/admin/AdminPullTables";
 import AdminRegistration from "./pages/admin/AdminRegistration";
 
 // authentication components
+import { Auth } from "aws-amplify"
 import { withAuthenticator } from 'aws-amplify-react';
 
 interface Props extends RouteComponentProps {}
 
+//@ts-ignore
 const AdminRoot: React.FC<Props> = () => {
+  const [isAuthenticating, setIsAuthenticating] = useState<boolean>(true);
+  const [isAuthenticated, userHasAuthenticated] = useState<boolean>(false);
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+  
+  async function checkAuth() {
+    try {
+      await Auth.currentSession();
+      userHasAuthenticated(true);
+    }
+    catch(e) {
+      if (e !== 'Not signed in') {
+        console.log(e);
+      }
+    }
+  
+    setIsAuthenticating(false);
+  }
+
   return (
+    !isAuthenticating &&
     <Router>
       <AdminNavigation />
       <Switch>
