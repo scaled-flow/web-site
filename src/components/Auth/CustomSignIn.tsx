@@ -2,21 +2,26 @@ import React from "react";
 import { SignIn } from "aws-amplify-react";
 import { Container, Row, Col } from "react-bootstrap";
 
+interface Props  {}
+
 export class CustomSignIn extends SignIn {
-  //@ts-ignore  
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this._validAuthStates = ["signIn", "signedOut", "signedUp"];
   }
-  //@ts-ignore
-  showComponent(theme) {
+  
+  showComponent(theme: any) {
+    //@ts-ignore
+    const pushAdmin = this.props.handleClick
+    
     return (
       <div className="mx-auto w-full max-w-xs">
         <form 
         style={{
             "position": "absolute",
-            "top": "40vh",
-            "left": "40vw"
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)"
         }}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
@@ -58,7 +63,7 @@ export class CustomSignIn extends SignIn {
               className="bg-blue hover:bg-blue-dark text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
               //@ts-ignore
-              onClick={() => super.signIn()}
+              onClick={() => {super.signIn(); pushAdmin()}}
             >
               Login
             </button>

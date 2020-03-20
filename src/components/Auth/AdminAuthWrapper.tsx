@@ -18,35 +18,40 @@ import { Auth } from "aws-amplify"
 interface Props extends RouteComponentProps { }
 
 const AdminAuthWrapper: React.FC<Props> = () => {
-    const [isAuthenticating, setIsAuthenticating] = useState<boolean>(true);
+  
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-    useEffect(() => {
-        checkAuth();
-    }, []);
+
 
     function checkAuth() {
-
-        Auth.currentSession()
+        setTimeout(() => {
+            Auth.currentSession()
             .then(function (data) {
                 setIsAuthenticated(true);
                 console.log(data)
             })
             .catch(err => console.log(err));
 
-        setIsAuthenticating(false);
+
+        }, 2000)
     }
 
-    return (
-        <div>
-            <Authenticator hide={[SignIn]} amplifyConfig={config}>
-                <CustomSignIn />
-            </Authenticator>
-            {/* 
-            // @ts-ignore */}
-            {isAuthenticated && <AdminRoot handleClick={()=> checkAuth}/>}
-        </div>
-    );
+    switch (isAuthenticated) {
+        case false:
+            return (
+                <>
+                    <Authenticator hide={[SignIn]} amplifyConfig={config}>
+                        {/* 
+                     // @ts-ignore */}
+                        <CustomSignIn handleClick={() => checkAuth()} />
+                    </Authenticator>
+                </>
+            )
+        case true:
+            return (
+                <AdminRoot />
+            )
+    }
 }
 
 export default AdminAuthWrapper;

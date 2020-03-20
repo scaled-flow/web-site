@@ -22,9 +22,9 @@ import AdminPullTables from "./pages/admin/AdminPullTables";
 import AdminRegistration from "./pages/admin/AdminRegistration";
 
 // authentication components
-import { withAuthenticator } from 'aws-amplify-react';
+// import { withAuthenticator } from 'aws-amplify-react';
 
-interface Props extends RouteComponentProps {}
+interface Props {}
 
 const AdminRoot: React.FC<Props> = () => {
   return (
