@@ -14,7 +14,7 @@ const PaymentOptions: React.FC<Props> = ({ transaction }) => {
       <h2 className="reg-header">Payment Options</h2>
       <PayPalButton
         amount={transaction.totalPrice.toString()}
-        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+        shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
         // @ts-ignore
         onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);

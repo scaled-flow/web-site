@@ -47,7 +47,10 @@ const reducer = (state: Transaction, action: Action) => {
     case "numOfDays":
       return { ...state, numOfDays: action.payload };
     case "totalPrice":
-      return { ...state, totalPrice: action.payload };
+      const numOfAttendees = state.numOfAttendees;
+      const pricePerPerson = state.pricePerPerson;
+      const totalPrice = numOfAttendees * pricePerPerson;
+      return { ...state, totalPrice: totalPrice };
     case "purchaser":
       return { ...state, purchaser: action.payload };
     default:
@@ -58,19 +61,29 @@ const reducer = (state: Transaction, action: Action) => {
 const ClassRegistrationPage: React.FC<Props> = ({ consultantId, classId, scheduleId, isOnline }) => {
   const [classInfo, setClassInfo] = useState<Class>();
   const { loading, error, data } = useQuery(GetClassData(consultantId, classId, scheduleId));
-  const [transaction, dispatch] = useReducer(reducer, {} as Transaction);
+  const [transaction, dispatch] = useReducer(reducer, { totalPrice: 100 } as Transaction);
 
   useEffect(() => {
     !error && !loading && setClassInfo(data.consultant_profiles_link_class_profiles_link_class_schedules_by_pk);
   }, [loading, error, data]);
 
-  console.log(classInfo);
+  useEffect(() => {
+    const temp = classInfo?.class_schedule.class_number_of_days ? classInfo.class_schedule.class_number_of_days : 0;
+    console.log(typeof temp);
+    dispatch({ type: "numOfDays", payload: temp });
+  }, [classInfo]);
+
   return (
     <>
       <ContentContainer customColor="#EFF9FF">
         <Container>
           <RegistrationInfo classInfo={classInfo} />
-          <RegistrationForm classInfo={classInfo} isOnline={isOnline} cb={dispatch} />
+          <RegistrationForm
+            classInfo={classInfo}
+            isOnline={isOnline}
+            cb={dispatch}
+            totalPrice={transaction.totalPrice}
+          />
           <PurchaserInfo classInfo={classInfo!} cb={dispatch} />
           <PaymentOptions transaction={transaction} />
         </Container>

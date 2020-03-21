@@ -15,6 +15,7 @@ interface Props {
   classInfo: Class | undefined;
   isOnline: "in-person" | "online";
   cb: any;
+  totalPrice: number;
 }
 
 export class Attendee {
@@ -27,15 +28,13 @@ interface State {
   numOfAttendees: number;
   pricePerPerson: number;
   totalPrice: number;
-  numOfDays: number;
 }
 
 type Action =
   | { type: "attendees"; payload: Attendee }
   | { type: "numOfAttendees"; payload: string }
   | { type: "pricePerPerson"; payload: number }
-  | { type: "totalPrice"; payload: number }
-  | { type: "numOfDays"; payload: number };
+  | { type: "totalPrice"; payload: number };
 
 // This controlls the input
 const reducer = (state: State, action: Action) => {
@@ -65,8 +64,6 @@ const reducer = (state: State, action: Action) => {
     case "pricePerPerson":
       // standard replacement from here
       return { ...state, pricePerPerson: action.payload };
-    case "numOfDays":
-      return { ...state, numOfDays: action.payload };
     case "totalPrice":
       return { ...state, totalPrice: action.payload };
     default:
@@ -79,8 +76,7 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline, cb }) => {
     attendees: [],
     numOfAttendees: 0,
     pricePerPerson: 0,
-    totalPrice: 0,
-    numOfDays: 0
+    totalPrice: 0
   });
 
   const history = useHistory();
@@ -110,7 +106,6 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline, cb }) => {
     cb({ type: "numOfAttendees", payload: state.numOfAttendees });
     cb({ type: "pricePerPerson", payload: state.pricePerPerson });
     cb({ type: "totalPrice", payload: state.totalPrice });
-    cb({ type: "numOfDays", payload: state.numOfDays });
   }, [state]);
 
   return (
@@ -120,35 +115,45 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline, cb }) => {
           <h2 className="reg-header">Attendee Registration</h2>
         </Col>
       </Row>
-      <Row>
-        <Col md={{ span: 3, offset: 1 }}>
-          <div className="att-reg-price text-center">
-            <h5>Price/Person/Day</h5> ${state.pricePerPerson}
-          </div>
-        </Col>
-        <Col md={{ span: 3 }}>
-          <div className="att-reg-price text-center">
-            <h5># of Days</h5> {classInfo?.class_schedule.class_number_of_days}
-          </div>
-        </Col>
-        <Col md={{ span: 3 }}>
-          <div className="att-reg-price text-center">
-            <h5>Total Price</h5> $500
-            {/* FIXME: Calculate total price */}
-          </div>
-        </Col>
-      </Row>
+
       <Row>
         <Col md={3}>
           <FormInput title="Number of attendees" cb={dispatch} action="numOfAttendees" type="number" placeholder="0" />
           {/* TODO: disable scroll number change */}
         </Col>
       </Row>
-      <Row className="mt-5">
+      <Row className="mt-3">
+        <Col md={2}>
+          <h5>First Name</h5>
+        </Col>
+        <Col md={2}>
+          <h5>Last Name</h5>
+        </Col>
+        <Col md={3}>
+          <h5>Email</h5>
+        </Col>
+        <Col md={2}>
+          <h5>Price/Person</h5>
+        </Col>
+        <Col md={2}>
+          <h5>Total</h5>
+        </Col>
+      </Row>
+      <Row className="mt-2">
         <Col>
-          {state.attendees.map(attendee => (
-            <AttendeeForm key={attendee.i} attendeeInfo={attendee} cb={dispatch} action="attendees" />
-          ))}
+          {state.attendees.map((attendee, i) => {
+            return (
+              <AttendeeForm
+                key={attendee.i}
+                attendeeInfo={attendee}
+                prices={{ pricePerDay: state.pricePerPerson, total: state.totalPrice }}
+                cb={dispatch}
+                action="attendees"
+                isLast={state.attendees.length === i + 1 ? true : false}
+                number={i}
+              />
+            );
+          })}
         </Col>
       </Row>
     </div>

@@ -8,12 +8,13 @@ interface Props {
   type: string;
   placeholder?: string;
   data?: string;
+  useAria?: string;
 }
 
-const AdminFormInput: React.FC<Props> = ({ title, cb, action, type, placeholder, data }) => {
+const AdminFormInput: React.FC<Props> = ({ title, cb, action, type, placeholder, data, useAria }) => {
   return (
     <>
-      <Form.Label>{title}</Form.Label>
+      {useAria !== "yes" && <Form.Label>{title}</Form.Label>}
       <Form.Control
         type={type}
         aria-label={title}
