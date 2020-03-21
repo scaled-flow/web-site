@@ -8,7 +8,8 @@ const classData: Class = {
     "class_profile": {
       "class_desc": "To compete in a disruptive global market, every organization needs to deliver valuable technology solutions at the speed of business.",
       "class_title": "SAFe DevOps",
-      "class_profile_id": 3
+      "class_profile_id": 3,
+      "class_image": "https://s3.us-east-2.amazonaws.com/www.testscaledflow.com/img/SAFe-5-Courseware-Thumbnails-SDP-343x400-2.png"
     },
     "class_schedule": {
       "class_schedule_id": 1,
@@ -26,16 +27,19 @@ const classData: Class = {
     }
   }
 
+const isOnlineTextTest = "Testing"
+
 test('loads Card', () => {
-    const { container, debug } = render(<ClassCard classData={classData} isOnline="true"/>)
+    const { container, debug } = render(<Router><ClassCard classData={classData} isOnline={true} isOnlineText={isOnlineTextTest}/></Router>)
     expect(container).toBeDefined()
 })
 
 test('loads Card with Data', () => {
-  const { container } = render(<Router><ClassCard classData={classData} isOnline="true"/></Router>)
+  const { container, debug } = render(<Router><ClassCard classData={classData} isOnline={true} isOnlineText={isOnlineTextTest} /></Router>)
   const title = container.querySelector('h6')
-  expect(title.textContent).toBe(classData.class_profile.class_title)
+  debug()
+  expect(title.textContent).toBe(`${classData.class_profile.class_title}`)
   const image = container.querySelector('img')
-  expect(image.getAttribute('src')).toEqual(classData.consultant_profile.profile_photo_url)
+  expect(image.getAttribute('src')).toEqual(`${classData.class_profile.class_image}`)
 })
 
