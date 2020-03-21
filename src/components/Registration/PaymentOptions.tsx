@@ -1,11 +1,23 @@
 import React from "react";
 
-interface Props {}
+import { Transaction } from "../../pages/client/ClassRegistrationPage";
 
-const PaymentOptions: React.FC<Props> = () => {
+interface Props {
+  transaction: Transaction;
+}
+
+const PaymentOptions: React.FC<Props> = ({ transaction }) => {
   return (
-    <div className="reg-row">
+    <div className="reg-row text-center">
       <h2 className="reg-header">Payment Options</h2>
+      <button
+        className="submit-btn btn-wide"
+        onClick={() => {
+          console.log(transaction);
+        }}
+      >
+        Submit Registration
+      </button>
     </div>
   );
 };

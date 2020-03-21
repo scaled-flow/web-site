@@ -71,8 +71,8 @@ const ClassRegistrationPage: React.FC<Props> = ({ consultantId, classId, schedul
         <Container>
           <RegistrationInfo classInfo={classInfo} />
           <RegistrationForm classInfo={classInfo} isOnline={isOnline} cb={dispatch} />
-          <PurchaserInfo classInfo={classInfo!} />
-          <PaymentOptions />
+          <PurchaserInfo classInfo={classInfo!} cb={dispatch} />
+          <PaymentOptions transaction={transaction} />
         </Container>
       </ContentContainer>
     </>

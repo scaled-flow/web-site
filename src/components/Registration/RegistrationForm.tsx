@@ -102,7 +102,6 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline, cb }) => {
 
   useEffect(() => {
     const tempPrice = state.pricePerPerson * state.numOfAttendees;
-    console.log(tempPrice);
     dispatch({ type: "totalPrice", payload: tempPrice });
   }, [state.numOfAttendees, state.pricePerPerson]);
 
@@ -114,7 +113,6 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline, cb }) => {
     cb({ type: "numOfDays", payload: state.numOfDays });
   }, [state]);
 
-  console.log(state);
   return (
     <div className="reg-row">
       <Row>
@@ -123,15 +121,27 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline, cb }) => {
         </Col>
       </Row>
       <Row>
-        <Col md={2}>
+        <Col md={{ span: 3, offset: 1 }}>
+          <div className="att-reg-price text-center">
+            <h5>Price/Person/Day</h5> ${state.pricePerPerson}
+          </div>
+        </Col>
+        <Col md={{ span: 3 }}>
+          <div className="att-reg-price text-center">
+            <h5># of Days</h5> {classInfo?.class_schedule.class_number_of_days}
+          </div>
+        </Col>
+        <Col md={{ span: 3 }}>
+          <div className="att-reg-price text-center">
+            <h5>Total Price</h5> $500
+            {/* FIXME: Calculate total price */}
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={3}>
           <FormInput title="Number of attendees" cb={dispatch} action="numOfAttendees" type="number" placeholder="0" />
           {/* TODO: disable scroll number change */}
-        </Col>
-        <Col md={3}>
-          <p>Price per Person - ${state.pricePerPerson}</p>
-        </Col>
-        <Col md={3}>
-          <p>Total Price - ${state.totalPrice}</p>
         </Col>
       </Row>
       <Row className="mt-5">
@@ -141,13 +151,6 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline, cb }) => {
           ))}
         </Col>
       </Row>
-      {/* <Row>
-        <Col>
-          <button className="submit-btn" onClick={() => console.log(state)}>
-            Submit
-          </button>
-        </Col>
-      </Row> */}
     </div>
   );
 };

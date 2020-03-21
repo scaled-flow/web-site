@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 
 import { Row, Col } from "react-bootstrap";
 
@@ -8,6 +8,7 @@ import FormInput from "../Forms/FormInput";
 
 interface Props {
   classInfo: Class;
+  cb: any;
 }
 
 type Action =
@@ -52,9 +53,11 @@ const reducer = (state: PurchaserInfo, action: Action) => {
   }
 };
 
-const PurchaserInfoForm: React.FC<Props> = ({ classInfo }) => {
+const PurchaserInfoForm: React.FC<Props> = ({ classInfo, cb }) => {
   const [state, dispatch] = useReducer(reducer, {} as PurchaserInfo);
-
+  useEffect(() => {
+    cb({ type: "purchaser", payload: state });
+  }, [state]);
   return (
     <div className="reg-row">
       <Row>
