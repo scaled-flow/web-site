@@ -55,7 +55,7 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
           <p>{isOnlineText}</p>
         </Col>
         <Col xs={2}>
-          <Image src={classData.class_profile.class_image} fluid />
+          <Image src={classData.class_profile.class_image} fluid alt={classData.class_profile.class_image_alt_text ? classData.class_profile.class_image_alt_text : "class image"} />
         </Col>
         <Col xs={2}>
           <Link
