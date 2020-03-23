@@ -55,16 +55,23 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
           <p>{isOnlineText}</p>
         </Col>
         <Col xs={2}>
-          <Image src={classData.class_profile.class_image} fluid alt={classData.class_profile.class_image_alt_text ? classData.class_profile.class_image_alt_text : "class image"} />
+          <Image
+            src={classData.class_profile.class_image}
+            fluid
+            alt={
+              classData.class_profile.class_image_alt_text
+                ? classData.class_profile.class_image_alt_text
+                : "class image"
+            }
+          />
         </Col>
         <Col xs={2}>
           <Link
             to={`/training/class/${classData.class_profile.class_profile_id}/${
               classData.class_schedule.class_schedule_id
-            }/${classData.consultant_profile.consultant_profile_user_id}/${classData.class_profile.class_title
-              .split(" ")
-              .join("-")}-${classData.class_profile.class_profile_id}/${(classData.class_schedule.class_is_online &&
-              "online") ||
+            }/${classData.consultant_profile.consultant_profile_user_id}/${encodeURI(
+              classData.class_profile.class_title
+            )}/${(classData.class_schedule.class_is_online && "online") ||
               (classData.class_schedule.class_is_in_person && "in-person")}`}
           >
             <Icon icon={faPlusCircle} size="2x" color="#C4C4C4" />
@@ -76,3 +83,7 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
 };
 
 export default ClassCard;
+
+// ${classData.class_profile.class_title
+//               .split(" ")
+//               .join("-")}-${classData.class_profile.class_profile_id}

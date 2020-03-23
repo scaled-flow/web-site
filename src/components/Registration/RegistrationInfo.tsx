@@ -55,7 +55,7 @@ const RegistrationInfo: React.FC<Props> = ({ classInfo }) => {
             {/* TODO: Get end time from API */}
             <h6 className="light-grey-header">LOCATION</h6>
             <a
-              style={{ color: "blue" }} //FIXME: Remove after mergin new styles
+              style={{ color: "blue" }} //FIXME: Remove after merging new styles
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(
                 `${classInfo?.class_schedule.class_in_person_address_01} ${classInfo?.class_schedule.class_in_person_address_02} ${classInfo?.class_schedule.class_in_person_city} ${classInfo?.class_schedule.class_in_person_state} ${classInfo?.class_schedule.class_in_person_zip}`
               )}`}
