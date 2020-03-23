@@ -94,7 +94,7 @@ export interface BlogPost {
   content_01: string;
   content_02?: string;
   cta_01?: string;
-  cta_02: string;
+  cta_02?: string;
   entry_date: Date;
   header: string;
   image_url: string;

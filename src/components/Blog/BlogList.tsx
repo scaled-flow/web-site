@@ -17,7 +17,6 @@ const BlogList: React.FC<Props> = () => {
     setPosts(temp);
   }, [loading, error, data]);
 
-  console.log(posts);
   return (
     <>
       <ListGroup variant="flush">

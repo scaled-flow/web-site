@@ -171,6 +171,7 @@ a {
   text-decoration: none;
   background-color: transparent;
 }
+
 a:hover {
   color: #3175af;
   text-decoration: underline;

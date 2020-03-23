@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { RouteComponentProps } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
@@ -14,7 +14,9 @@ interface Props extends RouteComponentProps {
 }
 
 const BlogPage: React.FC<Props> = ({ blogID, ...props }) => {
-  console.log(props);
+  useEffect(() => {
+    console.log(props);
+  }, [props]);
   return (
     <>
       <Header title="Blog" />

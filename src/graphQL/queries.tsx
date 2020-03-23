@@ -261,7 +261,7 @@ export const GET_ALL_CONSULTANTS = gql`
 `;
 
 export const GET_ALL_BLOG_POSTS = gql`
-  query MyQuery {
+  query GetAllBlogPosts {
     blog_posts(order_by: { entry_date: desc }) {
       author
       blog_post_id
@@ -278,3 +278,23 @@ export const GET_ALL_BLOG_POSTS = gql`
     }
   }
 `;
+
+export const GetCurrentBlog = (id: string) =>
+  gql`
+    query MyQuery {
+      blog_posts(where: { blog_post_id: { _eq: ${id} } }) {
+        author
+        blog_post_id
+        content_01
+        content_02
+        cta_01
+        cta_02
+        entry_date
+        header
+        image_url
+        opening
+        sub_header_one
+        sub_header_two
+      }
+    }
+  `;
