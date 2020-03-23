@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route, RouteComponentProps } from "rea
 import Navbar from "./components/Navigation/Navigation";
 import Footer from "./components/Footer/Footer";
 
+
 // pages
 import AboutPage from "./pages/client/AboutPage";
 import HomePage from "./pages/client/HomePage";
@@ -17,7 +18,7 @@ import ContactPage from "./pages/client/ContactPage";
 import ServicesPage from "./pages/client/ServicesPage";
 import ClassRegistrationPage from "./pages/client/ClassRegistrationPage";
 
-import AdminRoot from "./AdminRoot";
+import AdminAuthWrapper from "./components/Auth/AdminAuthWrapper"
 
 interface Props extends RouteComponentProps {}
 
@@ -29,7 +30,7 @@ const ClientRoot: React.FC<Props> = () => {
         {/* These are all the major pages */}
         <Route exact path="/" render={props => <HomePage {...props} />} />
         {/* Admin Root */}
-        <Route path="/admin" render={props => <AdminRoot {...props} />} />
+        <Route path="/admin" render={props => <AdminAuthWrapper {...props} />} />
         <Route path="/about" render={props => <AboutPage {...props} />} />
         <Route path="/assessment" render={props => <AssessmentsPage {...props} />} />
         <Route path="/training/scaled-agile" render={props => <TrainingPage {...props} />} />
