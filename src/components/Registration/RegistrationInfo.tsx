@@ -2,7 +2,6 @@ import React from "react";
 
 import { Row, Col, Image } from "react-bootstrap";
 import moment from "moment";
-import GoogleMapReact from "google-map-react";
 
 import { Class } from "../TrainingClasses/ClassList";
 import "./Registration.css";
@@ -55,12 +54,19 @@ const RegistrationInfo: React.FC<Props> = ({ classInfo }) => {
             <p>{moment(classInfo?.class_schedule.class_start_time, "HH:mm:ss").format("hh:mm A")} - End Time</p>{" "}
             {/* TODO: Get end time from API */}
             <h6 className="light-grey-header">LOCATION</h6>
-            <p>
+            <a
+              style={{ color: "blue" }} //FIXME: Remove after mergin new styles
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(
+                `${classInfo?.class_schedule.class_in_person_address_01} ${classInfo?.class_schedule.class_in_person_address_02} ${classInfo?.class_schedule.class_in_person_city} ${classInfo?.class_schedule.class_in_person_state} ${classInfo?.class_schedule.class_in_person_zip}`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {classInfo?.class_schedule.class_in_person_address_01},{" "}
               {classInfo?.class_schedule.class_in_person_address_02} <br />
               {classInfo?.class_schedule.class_in_person_city}, {classInfo?.class_schedule.class_in_person_state}{" "}
               {classInfo?.class_schedule.class_in_person_zip}
-            </p>
+            </a>
           </Col>
           <Col className="align-self-center">
             <h4>This will be a picture of google maps</h4>
