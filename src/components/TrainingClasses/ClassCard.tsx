@@ -83,7 +83,3 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
 };
 
 export default ClassCard;
-
-// ${classData.class_profile.class_title
-//               .split(" ")
-//               .join("-")}-${classData.class_profile.class_profile_id}

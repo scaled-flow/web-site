@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Switch, Route, RouteComponentProps } from "rea
 import Navbar from "./components/Navigation/Navigation";
 import Footer from "./components/Footer/Footer";
 
-
 // pages
 import AboutPage from "./pages/client/AboutPage";
 import HomePage from "./pages/client/HomePage";
@@ -18,7 +17,7 @@ import ContactPage from "./pages/client/ContactPage";
 import ServicesPage from "./pages/client/ServicesPage";
 import ClassRegistrationPage from "./pages/client/ClassRegistrationPage";
 
-import AdminAuthWrapper from "./components/Auth/AdminAuthWrapper"
+import AdminAuthWrapper from "./components/Auth/AdminAuthWrapper";
 
 interface Props extends RouteComponentProps {}
 
@@ -39,7 +38,7 @@ const ClientRoot: React.FC<Props> = () => {
         {/* <Route path="/services" render={props => <ServicesPage {...props} />} /> */}
         <Route path="/contact" render={props => <ContactPage {...props} />} />
         <Route
-          path="/training/class/:classId/:scheduleID/:consultantId/:classNameAndId/:isOnline"
+          path="/training/class/:classId/:scheduleID/:consultantId/:className/:isOnline"
           render={props => (
             <ClassRegistrationPage
               classId={props.match.params.classId}
