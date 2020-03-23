@@ -87,3 +87,18 @@ export interface MainPageContent {
   id: number;
   active: boolean;
 }
+
+export interface BlogPost {
+  author: string;
+  blog_post_id: number;
+  content_01: string;
+  content_02?: string;
+  cta_01?: string;
+  cta_02: string;
+  entry_date: Date;
+  header: string;
+  image_url: string;
+  opening: string;
+  sub_header_one: string;
+  sub_header_two?: string;
+}

@@ -1,10 +1,15 @@
 import React from "react";
 
 import { Row, Col, Image } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
-interface Props {}
+interface Props {
+  blogID: string;
+}
 
-const BlogPost: React.FC<Props> = () => {
+const BlogPost: React.FC<Props> = ({ blogID }) => {
+  const params = useParams();
+
   return (
     <>
       <Row>

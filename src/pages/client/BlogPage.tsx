@@ -7,9 +7,14 @@ import Header from "../../components/Header/Header";
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import BlogPost from "../../components/Blog/BlogPost";
 import BlogList from "../../components/Blog/BlogList";
-interface Props extends RouteComponentProps {}
+interface Props extends RouteComponentProps {
+  blogID?: any;
+  blogHeadline?: string;
+  blogDate?: string;
+}
 
-const BlogPage: React.FC<Props> = ({ ...props }: Props) => {
+const BlogPage: React.FC<Props> = ({ blogID, ...props }) => {
+  console.log(props);
   return (
     <>
       <Header title="Blog" />
@@ -17,7 +22,7 @@ const BlogPage: React.FC<Props> = ({ ...props }: Props) => {
         <Container>
           <Row>
             <Col md={9}>
-              <BlogPost />
+              <BlogPost blogID={blogID} />
             </Col>
             <Col md={3}>
               <BlogList />
