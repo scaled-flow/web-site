@@ -3,6 +3,7 @@ export interface ClassProfile {
   class_title: string;
   class_desc?: string;
   class_image?: string;
+  class_image_alt_text?: string;
   class_early_bird_price_reduction?: number;
   class_group_price_reduction_percent?: number;
   class_in_person_standard_price?: number;
@@ -22,6 +23,7 @@ export interface ConsultantProfile {
   job_title?: string;
   profile_description?: string;
   profile_photo_url?: string;
+  profile_photo_alt_text?: string;
   phone?: string;
   email?: string;
 }

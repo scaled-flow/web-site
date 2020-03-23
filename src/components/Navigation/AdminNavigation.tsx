@@ -8,7 +8,7 @@ import { Auth } from "aws-amplify";
 const AdminNavigation: React.FC = () => {
   function userSignOut() {
     Auth.signOut()
-      .then(data => console.log(data))
+      .then(data => {console.log(data); window.location.reload();})
       .catch(err => console.log(err));
   }
 
