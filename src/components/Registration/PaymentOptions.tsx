@@ -27,6 +27,13 @@ const PaymentOptions: React.FC<Props> = ({ transaction }) => {
             })
           });
         }}
+        // @ts-ignore
+        onError={error => {
+          const err = new Error(error);
+          if (err.message.includes("status: 422")) {
+            alert("please make sure to include at least one attendee");
+          }
+        }}
       />{" "}
     </div>
   );
