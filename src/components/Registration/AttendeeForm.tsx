@@ -80,8 +80,8 @@ const AttendeeForm: React.FC<Props> = ({ attendeeInfo, cb, action, isLast, price
           <div className="att-reg-price">${prices.pricePerDay}</div>
         </Col>
         <Col md={2}>
-          {/* {isLast && <div className="att-reg-price last">${prices.total}</div>} */}
-          <div className={`att-reg-price ${isLast && "last"}`}>${prices.pricePerDay * (number + 1)}</div>
+          {isLast && <div className="att-reg-price last">${prices.total}</div>}
+          {/* <div className={`att-reg-price ${isLast && "last"}`}>${prices.pricePerDay * (number + 1)}</div> */}
         </Col>
       </Row>
     </>

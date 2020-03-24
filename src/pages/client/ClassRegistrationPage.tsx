@@ -7,6 +7,7 @@ import { useQuery } from "@apollo/client";
 
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import RegistrationInfo from "../../components/Registration/RegistrationInfo";
+import InstructorInfo from "../../components/Registration/InstructorInfo";
 import RegistrationForm, { Attendee } from "../../components/Registration/RegistrationForm";
 import PurchaserInfo from "../../components/Registration/PurchaserInfo";
 import PaymentOptions from "../../components/Registration/PaymentOptions";
@@ -77,6 +78,7 @@ const ClassRegistrationPage: React.FC<Props> = ({ consultantId, classId, schedul
       <ContentContainer customColor="#EFF9FF">
         <Container>
           <RegistrationInfo classInfo={classInfo} />
+          <InstructorInfo classInfo={classInfo} />
           <RegistrationForm
             classInfo={classInfo}
             isOnline={isOnline}

@@ -24,22 +24,22 @@ const handleTransaction = async (transaction: Transaction, classInfo: Class | un
     attendees.push(new Attendee(attendee.email, attendee.fName, attendee.lName));
   });
   console.log(attendees);
-  const res = await mutation({
-    variables: {
-      purchaseAddress1: transaction.purchaser.address_1,
-      purchaseAddress2: transaction.purchaser.address_2,
-      purchaseCity: transaction.purchaser.city,
-      purchaseCompany: transaction.purchaser.company,
-      purchaseEmail: transaction.purchaser.email,
-      purchaseFName: transaction.purchaser.first_name,
-      purchaseLName: transaction.purchaser.last_name,
-      purchasePostalCode: transaction.purchaser.postal_code,
-      purchaseReigon: transaction.purchaser.state,
-      purchaseTotalAmount: transaction.totalPrice,
-      attendees: attendees
-    }
-  });
-  console.log(res);
+  // const res = await mutation({
+  //   variables: {
+  //     purchaseAddress1: transaction.purchaser.address_1,
+  //     purchaseAddress2: transaction.purchaser.address_2,
+  //     purchaseCity: transaction.purchaser.city,
+  //     purchaseCompany: transaction.purchaser.company,
+  //     purchaseEmail: transaction.purchaser.email,
+  //     purchaseFName: transaction.purchaser.first_name,
+  //     purchaseLName: transaction.purchaser.last_name,
+  //     purchasePostalCode: transaction.purchaser.postal_code,
+  //     purchaseReigon: transaction.purchaser.state,
+  //     purchaseTotalAmount: transaction.totalPrice,
+  //     attendees: attendees
+  //   }
+  // });
+  // console.log(res);
 };
 
 const PaymentOptions: React.FC<Props> = ({ transaction, classInfo }) => {
@@ -88,7 +88,9 @@ const PaymentOptions: React.FC<Props> = ({ transaction, classInfo }) => {
           />
         </div>
       ) : (
-        <p>Please complete the forms</p>
+        <p className="mt-4">
+          Please complete <strong>Attendee Registration</strong> and <strong>Purchaser Information</strong> Forms
+        </p>
       )}
     </div>
   );
