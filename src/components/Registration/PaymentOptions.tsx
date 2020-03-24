@@ -88,7 +88,7 @@ const PaymentOptions: React.FC<Props> = ({ transaction, classInfo }) => {
           />
         </div>
       ) : (
-        <p>Please fill out the form</p>
+        <p>Please complete the forms</p>
       )}
     </div>
   );
