@@ -1,62 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Row, Col, Image } from "react-bootstrap";
+import { useQuery } from "@apollo/client";
+import moment from "moment";
 
-interface Props {}
+import { GetCurrentBlog } from "../../graphQL/queries";
+import { BlogPost as iBlogPost } from "../../graphQL/types";
+import "./Blog.css";
 
-const BlogPost: React.FC<Props> = () => {
+interface Props {
+  blogID: string;
+}
+
+const BlogPost: React.FC<Props> = ({ blogID }) => {
+  const [post, setPost] = useState<iBlogPost>({} as iBlogPost);
+  const { loading, error, data } = useQuery(GetCurrentBlog(blogID));
+  useEffect(() => {
+    const temp = !loading && data.blog_posts[0];
+    setPost(temp);
+  }, [loading, error, data]);
+
+  console.log(post);
   return (
     <>
       <Row>
         <Col>
-          <h1>Headline</h1>
+          <h1>{post.header}</h1>
+          <p>
+            {post.author} - {moment(post.entry_date, "YYYY-MM-DD").format("MMMM Do, YYYY")}
+          </p>
         </Col>
       </Row>
       <Row>
         <Col md={7}>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate iusto possimus optio dicta assumenda
-            voluptatum non, culpa odio reiciendis suscipit sit at impedit mollitia? Nesciunt veritatis labore odit
-            tempore et? Eligendi officia sit vitae nesciunt repellendus, pariatur voluptates quos suscipit quae facilis
-            voluptate provident ipsam, veritatis quam quod mollitia distinctio non enim illo. Fuga adipisci delectus
-            dolorem saepe laboriosam vitae! Amet, quis beatae soluta, dicta sapiente error saepe fugiat praesentium unde
-            velit nemo ab nulla ullam. Adipisci commodi distinctio, asperiores deleniti rerum recusandae corrupti,
-            perferendis optio voluptatum, ullam natus quibusdam? Reprehenderit fuga obcaecati est odit quos cum hic esse
-            fugit, id consectetur animi, ducimus exercitationem dolorum magnam in dicta? Eos, laudantium omnis obcaecati
-            inventore facilis aliquid cum distinctio quibusdam quasi?
-          </p>
+          <p>{post.opening}</p>
         </Col>
         <Col>
-          <Image src="http://www.fillmurray.com/500/500" fluid />
+          <Image src={post.image_url} alt={post.sub_header_one} fluid />
         </Col>
       </Row>
       <Row>
         <Col>
-          <h3>Sub-Headline</h3>
+          <h3>{post.sub_header_one}</h3>
         </Col>
       </Row>
       <Row>
         <Col>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, incidunt voluptatibus officiis ipsam
-            consequuntur modi quia. Ad asperiores aliquam similique quibusdam aut magnam, ratione vel non veniam
-            possimus voluptatem fuga? Laborum perferendis quos natus iusto eos dicta odio explicabo hic dolorum at
-            architecto vitae possimus blanditiis, rem reprehenderit minima consectetur deserunt nemo error facilis
-            quibusdam! Quaerat sapiente asperiores obcaecati sit. Ipsum necessitatibus quisquam laborum, earum commodi
-            aliquid quia laudantium soluta. Quibusdam optio nemo vero eos? Error pariatur quae dignissimos ut dolorem
-            obcaecati, officia expedita quis iure. Atque consequatur iusto consectetur. Iure placeat quis illum esse
-            quam amet nulla odio hic facere unde ipsa quo quod alias dolor eos dolorum, necessitatibus corrupti nisi
-            provident et praesentium itaque eligendi! Doloribus, repudiandae veritatis. Quasi autem voluptas, ipsam
-            totam molestias inventore ad vel provident error voluptatum! Id quo, velit ipsam, magni placeat quod
-            deserunt labore eius corporis similique soluta a corrupti asperiores cumque tempora? Debitis earum quos
-            aspernatur soluta architecto, quis voluptates perferendis voluptate id dignissimos sed animi molestias
-            molestiae ad? Animi quia exercitationem officia voluptatibus dignissimos necessitatibus reiciendis, enim rem
-            accusamus, corrupti ab? Esse accusantium praesentium suscipit culpa inventore non odit quasi nobis
-            blanditiis similique quaerat repellat animi architecto, vel error quidem repudiandae. Nam quis incidunt
-            tempora. Eaque, impedit! Esse magni incidunt repellat.
-          </p>
+          <p>{post.content_01}</p>
         </Col>
       </Row>
+      {post.cta_01 && (
+        <Row>
+          <Col>
+            <h5 className="cta">{post.cta_01}</h5>
+          </Col>
+        </Row>
+      )}
+      {post.sub_header_two && (
+        <Row>
+          <Col>
+            <h3>{post.sub_header_two}</h3>
+          </Col>
+        </Row>
+      )}
+      {post.content_02 && (
+        <Row>
+          <Col>
+            <p>{post.content_02}</p>
+          </Col>
+        </Row>
+      )}
+      {post.cta_02 && (
+        <Row>
+          <Col>
+            <h5 className="cta">{post.cta_02}</h5>
+          </Col>
+        </Row>
+      )}
     </>
   );
 };
