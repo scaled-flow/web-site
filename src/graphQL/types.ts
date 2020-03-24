@@ -100,6 +100,7 @@ export interface PurchaserInfo {
   city: string;
   postal_code: string;
   email: string;
+  state: string;
   discount_applied: number | undefined;
   total_purchase_ammount: number;
 }

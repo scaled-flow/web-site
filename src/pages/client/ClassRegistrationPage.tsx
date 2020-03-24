@@ -69,7 +69,6 @@ const ClassRegistrationPage: React.FC<Props> = ({ consultantId, classId, schedul
 
   useEffect(() => {
     const temp = classInfo?.class_schedule.class_number_of_days ? classInfo.class_schedule.class_number_of_days : 0;
-    console.log(typeof temp);
     dispatch({ type: "numOfDays", payload: temp });
   }, [classInfo]);
 
@@ -85,7 +84,7 @@ const ClassRegistrationPage: React.FC<Props> = ({ consultantId, classId, schedul
             totalPrice={transaction.totalPrice}
           />
           <PurchaserInfo classInfo={classInfo!} cb={dispatch} />
-          <PaymentOptions transaction={transaction} />
+          <PaymentOptions transaction={transaction} classInfo={classInfo} />
         </Container>
       </ContentContainer>
     </>

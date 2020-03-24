@@ -69,12 +69,15 @@ const RegistrationInfo: React.FC<Props> = ({ classInfo }) => {
             </a>
           </Col>
           <Col className="align-self-center">
-            <h4>This will be a picture of google maps</h4>
-            <Image
-              src="http://www.fillmurray.com/200/200"
-              alt="Bill Murray, but change this to google maps pic"
-              fluid
-            />
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(
+                `${classInfo?.class_schedule.class_in_person_address_01} ${classInfo?.class_schedule.class_in_person_address_02} ${classInfo?.class_schedule.class_in_person_city} ${classInfo?.class_schedule.class_in_person_state} ${classInfo?.class_schedule.class_in_person_zip}`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image src="lkjflkjf" alt="Class Location" fluid />
+            </a>
           </Col>
         </Row>
       </div>
