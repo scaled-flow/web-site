@@ -20,6 +20,10 @@ interface Props extends RouteComponentProps { }
 const AdminAuthWrapper: React.FC<Props> = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
+    useEffect(()=> {
+        checkAuth()
+    }, [])
+
     function checkAuth() {
         setTimeout(() => {
             Auth.currentSession()

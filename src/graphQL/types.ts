@@ -104,3 +104,17 @@ export interface PurchaserInfo {
   discount_applied: number | undefined;
   total_purchase_ammount: number;
 }
+export interface BlogPost {
+  author: string;
+  blog_post_id: number;
+  content_01: string;
+  content_02?: string;
+  cta_01?: string;
+  cta_02?: string;
+  entry_date: Date;
+  header: string;
+  image_url: string;
+  opening: string;
+  sub_header_one: string;
+  sub_header_two?: string;
+}

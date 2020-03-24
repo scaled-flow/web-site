@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+
+import { GET_ALL_BLOG_POSTS } from "../../graphQL/queries";
+import { BlogPost } from "../../graphQL/types";
+
 import "./Navigation.css";
 
 const Navigation: React.FC = () => {
+  const [posts, setPosts] = useState<BlogPost[]>([] as BlogPost[]);
+  const { loading, error, data } = useQuery(GET_ALL_BLOG_POSTS);
+  useEffect(() => {
+    const temp = !loading ? data.blog_posts : [];
+    setPosts(temp);
+  }, [loading, error, data]);
+
   return (
     <Navbar bg="info" expand="lg" className="fixed-top">
       <Container>
@@ -28,7 +40,14 @@ const Navigation: React.FC = () => {
                 LeSS Training
               </Link>
             </NavDropdown>
-            <Link className="navlink" to="/blog">
+            <Link
+              className="navlink"
+              to={
+                posts.length !== 0
+                  ? `/blog/${posts[0].header.split(" ").join("-")}/${posts[0].entry_date}/${posts[0].blog_post_id}`
+                  : "/blog"
+              }
+            >
               BLOG
             </Link>
             {/* <Link className="navlink" to="/services">
