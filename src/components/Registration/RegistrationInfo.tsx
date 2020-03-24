@@ -51,11 +51,13 @@ const RegistrationInfo: React.FC<Props> = ({ classInfo }) => {
               {moment(classInfo?.class_schedule.class_end_date, "YYYY-MM-DD").format("MMMM Do, YYYY")}
             </p>
             <h6 className="light-grey-header">TIME</h6>
-            <p>{moment(classInfo?.class_schedule.class_start_time, "HH:mm:ss").format("hh:mm A")} - End Time</p>{" "}
+            <p>
+              {moment(classInfo?.class_schedule.class_start_time, "HH:mm:ss").format("hh:mm A")} -{" "}
+              {moment(classInfo?.class_schedule.class_end_time, "HH:mm:ss").format("hh:mm A")}
+            </p>{" "}
             {/* TODO: Get end time from API */}
             <h6 className="light-grey-header">LOCATION</h6>
             <a
-              style={{ color: "blue" }} //FIXME: Remove after merging new styles
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(
                 `${classInfo?.class_schedule.class_in_person_address_01} ${classInfo?.class_schedule.class_in_person_address_02} ${classInfo?.class_schedule.class_in_person_city} ${classInfo?.class_schedule.class_in_person_state} ${classInfo?.class_schedule.class_in_person_zip}`
               )}`}
@@ -65,10 +67,10 @@ const RegistrationInfo: React.FC<Props> = ({ classInfo }) => {
               {classInfo?.class_schedule.class_in_person_address_01},{" "}
               {classInfo?.class_schedule.class_in_person_address_02} <br />
               {classInfo?.class_schedule.class_in_person_city}, {classInfo?.class_schedule.class_in_person_state}{" "}
-              {classInfo?.class_schedule.class_in_person_zip}
+              {classInfo?.class_schedule.class_in_person_zip} <i className="fas fa-map-pin"></i>
             </a>
           </Col>
-          <Col className="align-self-center">
+          {/* FIXME: <Col className="align-self-center">
             <a
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(
                 `${classInfo?.class_schedule.class_in_person_address_01} ${classInfo?.class_schedule.class_in_person_address_02} ${classInfo?.class_schedule.class_in_person_city} ${classInfo?.class_schedule.class_in_person_state} ${classInfo?.class_schedule.class_in_person_zip}`
@@ -76,9 +78,13 @@ const RegistrationInfo: React.FC<Props> = ({ classInfo }) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src="lkjflkjf" alt="Class Location" fluid />
+              <Image
+                src="https://s3.amazonaws.com/images.seroundtable.com/google-maps-icon-1580992464.png"
+                alt="Class Location"
+                fluid
+              />
             </a>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </>
