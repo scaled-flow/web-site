@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./bootstrap.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+//analytics
+//@ts-ignore
+import analytics from "analytics"
 
 // graphql
 import { createApolloClient } from "./graphQL/createApolloClient";
@@ -13,20 +17,12 @@ import Footer from "./components/Footer/Footer";
 // pages
 import ClientRoot from "./ClientRoot";
 
+// analytics.track('Scaled Flow Segment', {
+//   plan: 'Enterprise'
+// });
+
 const App: React.FC = () => {
   const client = createApolloClient();
-
-  const [testField, setTestField] = useState(0)
-
-  function addOne(){
-    let newNumber = testField
-    setTestField(newNumber++)
-    console.log(testField)
-  }
-
-  useEffect(()=> {
-    addOne();
-  }, [])
 
   return (
     <ApolloProvider client={client}>
