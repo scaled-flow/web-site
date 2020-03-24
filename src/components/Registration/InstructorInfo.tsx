@@ -29,6 +29,7 @@ const InstructorInfo: React.FC<Props> = ({ classInfo }) => {
           <Image
             src={classInfo?.consultant_profile.profile_photo_url}
             alt={classInfo?.consultant_profile.profile_photo_alt_text}
+            fluid
           />
         </Col>
         <Col md={9}>
