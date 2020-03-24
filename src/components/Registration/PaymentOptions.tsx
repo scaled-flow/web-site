@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { PayPalButton } from "react-paypal-button-v2";
 import { useMutation } from "@apollo/client";
@@ -44,26 +44,52 @@ const handleTransaction = async (transaction: Transaction, classInfo: Class | un
 
 const PaymentOptions: React.FC<Props> = ({ transaction, classInfo }) => {
   const [addTransaction] = useMutation(ADD_TRANSACTION);
+  const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
+  const [transactionAlt, setTransactionAlt] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (
+      transaction.numOfAttendees === undefined ||
+      transaction.purchaser.address_1 === undefined ||
+      transaction.purchaser.city === undefined ||
+      transaction.purchaser.email === undefined ||
+      transaction.purchaser.first_name === undefined ||
+      transaction.purchaser.last_name === undefined ||
+      transaction.purchaser.postal_code === undefined ||
+      transaction.purchaser.state === undefined
+    ) {
+      return setIsFormFilled(false);
+    }
+    setIsFormFilled(true);
+  }, [transaction]);
+
+  console.log(isFormFilled);
   return (
     <div className="reg-row text-center">
       <h2 className="reg-header">Payment Options</h2>
-      <button onClick={() => handleTransaction(transaction, classInfo, addTransaction)}>Click</button>
-      <PayPalButton
-        amount={transaction.totalPrice.toString()}
-        shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-        // @ts-ignore
-        onSuccess={async (details, data) => {
-          // OPTIONAL: Call your server to save the transaction
-          handleTransaction(transaction, classInfo, addTransaction);
-        }}
-        // @ts-ignore
-        onError={error => {
-          const err = new Error(error);
-          if (err.message.includes("status: 422")) {
-            alert("please make sure to include at least one attendee");
-          }
-        }}
-      />{" "}
+      {isFormFilled ? (
+        <div>
+          <button onClick={() => handleTransaction(transaction, classInfo, addTransaction)}>Click</button>
+          <PayPalButton
+            amount={transaction.totalPrice.toString()}
+            shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+            // @ts-ignore
+            onSuccess={async (details, data) => {
+              // OPTIONAL: Call your server to save the transaction
+              handleTransaction(transaction, classInfo, addTransaction);
+            }}
+            // @ts-ignore
+            onError={error => {
+              const err = new Error(error);
+              if (err.message.includes("status: 422")) {
+                alert("please make sure to include at least one attendee");
+              }
+            }}
+          />
+        </div>
+      ) : (
+        <p>Please fill out the form</p>
+      )}
     </div>
   );
 };
