@@ -16,12 +16,12 @@ const TrainingHeader: React.FC<Props> = ({ title, description, type }) => {
     <header className="training-header">
       <div className="overlay">
         <Container className="home-inner">
-          <Row className="header-content">
-            <Col md={8}>
+          <Row>
+            <Col className="header-content" md={8}>
               <h3>{title}</h3>
               <h6>{description}</h6>
             </Col>
-            <Col md={4} className="d-sm-none d-md-block">
+            <Col md={4} className="d-sm-none d-md-block header-content">
               <Image fluid src={type === "SA" ? keystone : less} />
             </Col>
           </Row>
