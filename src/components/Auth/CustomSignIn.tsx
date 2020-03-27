@@ -11,8 +11,23 @@ export class CustomSignIn extends SignIn {
   }
   
   showComponent(theme: any) {
+    //
     //@ts-ignore
-    const pushAdmin = this.props.handleClick
+    const checkAuth = this.props.handleClick
+
+    //@ts-ignore
+    const wrongCredentials = this.props.wrongCredentials
+
+    //@ts-ignore
+    const checkCredentials = this.props.checkCredentials
+    
+    // function wrongCredentials(){
+    //   if (signedIn === false)
+    //   setTimeout(()=>{
+    //     console.log(">>>>>>>>>>>>>>>>>>>>>plz check credentials<<<<<<<<<<<<<<<<<<<<<<<<<<", )
+    //   }, 1500)
+    // }
+    
     
     return (
       <div className="mx-auto w-full max-w-xs">
@@ -59,11 +74,18 @@ export class CustomSignIn extends SignIn {
             />
           </div>
           <div className="flex items-center justify-between">
+            {checkCredentials && 
+            <div
+            style={{
+              "color": "red"
+            }}
+            >Please check your login credentials</div>
+            }
             <button
               className="bg-blue hover:bg-blue-dark text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
               //@ts-ignore
-              onClick={() => {super.signIn(); pushAdmin()}}
+              onClick={() => {super.signIn(); checkAuth(); wrongCredentials();}}
             >
               Login
             </button>
