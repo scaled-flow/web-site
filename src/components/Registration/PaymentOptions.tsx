@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { PayPalButton } from "react-paypal-button-v2";
 import { useMutation } from "@apollo/client";
+import { useHistory } from "react-router-dom";
+import { History } from "history";
 
 import { Transaction } from "../../pages/client/ClassRegistrationPage";
 import { Class } from "../../graphQL/types";
@@ -12,7 +14,7 @@ interface Props {
   classInfo: Class | undefined;
 }
 
-const handleTransaction = async (transaction: Transaction, classInfo: Class | undefined, mutation: any) => {
+const handleTransaction = async (transaction: Transaction, classInfo: Class | undefined, history: any) => {
   console.log(transaction);
   console.log(classInfo);
   console.log(transaction.totalPrice);
@@ -23,7 +25,9 @@ const handleTransaction = async (transaction: Transaction, classInfo: Class | un
   transaction.attendees.forEach(attendee => {
     attendees.push(new Attendee(attendee.email, attendee.fName, attendee.lName));
   });
-  console.log(attendees);
+
+  history.push("/complete", { transaction, classInfo });
+
   // const res = await mutation({
   //   variables: {
   //     purchaseAddress1: transaction.purchaser.address_1,
@@ -47,6 +51,8 @@ const PaymentOptions: React.FC<Props> = ({ transaction, classInfo }) => {
   const [isFormFilled, setIsFormFilled] = useState<boolean>(false);
   const [transactionAlt, setTransactionAlt] = useState<string[]>([]);
 
+  const history = useHistory();
+
   useEffect(() => {
     if (
       transaction.numOfAttendees === undefined ||
@@ -69,14 +75,14 @@ const PaymentOptions: React.FC<Props> = ({ transaction, classInfo }) => {
       <h2 className="reg-header">Payment Options</h2>
       {isFormFilled ? (
         <div>
-          <button onClick={() => handleTransaction(transaction, classInfo, addTransaction)}>Click</button>
+          <button onClick={() => handleTransaction(transaction, classInfo, history)}>Click</button>
           <PayPalButton
             amount={transaction.totalPrice.toString()}
             shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
             // @ts-ignore
             onSuccess={async (details, data) => {
               // OPTIONAL: Call your server to save the transaction
-              handleTransaction(transaction, classInfo, addTransaction);
+              handleTransaction(transaction, classInfo, history);
             }}
             // @ts-ignore
             onError={error => {

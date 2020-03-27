@@ -18,6 +18,7 @@ import ServicesPage from "./pages/client/ServicesPage";
 import ClassRegistrationPage from "./pages/client/ClassRegistrationPage";
 
 import AdminAuthWrapper from "./components/Auth/AdminAuthWrapper";
+import PurchaseComplete from "./pages/client/PurchaseComplete";
 
 interface Props extends RouteComponentProps {}
 
@@ -31,7 +32,7 @@ const ClientRoot: React.FC<Props> = () => {
         {/* Admin Root */}
         <Route path="/admin" render={props => <AdminAuthWrapper {...props} />} />
         <Route path="/about" render={props => <AboutPage {...props} />} />
-        <Route path="/assessment" render={props => <AssessmentsPage {...props} />} />
+        {/* <Route path="/assessment" render={props => <AssessmentsPage {...props} />} /> */}
         <Route path="/training/scaled-agile" render={props => <TrainingPage {...props} />} />
         <Route path="/training/LeSS" render={props => <TrainingPage {...props} />} />
         {/* <Route path="/blog" render={props => <BlogPage {...props} />} /> */}
@@ -52,6 +53,7 @@ const ClientRoot: React.FC<Props> = () => {
             />
           )}
         />
+        <Route path="/complete" render={props => <PurchaseComplete {...props} />} />
       </Switch>
       <Footer />
     </Router>
