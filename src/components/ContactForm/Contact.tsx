@@ -5,7 +5,10 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import FormInput from "../Forms/FormInput";
 import FormTextarea from "../Forms/FormTextarea";
 
-interface Props {}
+//@ts-ignore
+import analytics from "analytics"
+
+interface Props { }
 
 interface State {
   fName: string;
@@ -47,7 +50,23 @@ const Contact: React.FC<Props> = () => {
     message: ""
   });
 
+  //check local storage for cookie preferences
+  let preference = JSON.parse(localStorage.getItem("cookies") || "{}")
+
   function sendContactData(data: State) {
+    if (preference === true) {
+      //@ts-ignore
+      window.analytics.track('Scaled Flow Segment test', {
+        plan: data.email
+      });
+      //@ts-ignore
+      window.analytics.identify({
+        contactStatus: 'contacted',
+        email: data.email
+      });
+    }
+    if (preference === false){
+    }
     fetch("https://t5oilhwxk3.execute-api.us-east-2.amazonaws.com/dev/test", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

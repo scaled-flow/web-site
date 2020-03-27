@@ -3,9 +3,6 @@ import "./ContactForm.css";
 
 import { Row, Col, Form, Button } from "react-bootstrap";
 
-//@ts-ignore
-import analytics from "analytics"
-
 interface Props {}
 
 interface ContactInfo {
@@ -26,15 +23,6 @@ const ContactForm: React.FC<Props> = () => {
   });
 
   function sendContactData() {
-    //@ts-ignore
-    window.analytics.track('Scaled Flow Segment test', {
-      plan: formInfo.email
-    });
-    //@ts-ignore
-    window.analytics.identify({
-      contactStatus: 'contacted',
-      email: formInfo.email
-    });
     fetch("https://t5oilhwxk3.execute-api.us-east-2.amazonaws.com/dev/test", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
