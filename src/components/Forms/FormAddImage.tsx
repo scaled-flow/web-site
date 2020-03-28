@@ -3,28 +3,22 @@ import { RouteComponentProps } from 'react-router-dom'
 import { Form } from 'react-bootstrap'
 import ContentContainer from "../../components/ContentContainer/ContentContainer";
 import { Container } from "react-bootstrap";
-import { requiredSubselectionMessage } from "graphql/validation/rules/ScalarLeafs";
 import { Hash, createHash } from "crypto";
-import { buildResolveInfo } from "graphql/execution/execute";
 
 
 interface Props extends RouteComponentProps { }
 
 const AddImage: React.FC = () => {
-    const URLGetter = "https://api.testscaledflow.com/v0/upload"
+    const PreSignerURL = "https://api.testscaledflow.com/v0/upload"
     const [ presignedURL, setPresignedURL ] = useState("") 
     const [image, setImage] = useState({} as File)
     const [imageUrl, setImageURL] = useState("")
     const fileChangedHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(image)
-        console.log("CHANGE FIRED")
-        console.log("File Changed: ", e.target.files ? e.target.files[0] : "none")
         e.target.files && setImage(e.target.files[0])
     }
     const getUploadURL = (url: string) => {
         const req = new XMLHttpRequest()
-        const formData = new FormData()
-        formData.append("file", image, `img/${image.name}`)
+
         req.open("POST", "https://api.testscaledflow.com/v0/upload")
         req.onreadystatechange = function() {
             if (req.readyState === 4) {
@@ -32,28 +26,24 @@ const AddImage: React.FC = () => {
               setPresignedURL(req.responseText);
             }
           }
-        // req.setRequestHeader("filename", )
         req.setRequestHeader("key", image.name)
         req.send()
     } 
     const uploadHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
-        getUploadURL(URLGetter)
+        getUploadURL(PreSignerURL)
         console.log("Upload handled")
     }
 
     const upload = async () => {
         const xhr = new XMLHttpRequest();
-        console.log("Type: ", image.type)
         xhr.open('PUT', presignedURL, true)
         xhr.setRequestHeader('Content-Type', image.type)
         xhr.setRequestHeader('Access-Control-Allow-Origin',"*")
 
         xhr.onload = () => {
             if (xhr.status === 200) {
-                console.log("SUCCESS!!!!!!!!!!!")
                 setImageURL(xhr.responseText)
-                console.log("RESPONSE: ", xhr)
             }
         }
         xhr.onerror = () => {
@@ -63,7 +53,6 @@ const AddImage: React.FC = () => {
     }
 
     useEffect(()=>{
-        console.log("ImageName: ", image.name, presignedURL)
         upload()
     },[presignedURL])
     return (
