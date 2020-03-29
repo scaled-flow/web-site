@@ -27,6 +27,7 @@ export interface Transaction {
   totalPrice: number;
   numOfDays: number;
   purchaser: Purchaser;
+  classScheduleId?: number;
 }
 
 type Action =

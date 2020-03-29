@@ -15,6 +15,18 @@ interface Props {
 }
 
 const handleTransaction = async (transaction: Transaction, classInfo: Class | undefined, history: any) => {
+  (async () => {
+    const response = await fetch('https://api.testscaledflow.com/v0/transaction', {
+      method: 'POST',
+      headers: {
+        'Accept':'application/json',
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(transaction)
+    })
+    const data = await response.json();
+    console.log(data)
+  })()
   console.log(transaction);
   console.log(classInfo);
   console.log(transaction.totalPrice);
@@ -68,7 +80,7 @@ const PaymentOptions: React.FC<Props> = ({ transaction, classInfo }) => {
     }
     setIsFormFilled(true);
   }, [transaction]);
-
+  transaction.classScheduleId = classInfo?.class_schedule.class_schedule_id
   console.log(isFormFilled);
   return (
     <div className="reg-row text-center">
