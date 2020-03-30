@@ -40,6 +40,10 @@
   padding: 8px 0;
 }
 
-.navlink .dropdown-link {
+.navlink .dropdown-item .dropdown-link {
+  color: #000;
+}
+
+.dropdown-item .dropdown-link {
   color: #000;
 }
