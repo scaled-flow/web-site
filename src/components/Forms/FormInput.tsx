@@ -9,9 +9,10 @@ interface Props {
   placeholder?: string;
   data?: string;
   useAria?: string;
+  isRequired?: boolean;
 }
 
-const AdminFormInput: React.FC<Props> = ({ title, cb, action, type, placeholder, data, useAria }) => {
+const AdminFormInput: React.FC<Props> = ({ title, cb, action, type, placeholder, data, useAria, isRequired }) => {
   return (
     <>
       {useAria !== "yes" && <Form.Label>{title}</Form.Label>}
@@ -24,6 +25,7 @@ const AdminFormInput: React.FC<Props> = ({ title, cb, action, type, placeholder,
         }}
         value={data}
         placeholder={placeholder ? placeholder : ""}
+        required={isRequired}
       ></Form.Control>
     </>
   );

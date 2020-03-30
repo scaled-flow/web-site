@@ -74,6 +74,7 @@ const AttendeeForm: React.FC<Props> = ({ attendeeInfo, cb, action, isLast, price
             type="email"
             useAria="yes"
             placeholder={number % 2 === 0 ? "john.doe@email.com" : "jane.doe@email.com"}
+            isRequired={true}
           />
         </Col>
         <Col md={2}>
