@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { Form } from "react-bootstrap";
 
 interface Props {
