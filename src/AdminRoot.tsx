@@ -34,7 +34,7 @@ const AdminRoot: React.FC<Props> = () => {
         <Route path="/admin/pull-tables" render={props => <AdminPullTables {...props} />} />
         <Route path="/admin/registration" render={props => <AdminRegistration {...props} />} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 };
