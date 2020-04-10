@@ -1,0 +1,42 @@
+.reg-row {
+  background-color: white;
+  padding: 10px 50px 50px;
+  margin: 30px 0 30px 0;
+}
+
+.reg-header {
+  background-color: #5b9bd1;
+  width: fit-content;
+  color: white;
+  padding: 5px 10px;
+  font-style: italic;
+  position: relative;
+  left: -65px;
+}
+
+.submit-btn {
+  background-color: #5b9bd1;
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: white;
+  border: solid 1px #5591c2;
+}
+
+.btn-wide {
+  min-width: 50vw;
+}
+
+.att-reg-price {
+  background-color: #efefef;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.att-reg-price.last {
+  background-color: #dfdfdf;
+}
+
+.att-reg-price h5 {
+  margin: 0px;
+}

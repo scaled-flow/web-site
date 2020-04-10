@@ -1,4 +1,5 @@
 import gql from "graphql-tag";
+import { Transaction } from "../pages/client/ClassRegistrationPage";
 
 export const INSERT_MAIN_PAGE_HEADER = gql`
   mutation InsertMainPageHeader(
@@ -171,6 +172,111 @@ export const UPDATE_MAIN_PAGE_CONTENT = gql`
         service_offering_body
         service_offering_font_awesome_icon
         service_offering_header
+      }
+    }
+  }
+`;
+
+export const ISNERT_PURCHASER = gql`
+  mutation InsertPurchaser(
+    $address1: String!
+    $address2: String!
+    $city: String!
+    $company: String!
+    $email: String!
+    $fName: String!
+    $lName: String!
+    $postal: String!
+    $stateRegion: String!
+    $totalPurchase: Number!
+    $discountApplied: Number!
+  ) {
+    insert_purchasers(
+      objects: {
+        address_1: $address1
+        address_2: $address2
+        city: $city
+        company: $company
+        email: $email
+        first_name: $fName
+        last_name: $lName
+        postal_code: $postal
+        state_region: $stateRegion
+        total_purchase_amount: $totalPurchase
+        discount_applied: $discountApplied
+      }
+    ) {
+      affected_rows
+      returning {
+        address_1
+        address_2
+        city
+        company
+        discount_applied
+        email
+        first_name
+        last_name
+        postal_code
+        purchaser_id
+        state_region
+        total_purchase_amount
+      }
+    }
+  }
+`;
+
+export const ADD_TRANSACTION = gql`
+  mutation AddTransaction(
+    $purchaseAddress1: String!
+    $purchaseAddress2: String
+    $purchaseCity: String!
+    $purchaseCompany: String
+    $purchaseEmail: String!
+    $purchaseFName: String!
+    $purchaseLName: String!
+    $purchasePostalCode: String!
+    $purchaseReigon: String!
+    $purchaseTotalAmount: numeric
+    $attendees: [attendees_insert_input!]!
+  ) {
+    insert_purchasers(
+      objects: {
+        address_1: $purchaseAddress1
+        address_2: $purchaseAddress2
+        city: $purchaseCity
+        company: $purchaseCompany
+        email: $purchaseEmail
+        first_name: $purchaseFName
+        last_name: $purchaseLName
+        postal_code: $purchasePostalCode
+        state_region: $purchaseReigon
+        total_purchase_amount: $purchaseTotalAmount
+      }
+    ) {
+      affected_rows
+      returning {
+        address_1
+        address_2
+        city
+        company
+        discount_applied
+        email
+        first_name
+        last_name
+        postal_code
+        purchase_date
+        purchaser_id
+        state_region
+        total_purchase_amount
+      }
+    }
+    insert_attendees(objects: $attendees) {
+      affected_rows
+      returning {
+        attendee_id
+        email
+        first_name
+        last_name
       }
     }
   }

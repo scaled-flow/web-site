@@ -8,10 +8,14 @@ import { Class } from "../../graphQL/types";
 import { GetClassPrice } from "../../graphQL/queries";
 import FormInput from "../Forms/FormInput";
 import AttendeeForm from "./AttendeeForm";
+import { Transaction } from "../../pages/client/ClassRegistrationPage";
+import "./Registration.css";
 
 interface Props {
   classInfo: Class | undefined;
   isOnline: "in-person" | "online";
+  cb: any;
+  totalPrice: number;
 }
 
 export class Attendee {
@@ -24,15 +28,13 @@ interface State {
   numOfAttendees: number;
   pricePerPerson: number;
   totalPrice: number;
-  numOfDays: number;
 }
 
 type Action =
   | { type: "attendees"; payload: Attendee }
   | { type: "numOfAttendees"; payload: string }
   | { type: "pricePerPerson"; payload: number }
-  | { type: "totalPrice"; payload: number }
-  | { type: "numOfDays"; payload: number };
+  | { type: "totalPrice"; payload: number };
 
 // This controlls the input
 const reducer = (state: State, action: Action) => {
@@ -62,8 +64,6 @@ const reducer = (state: State, action: Action) => {
     case "pricePerPerson":
       // standard replacement from here
       return { ...state, pricePerPerson: action.payload };
-    case "numOfDays":
-      return { ...state, numOfDays: action.payload };
     case "totalPrice":
       return { ...state, totalPrice: action.payload };
     default:
@@ -71,13 +71,12 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline }) => {
+const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline, cb }) => {
   const [state, dispatch] = useReducer(reducer, {
     attendees: [],
     numOfAttendees: 0,
     pricePerPerson: 0,
-    totalPrice: 0,
-    numOfDays: 0
+    totalPrice: 0
   });
 
   const history = useHistory();
@@ -99,43 +98,65 @@ const RegistrationForm: React.FC<Props> = ({ classInfo, isOnline }) => {
 
   useEffect(() => {
     const tempPrice = state.pricePerPerson * state.numOfAttendees;
-    console.log(tempPrice);
     dispatch({ type: "totalPrice", payload: tempPrice });
   }, [state.numOfAttendees, state.pricePerPerson]);
 
-  console.log(state);
+  useEffect(() => {
+    cb({ type: "attendees", payload: state.attendees });
+    cb({ type: "numOfAttendees", payload: state.numOfAttendees });
+    cb({ type: "pricePerPerson", payload: state.pricePerPerson });
+    cb({ type: "totalPrice", payload: state.totalPrice });
+  }, [state]);
+
   return (
-    <>
+    <div className="reg-row">
       <Row>
         <Col md={10}>
-          <h2>Attendee Registration</h2>
+          <h2 className="reg-header">Attendee Registration</h2>
         </Col>
       </Row>
+
       <Row>
-        <Col md={2}>
+        <Col md={3}>
           <FormInput title="Number of attendees" cb={dispatch} action="numOfAttendees" type="number" placeholder="0" />
           {/* TODO: disable scroll number change */}
         </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col md={2}>
+          <h5>First Name</h5>
+        </Col>
+        <Col md={2}>
+          <h5>Last Name</h5>
+        </Col>
         <Col md={3}>
-          <p>Price per Person - ${state.pricePerPerson}</p>
+          <h5>Email</h5>
         </Col>
-        <Col md={3}>
-          <p>Total Price - ${state.totalPrice}</p>
+        <Col md={2}>
+          <h5>Price/Person</h5>
+        </Col>
+        <Col md={2}>
+          <h5>Total</h5>
         </Col>
       </Row>
-      <Row className="mt-5">
+      <Row className="mt-2">
         <Col>
-          {state.attendees.map(attendee => (
-            <AttendeeForm key={attendee.i} attendeeInfo={attendee} cb={dispatch} action="attendees" />
-          ))}
+          {state.attendees.map((attendee, i) => {
+            return (
+              <AttendeeForm
+                key={attendee.i}
+                attendeeInfo={attendee}
+                prices={{ pricePerDay: state.pricePerPerson, total: state.totalPrice }}
+                cb={dispatch}
+                action="attendees"
+                isLast={state.attendees.length === i + 1 ? true : false}
+                number={i}
+              />
+            );
+          })}
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <Button onClick={() => console.log(state)}>Submit</Button>
-        </Col>
-      </Row>
-    </>
+    </div>
   );
 };
 
