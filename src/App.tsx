@@ -17,20 +17,6 @@ import Footer from "./components/Footer/Footer";
 // pages
 import ClientRoot from "./ClientRoot";
 
-//@ts-ignore
-// window.analytics.track('Scaled Flow Segment', {
-//   plan: 'Enterprise'
-// });
-
-
-//ask user for cookie preferences if haven't already
-// let preference = JSON.parse(localStorage.getItem("cookies"))
-// if (preference === null){
-//   const cookiesOrNah = window.confirm("Accept cookies?")
-//   console.log(cookiesOrNah)
-//   localStorage.setItem("cookies", JSON.stringify(cookiesOrNah))
-// }
-
 const App: React.FC = () => {
   const client = createApolloClient();
 
