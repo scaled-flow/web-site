@@ -54,7 +54,7 @@ const ClientRoot: React.FC<Props> = () => {
           )}
         />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 };

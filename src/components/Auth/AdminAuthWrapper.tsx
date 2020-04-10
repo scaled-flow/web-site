@@ -19,6 +19,7 @@ interface Props extends RouteComponentProps { }
 
 const AdminAuthWrapper: React.FC<Props> = () => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [checkCredentials, setCheckCredentials] = useState<boolean>(false);
 
     useEffect(()=> {
         checkAuth()
@@ -35,6 +36,12 @@ const AdminAuthWrapper: React.FC<Props> = () => {
         }, 1000)
     }
 
+    function credentials(){
+        setTimeout(()=>{
+          setCheckCredentials(true)
+        }, 1000)
+    }
+
     switch (isAuthenticated) {
         case false:
             return (
@@ -42,7 +49,10 @@ const AdminAuthWrapper: React.FC<Props> = () => {
                     <Authenticator hide={[SignIn]} amplifyConfig={config}>
                         {/* 
                      // @ts-ignore */}
-                        <CustomSignIn handleClick={() => checkAuth()} />
+                        <CustomSignIn handleClick={() => checkAuth()} 
+                                      wrongCredentials={() => credentials()}  
+                                      checkCredentials={checkCredentials}
+                        />
                     </Authenticator>
                 </>
             )
