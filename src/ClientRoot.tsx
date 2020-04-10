@@ -55,7 +55,7 @@ const ClientRoot: React.FC<Props> = () => {
         />
         <Route path="/complete" render={props => <PurchaseComplete {...props} />} />
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 };

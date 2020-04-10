@@ -3,6 +3,10 @@ import "./bootstrap.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+//analytics
+//@ts-ignore
+import analytics from "analytics"
+
 // graphql
 import { createApolloClient } from "./graphQL/createApolloClient";
 import { ApolloProvider } from "@apollo/client";
