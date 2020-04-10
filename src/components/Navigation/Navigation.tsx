@@ -29,9 +29,9 @@ const Navigation: React.FC = () => {
             <Link className="navlink" to="/about">
               ABOUT
             </Link>
-            {/* <Link className="navlink" to="/assessment">
+            <Link className="navlink" to="/assessment">
               ASSESSMENTS
-            </Link> */}
+            </Link>
             <NavDropdown className="navlink" title="TRAINING" id="nav-dropdown" style={{ padding: 0 }}>
               <Link to="/training/scaled-agile" className="dropdown-link dropdown-item">
                 Scaled Agile Training
@@ -50,9 +50,9 @@ const Navigation: React.FC = () => {
             >
               BLOG
             </Link>
-            {/* <Link className="navlink" to="/services">
+            <Link className="navlink" to="/services">
               SERVICES
-            </Link> */}
+            </Link>
             <Link className="navlink" to="/contact">
               CONTACT
             </Link>
