@@ -13,9 +13,14 @@ def get(event, context):
         Key={'id':event['pathParameters']['id']}
         )
 
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(result)
-    }
+    if(event['secretKey'] == os.getenv(SCALED_FLOW_HEADER)):
+        response = {
+            "statusCode": 200,
+            "body": json.dumps(result)
+        }
+    else: 
+        response = {
+            "statusCode": 400
+        }
 
     return response
