@@ -25,6 +25,7 @@ export const GET_IN_PERSON_SAFE_CLASSES = gql`
       consultant_profile {
         consultant_profile_user_id
         profile_photo_url
+        profile_photo_alt_text
       }
     }
   }
@@ -55,6 +56,7 @@ export const GET_ONLINE_SAFE_CLASSES = gql`
       consultant_profile {
         consultant_profile_user_id
         profile_photo_url
+        profile_photo_alt_text
       }
     }
   }
@@ -83,6 +85,7 @@ export const GET_IN_PERSON_LESS_CLASSES = gql`
       }
       consultant_profile {
         profile_photo_url
+        profile_photo_alt_text
         consultant_profile_user_id
       }
     }
@@ -114,6 +117,7 @@ export const GET_ONLINE_LESS_CLASSES = gql`
       consultant_profile {
         consultant_profile_user_id
         profile_photo_url
+        profile_photo_alt_text
       }
     }
   }
@@ -178,6 +182,7 @@ export const GetClassData = (consultantId: number, classId: number, scheduleId: 
         phone
         profile_description
         profile_photo_url
+        profile_photo_alt_text
       }
     }
   }
@@ -244,6 +249,7 @@ export const GET_ALL_CONSULTANTS = gql`
       phone
       profile_description
       profile_photo_url
+      profile_photo_alt_text
       consultant_profiles_link_class_profiles_link_class_schedules {
         class_profile {
           class_type {

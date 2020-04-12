@@ -4,3 +4,29 @@
   padding: 5px;
   margin: 10px 0;
 }
+
+.description {
+  width: 100%;
+  min-height: 50%;
+}
+
+.change-button {
+  position: absolute;
+  background-color: rgba(199, 199, 199, 0.795);
+  top: 80%;
+  border: 0;
+  bottom: 20%;
+  right: 25%;
+  left: 25%;
+  text-align: center;
+  height: 10%;
+  width: 50%;
+}
+
+.consultant-image {
+  min-width: 250px;
+  min-height: 250px;
+  max-width: 260px;
+  max-height: 360px;
+  background: #000;
+}
