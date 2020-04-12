@@ -50,6 +50,7 @@ p {
 .link-button:hover {
   color: #fff;
   background-color: #2480bd;
+  text-decoration: none;
 }
 
 .content {

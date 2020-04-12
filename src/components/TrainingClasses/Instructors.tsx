@@ -1,37 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Col, Row, Image } from "react-bootstrap";
+import { useQuery } from "@apollo/client";
 
-interface Props {}
+import { GetInstructors } from "../../graphQL/queries";
+import { ConsultantProfile } from "../../graphQL/types";
+import "./TrainingClasses.css";
 
-const Instructors: React.FC<Props> = () => {
+interface Props {
+  classURL: string;
+}
+
+const Instructors: React.FC<Props> = ({ classURL }) => {
+  const [classId, setClassId] = useState<number>(0);
+  const [classType, setClassType] = useState<string>("");
+  const [instructors, setInstructors] = useState<ConsultantProfile[]>([] as ConsultantProfile[]);
+
+  const { loading, error, data, refetch } = useQuery(GetInstructors(classId));
+
+  useEffect(() => {
+    refetch();
+  }, [classId]);
+
+  useEffect(() => {
+    setInstructors(!loading ? data.consultant_profiles : []);
+  }, [loading, error, data]);
+
+  useEffect(() => {
+    if (classURL === "/training/scaled-agile") {
+      setClassId(1);
+      setClassType("SaFE");
+    } else {
+      setClassId(2);
+      setClassType("LeSS");
+    }
+  }, [classURL]);
+
+  console.log(instructors);
   return (
     <>
       <Container>
-        <Row>
-          <Col></Col>
-        </Row>
         <Row className="instructors">
-          <Col md={4} className="text-center">
-            <Image src="http://www.fillmurray.com/150/150" roundedCircle />{" "}
-            {/* TODO: get this URL from API */}
-            <h3>Trainer A</h3>
-            <Image src="http://www.fillmurray.com/200/200" />
-            {/* TODO: get this URL from API */}
+          <Col>
+            <h1>{classType} Instructors</h1>
           </Col>
-          <Col md={4} className="text-center">
-            <Image src="http://www.fillmurray.com/150/150" roundedCircle />{" "}
-            {/* TODO: get this URL from API */}
-            <h3>Trainer B</h3>
-            <Image src="http://www.fillmurray.com/200/200" />
-            {/* TODO: get this URL from API */}
-          </Col>
-          <Col md={4} className="text-center">
-            <Image src="http://www.fillmurray.com/150/150" roundedCircle />{" "}
-            {/* TODO: get this URL from API */}
-            <h3>Trainer C</h3>
-            <Image src="http://www.fillmurray.com/200/200" />
-            {/* TODO: get this URL from API */}
-          </Col>
+        </Row>
+        <Row>
+          {instructors.map((instructor, i) => (
+            <Col md={4} className="text-center" key={i}>
+              <h3>
+                {instructor.first_name} {instructor.last_name}
+              </h3>
+              <h6>{instructor.job_title}</h6>
+              <img className="img-circle" src={instructor.profile_photo_url} alt={instructor.profile_photo_alt_text} />
+            </Col>
+          ))}
         </Row>
       </Container>
     </>

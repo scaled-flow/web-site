@@ -304,3 +304,23 @@ export const GetCurrentBlog = (id: string) =>
       }
     }
   `;
+
+export const GetInstructors = (id: number) =>
+  gql`
+    query MyQuery {
+      consultant_profiles(
+        where: {
+          counsultant_profiles_link_class_profiles: { class_profile: { class_type: { class_type_id: { _eq: ${id} } } } }
+        }
+      ) {
+        profile_photo_url
+        profile_photo_alt_text
+        profile_description
+        phone
+        last_name
+        job_title
+        first_name
+        email
+      }
+    }
+  `;

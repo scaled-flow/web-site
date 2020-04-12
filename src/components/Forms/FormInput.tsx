@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { Form } from "react-bootstrap";
 
 interface Props {
@@ -8,12 +8,14 @@ interface Props {
   type: string;
   placeholder?: string;
   data?: string;
+  useAria?: string;
+  isRequired?: boolean;
 }
 
-const AdminFormInput: React.FC<Props> = ({ title, cb, action, type, placeholder, data }) => {
+const AdminFormInput: React.FC<Props> = ({ title, cb, action, type, placeholder, data, useAria, isRequired }) => {
   return (
     <>
-      <Form.Label>{title}</Form.Label>
+      {useAria !== "yes" && <Form.Label>{title}</Form.Label>}
       <Form.Control
         type={type}
         aria-label={title}
@@ -23,6 +25,7 @@ const AdminFormInput: React.FC<Props> = ({ title, cb, action, type, placeholder,
         }}
         value={data}
         placeholder={placeholder ? placeholder : ""}
+        required={isRequired}
       ></Form.Control>
     </>
   );

@@ -35,6 +35,10 @@
   text-decoration: none;
 }
 
+.dropdown-menu a:hover {
+  color: #365b7d;
+}
+
 .navlink {
   margin-left: 20px;
   padding: 8px 0;

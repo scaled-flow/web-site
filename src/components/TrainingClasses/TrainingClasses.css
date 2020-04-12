@@ -38,7 +38,18 @@
   color: #608bfb;
 }
 
+.instructors {
+  margin-top: 3vh;
+}
+
 .instructors img,
 h3 {
   margin: 20px 0;
+}
+
+.img-circle {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  border-radius: 50%;
 }

@@ -10,6 +10,12 @@ interface Props {
   attendeeInfo: Attendee;
   cb: any;
   action: string;
+  isLast: boolean;
+  prices: {
+    pricePerDay: number;
+    total: number;
+  };
+  number: number;
 }
 
 interface State {
@@ -36,7 +42,7 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-const AttendeeForm: React.FC<Props> = ({ attendeeInfo, cb, action }) => {
+const AttendeeForm: React.FC<Props> = ({ attendeeInfo, cb, action, isLast, prices, number }) => {
   const [state, dispatch] = useReducer(reducer, { fName: "", lName: "", email: "" });
 
   useEffect(() => {
@@ -47,14 +53,36 @@ const AttendeeForm: React.FC<Props> = ({ attendeeInfo, cb, action }) => {
   return (
     <>
       <Row>
-        <Col>
-          <FormInput title="First Name" cb={dispatch} action="fName" type="text" />
+        <Col md={2}>
+          <FormInput
+            title="First Name"
+            cb={dispatch}
+            action="fName"
+            type="text"
+            useAria="yes"
+            placeholder={number % 2 === 0 ? "John" : "Jane"}
+          />
         </Col>
-        <Col>
-          <FormInput title="Last Name" cb={dispatch} action="lName" type="text" />
+        <Col md={2}>
+          <FormInput title="Last Name" cb={dispatch} action="lName" type="text" useAria="yes" placeholder={"Doe"} />
         </Col>
-        <Col>
-          <FormInput title="Email" cb={dispatch} action="email" type="text" />
+        <Col md={3}>
+          <FormInput
+            title="Email"
+            cb={dispatch}
+            action="email"
+            type="email"
+            useAria="yes"
+            placeholder={number % 2 === 0 ? "john.doe@email.com" : "jane.doe@email.com"}
+            isRequired={true}
+          />
+        </Col>
+        <Col md={2}>
+          <div className="att-reg-price">${prices.pricePerDay}</div>
+        </Col>
+        <Col md={2}>
+          {isLast && <div className="att-reg-price last">${prices.total}</div>}
+          {/* <div className={`att-reg-price ${isLast && "last"}`}>${prices.pricePerDay * (number + 1)}</div> */}
         </Col>
       </Row>
     </>

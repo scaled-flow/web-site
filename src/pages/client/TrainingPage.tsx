@@ -28,7 +28,7 @@ const TrainingPage: React.FC<Props> = ({ location }) => {
       )}
       <ContentContainer>
         <ClassList classType={location.pathname} />
-        <Instructors /> {/* TODO: see if i need to get this info from API*/}
+        <Instructors classURL={location.pathname} /> {/* TODO: see if i need to get this info from API*/}
       </ContentContainer>
     </>
   );

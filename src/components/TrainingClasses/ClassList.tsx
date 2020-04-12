@@ -167,7 +167,9 @@ const ClassList: React.FC<Props> = ({ classType }) => {
             <Row>
               <Col className="text-center">
                 <button className="link-styled-button" onClick={() => toggleFilter("in-person", dispatch, state)}>
-                  {state.isInPersonClassesFiltered ? "See More In Person Classes" : "See Fewer In Person Classes"}
+                  {state.isInPersonClassesFiltered
+                    ? `See All ${state.inPersonClasses !== undefined && state.inPersonClasses.length} In Person Classes`
+                    : "See Fewer In Person Classes"}
                 </button>
               </Col>
             </Row>
@@ -183,7 +185,9 @@ const ClassList: React.FC<Props> = ({ classType }) => {
             <Row>
               <Col className="text-center">
                 <button className="link-styled-button" onClick={() => toggleFilter("online", dispatch, state)}>
-                  {state.isOnlineClassesFiltered ? "See More Online Classes" : "See Fewer Online Classes"}
+                  {state.isOnlineClassesFiltered
+                    ? `See All ${state.onlineClasses !== undefined && state.onlineClasses.length} Online Classes`
+                    : "See Fewer Online Classes"}
                 </button>
               </Col>
             </Row>
