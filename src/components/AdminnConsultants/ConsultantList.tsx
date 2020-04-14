@@ -10,10 +10,20 @@ import ConsultantItem from "./ConsultantItem";
 
 interface Props { }
 
+interface imageListResponse {
+      ETag: string
+      Key: string
+      LastModified: Date
+      Size: number
+      StorageClass: string
+  }
+
+
 const ConsultantList: React.FC<Props> = () => {
   const [consultants, setConsultants] = useState<ConsultantProfileLinkClassProfile[]>(
     [] as ConsultantProfileLinkClassProfile[]
   );
+  const [consultantImages, setConsultantImages] = useState([] as string[])
   const [newConsultantIndex, setNewConsultantIndex] = useState(0)
   const newConsultant = () => {
     const newid = consultants.map(consultant => consultant.consultant_profile_user_id).reduce((max, id) => {
@@ -32,9 +42,23 @@ const ConsultantList: React.FC<Props> = () => {
     setConsultants([...consultants, newConsultant])
   }
 
-  // const removeConsultant = (i: number) => {
-  //   setConsultants([:i],)
-  // }
+  useEffect(()=>{
+    (async ()=>{
+      const res = await fetch('https://api.testscaledflow.com/v0/storage', {
+        method: "POST",
+        headers: {"bucket":"sf-consultants","region":"us-east-1"}
+      })
+      console.log("about to parse response", res)
+      const response: imageListResponse[] = await res.json()
+      console.log("FETCHED IMAGE LIST: ", response)
+      setConsultantImages(response.map(content => `https://consultants.testscaledflow.com/${content.Key}`))
+    })()
+  },[])
+  console.log("CONULTANT IMAGES: ", consultantImages)
+  const removeConsultant = (id: number) => () => {
+    const filteredConsultants = consultants.filter((consultant) => consultant.consultant_profile_user_id !== id)
+    setConsultants(filteredConsultants)
+  }
 
   const { loading, error, data } = useQuery(GET_ALL_CONSULTANTS);
   useEffect(() => {
@@ -47,8 +71,7 @@ const ConsultantList: React.FC<Props> = () => {
   return (
     <>
       {consultants.map((consultant, i) => (
-        newConsultantIndex === i ? <ConsultantItem isNew key={consultant.consultant_profile_user_id} consultant={consultant} /> : <ConsultantItem key={consultant.consultant_profile_user_id} consultant={consultant} />
-        
+        newConsultantIndex === i ? <ConsultantItem removeConsultant={removeConsultant(consultant.consultant_profile_user_id)} isNew key={consultant.consultant_profile_user_id} consultant={consultant} /> : <ConsultantItem key={consultant.consultant_profile_user_id} removeConsultant={removeConsultant(consultant.consultant_profile_user_id)} consultant={consultant} />
       ))}
       <Button onClick={newConsultant}>NEW</Button>
     </>

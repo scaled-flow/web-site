@@ -7,6 +7,8 @@ import { ConsultantProfileLinkClassProfile } from "../../graphQL/types";
 interface Props {
   consultant: ConsultantProfileLinkClassProfile;
   isNew?: boolean;
+  key: number;
+  removeConsultant: () => void;
 }
 
 // export interface ConsultantProfileLinkClassProfile {
@@ -79,7 +81,7 @@ mutation DeleteConsultant($id:Int!) {
   }
 }`
 
-const CounsultantItem: React.FC<Props> = ({consultant, isNew}) => {
+const CounsultantItem: React.FC<Props> = ({consultant, isNew, removeConsultant}) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [edit, setEdit] = useState(isNew)
   const [active, setActive] = useState(consultant)
@@ -136,6 +138,7 @@ const CounsultantItem: React.FC<Props> = ({consultant, isNew}) => {
 
   const reallyDelete = () => {
     DeleteConsultant({ variables: { id: active.consultant_profile_user_id } })
+    removeConsultant()
   }
 
   useEffect(() => {
@@ -147,10 +150,10 @@ const CounsultantItem: React.FC<Props> = ({consultant, isNew}) => {
       <Row>{edit ?
         <Col md={11}>
           <h4>
-            <input type="text" title="firstName" defaultValue={active.first_name} onChange={(e) => setActive({ ...active, first_name: e.target.value })} /> <input type="text" title="lastName" value={active.last_name} onChange={(e) => setActive({ ...active, last_name: e.target.value })} />
+            <input type="text" placeholder="first name" title="firstName" defaultValue={active.first_name} onChange={(e) => setActive({ ...active, first_name: e.target.value })} /> <input type="text" placeholder="last name" title="lastName" value={active.last_name} onChange={(e) => setActive({ ...active, last_name: e.target.value })} />
           </h4>
           <p>
-            <input type="text" title="jobTitle" defaultValue={active.job_title} onChange={(e) => setActive({ ...active, job_title: e.target.value })} /> - <input type="text" title="phone" defaultValue={active.phone} onChange={(e) => setActive({ ...active, phone: e.target.value })} />
+            <input type="text" placeholder="job title" title="jobTitle" defaultValue={active.job_title} onChange={(e) => setActive({ ...active, job_title: e.target.value })} /> - <input type="text" title="phone" placeholder="phone" defaultValue={active.phone} onChange={(e) => setActive({ ...active, phone: e.target.value })} />
           </p>
         </Col>
         :
@@ -183,7 +186,7 @@ const CounsultantItem: React.FC<Props> = ({consultant, isNew}) => {
               {edit && <button className="change-button">change</button>}
             </Col>
             {edit ? <Col md={7}>
-              <textarea className="description" defaultValue={active.profile_description} onChange={(e) => { setActive({ ...active, profile_description: e.target.value }) }} />
+              <textarea placeholder="Consultant Description" className="description" defaultValue={active.profile_description} onChange={(e) => { setActive({ ...active, profile_description: e.target.value }) }} />
               <h5>Is authorized to teach:</h5>
               {active.class_profile?.map(classProfile => (
                 <p key={classProfile.class_profile_id}>

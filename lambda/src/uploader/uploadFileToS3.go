@@ -14,10 +14,21 @@ import (
 )
 
 var (
-	AWS_S3_REGION = os.Getenv("AWS_S3_REGION")
-	AWS_S3_BUCKET = os.Getenv("AWS_S3_BUCKET")
-	mySession     = connect()
+	region         = os.Getenv("AWS_S3_REGION")
+	bucket         = os.Getenv("AWS_S3_BUCKET")
+	mySession      = connect()
+	allowedBuckets = []string{"sf-consultants", "sf-blog", "www.testscaledflow.com"}
 )
+
+func isAllowed(bucket string) bool {
+	allowed := false
+	for _, b := range allowedBuckets {
+		if b == bucket {
+			allowed = true
+		}
+	}
+	return allowed
+}
 
 func main() {
 	lambda.Start(createPresignedURL)
@@ -26,7 +37,7 @@ func main() {
 func connect() *session.Session {
 	mySession, err := session.NewSession(
 		&aws.Config{
-			Region: aws.String(AWS_S3_REGION),
+			Region: aws.String(region),
 		},
 	)
 	if err != nil {
@@ -41,9 +52,15 @@ func createPresignedURL(context context.Context, r events.APIGatewayProxyRequest
 	if len(myKey) < 1 {
 		myKey = "testFile.txt"
 	}
+	if len(r.Headers["bucket"]) > 0 {
+		receivedBucket := r.Headers["bucket"]
+		if isAllowed((bucket)) {
+			bucket = receivedBucket
+		}
+	}
 	myS3Service := s3.New(mySession)
 	req, _ := myS3Service.PutObjectRequest(&s3.PutObjectInput{
-		Bucket:           aws.String(AWS_S3_BUCKET),
+		Bucket:           aws.String(bucket),
 		Key:              aws.String(myKey),
 		GrantFullControl: aws.String("GrantFullControl"),
 	})
