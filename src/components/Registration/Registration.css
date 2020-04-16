@@ -4,6 +4,11 @@
   margin: 30px 0 30px 0;
 }
 
+.map-box {
+  height: 350px;
+  margin-top: 15px;
+}
+
 .reg-header {
   background-color: #5b9bd1;
   width: fit-content;
