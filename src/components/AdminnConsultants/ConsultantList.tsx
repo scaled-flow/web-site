@@ -8,6 +8,9 @@ import { GET_ALL_CONSULTANTS } from "../../graphQL/queries";
 import "./AdminConsultants.css";
 import ConsultantItem from "./ConsultantItem";
 
+const bucket = 'sf-consultants'
+const region = 'us-east-1'
+
 interface Props { }
 
 interface imageListResponse {
@@ -46,14 +49,17 @@ const ConsultantList: React.FC<Props> = () => {
     (async ()=>{
       const res = await fetch('https://api.testscaledflow.com/v0/storage', {
         method: "POST",
-        headers: {"bucket":"sf-consultants","region":"us-east-1"}
+        headers: {"bucket":bucket,"region":region}
       })
-      console.log("about to parse response", res)
       const response: imageListResponse[] = await res.json()
-      console.log("FETCHED IMAGE LIST: ", response)
-      setConsultantImages(response.map(content => `https://consultants.testscaledflow.com/${content.Key}`))
+      let cimgs = consultants.filter(consultant => consultant.profile_photo_url !== undefined).map(cons => `${cons.profile_photo_url}`)
+      let imgs = response.map(content => `https://${bucket}.s3.amazonaws.com/${content.Key.replace(/ /g, "+")}`)
+      imgs.push(...cimgs)
+      console.log("IMAGES AFTER CONCAT: ", imgs, "\nCIMAGES: ", cimgs)
+      setConsultantImages(imgs)
     })()
-  },[])
+  },[consultants])
+
   console.log("CONULTANT IMAGES: ", consultantImages)
   const removeConsultant = (id: number) => () => {
     const filteredConsultants = consultants.filter((consultant) => consultant.consultant_profile_user_id !== id)
@@ -67,11 +73,10 @@ const ConsultantList: React.FC<Props> = () => {
     setNewConsultantIndex(temp.length)
   }, [loading, data]);
 
-  console.log(consultants);
   return (
     <>
       {consultants.map((consultant, i) => (
-        newConsultantIndex === i ? <ConsultantItem removeConsultant={removeConsultant(consultant.consultant_profile_user_id)} isNew key={consultant.consultant_profile_user_id} consultant={consultant} /> : <ConsultantItem key={consultant.consultant_profile_user_id} removeConsultant={removeConsultant(consultant.consultant_profile_user_id)} consultant={consultant} />
+        newConsultantIndex === i ? <ConsultantItem images={consultantImages} removeConsultant={removeConsultant(consultant.consultant_profile_user_id)} isNew key={consultant.consultant_profile_user_id} consultant={consultant} /> : <ConsultantItem images={consultantImages} key={consultant.consultant_profile_user_id} removeConsultant={removeConsultant(consultant.consultant_profile_user_id)} consultant={consultant} />
       ))}
       <Button onClick={newConsultant}>NEW</Button>
     </>

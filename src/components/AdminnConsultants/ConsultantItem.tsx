@@ -3,10 +3,12 @@ import { useMutation, gql } from "@apollo/client";
 import { Row, Col, Image, Modal, Button } from "react-bootstrap";
 
 import { ConsultantProfileLinkClassProfile } from "../../graphQL/types";
+import { faImages } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   consultant: ConsultantProfileLinkClassProfile;
   isNew?: boolean;
+  images?: string[];
   key: number;
   removeConsultant: () => void;
 }
@@ -81,7 +83,7 @@ mutation DeleteConsultant($id:Int!) {
   }
 }`
 
-const CounsultantItem: React.FC<Props> = ({consultant, isNew, removeConsultant}) => {
+const CounsultantItem: React.FC<Props> = ({ consultant, isNew, removeConsultant, images }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [edit, setEdit] = useState(isNew)
   const [active, setActive] = useState(consultant)
@@ -89,11 +91,13 @@ const CounsultantItem: React.FC<Props> = ({consultant, isNew, removeConsultant})
   const [UpdateConsultant] = useMutation(UPDATE_CONSULTANT);
   const [DeleteConsultant] = useMutation(DELETE_CONSULTANT);
   const [deleting, setDeleting] = useState(false)
+  const [activeImages, setActiveImages] = useState(images || [] as string[])
+  const [activeImage, setActiveImage] = useState(0)
 
   const editSave = () => {
     if (edit && !isNew) {
       //updateActiveHeader({ variables: { id: item.id } })
-      console.log("In the useEffectEdit")
+      console.log("In the Edit")
       UpdateConsultant({
         variables: {
           id: active.consultant_profile_user_id,
@@ -108,20 +112,41 @@ const CounsultantItem: React.FC<Props> = ({consultant, isNew, removeConsultant})
         }
       })
     }
-    if(edit && isNew) {
-      NewConsultant({variables: {
-        id: active.consultant_profile_user_id,
-        first_name: active.first_name,
-        last_name: active.last_name,
-        email: active.email,
-        job_title: active.job_title,
-        phone: active.phone,
-        profile_description: active.profile_description,
-        profile_photo_url: active.profile_photo_url,
-        profile_photo_alt_text: active.profile_photo_alt_text
-      }})
+    if (edit && isNew) {
+      NewConsultant({
+        variables: {
+          id: active.consultant_profile_user_id,
+          first_name: active.first_name,
+          last_name: active.last_name,
+          email: active.email,
+          job_title: active.job_title,
+          phone: active.phone,
+          profile_description: active.profile_description,
+          profile_photo_url: active.profile_photo_url,
+          profile_photo_alt_text: active.profile_photo_alt_text
+        }
+      })
     }
     setEdit(!edit)
+  }
+
+  const changeImage = (x: number) => {
+    let next = activeImage + x
+    console.log("X: ", x, "NEXT: ", next)
+    if (next === activeImages.length) {
+      setActive({...active, profile_photo_url: activeImages[0]})
+      next = 0
+    }
+    if (next < 0) {
+      setActive({...active, profile_photo_url: activeImages[activeImages.length-1]})
+      next = activeImages.length-1
+    }
+    if (next < activeImages.length && next > 0) {
+      setActive({...active, profile_photo_url: activeImages[next]})
+    }
+    console.log("NEXT BEFORE SET: ", next)
+    setActiveImage(next)
+    setActive({...active, profile_photo_url: activeImages[next]})
   }
 
   const deleteUndo = () => {
@@ -141,9 +166,27 @@ const CounsultantItem: React.FC<Props> = ({consultant, isNew, removeConsultant})
     removeConsultant()
   }
 
-  useEffect(() => {
-    console.log(active)
-  }, [active])
+  useEffect(()=>{
+    const i = activeImages.indexOf(active.profile_photo_url || '')
+    setActiveImage(i < 0 ? 0 : i)
+    if(images?.indexOf(active.profile_photo_url || '') === -1 && active.profile_photo_url) {
+      setActiveImages([active.profile_photo_url, ...activeImages])
+    } else {
+     setActiveImages(images || [])
+    }
+  }, [images])
+
+  // useEffect(() => {
+  //     const i = activeImages.indexOf(active.profile_photo_url || '')
+  //     console.log("AIM: ", activeImages, "\nURL: ", active.profile_photo_url)
+  //     console.log("====== I ======: ", i)
+  //     if (i < 0) {
+  //       setActiveImage(0)
+  //     } 
+  //     if (i > -1) {
+  //       setActiveImage(i)
+  //     }
+  // }, [])
 
   return (
     <div id="deleteModal" className="consultant-row">
@@ -178,12 +221,14 @@ const CounsultantItem: React.FC<Props> = ({consultant, isNew, removeConsultant})
           <Row>
             <Col md={3}>
               <Image
-              className="consultant-image"
-                src={active.profile_photo_url}
+                className="consultant-image"
+                src={edit ? activeImages[activeImage] : active.profile_photo_url}
                 alt={active.profile_photo_alt_text ? active.profile_photo_alt_text : `${active.first_name} ${active.last_name}`}
                 fluid
               />
               {edit && <button className="change-button">change</button>}
+              {edit && <button onClick={() => changeImage(1)} className="next-image-button">></button>}
+              {edit && <button onClick={() => changeImage(-1)} className="prev-image-button">p</button>}
             </Col>
             {edit ? <Col md={7}>
               <textarea placeholder="Consultant Description" className="description" defaultValue={active.profile_description} onChange={(e) => { setActive({ ...active, profile_description: e.target.value }) }} />
@@ -216,20 +261,20 @@ const CounsultantItem: React.FC<Props> = ({consultant, isNew, removeConsultant})
             </Col>
           </Row>
           <Modal show={deleting}>
-          <Modal.Dialog>
-            <Modal.Header onClick={()=> {setDeleting(!deleting)} } closeButton>
-              <Modal.Title>Are you sure?</Modal.Title>
-            </Modal.Header>
+            <Modal.Dialog>
+              <Modal.Header onClick={() => { setDeleting(!deleting) }} closeButton>
+                <Modal.Title>Are you sure?</Modal.Title>
+              </Modal.Header>
 
-            <Modal.Body >
-          <p>You want to delete {active.first_name} f-ing {active.last_name}?</p>
-            </Modal.Body>
+              <Modal.Body >
+                <p>You want to delete {active.first_name} f-ing {active.last_name}?</p>
+              </Modal.Body>
 
-            <Modal.Footer>
-              <Button variant="secondary" onClick={()=> {setDeleting(!deleting)} }>Close</Button>
-              <Button variant="primary" onClick={reallyDelete}>Yes! I Do.</Button>
-            </Modal.Footer>
-          </Modal.Dialog>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={() => { setDeleting(!deleting) }}>Close</Button>
+                <Button variant="primary" onClick={reallyDelete}>Yes! I Do.</Button>
+              </Modal.Footer>
+            </Modal.Dialog>
           </Modal>
         </>
       )}
