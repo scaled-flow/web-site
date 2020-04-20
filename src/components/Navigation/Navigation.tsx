@@ -40,7 +40,7 @@ const Navigation: React.FC = () => {
             </Link>
             <NavDropdown className="navlink" title="TRAINING" id="nav-dropdown" style={{ padding: 0 }}>
               {classTypes.map(types =>
-                <Link key={types.class_type_id} to={{ pathname:`/training/${types.class_type_abbreviation}`, state: {class_type: types.class_type_id, class_type_full_name: types.class_type_full_name, class_type_tag_line: types.class_type_tag_line}}} className="dropdown-item dropdown-link">
+                <Link onClick={()=>{document.querySelector(".dropdown-menu")?.setAttribute("class","dropdown-menu"); document.querySelector(".dropdown")?.setAttribute("class","navlink dropdown nav-item")}} key={types.class_type_id} to={{ pathname:`/training/${types.class_type_abbreviation}`, state: {class_type: types.class_type_id, class_type_full_name: types.class_type_full_name, class_type_tag_line: types.class_type_tag_line}}} className="dropdown-link dropdown-item">
                     {types.class_type_full_name}
                   </Link>
               )}
