@@ -14,7 +14,7 @@ import { ApolloProvider } from "@apollo/client";
 // components
 import Footer from "./components/Footer/Footer";
 
-//  pages
+// pages
 import ClientRoot from "./ClientRoot";
 
 const App: React.FC = () => {
