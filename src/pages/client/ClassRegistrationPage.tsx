@@ -76,6 +76,7 @@ const ClassRegistrationPage: React.FC<Props> = ({ consultantId, classId, schedul
 
   return (
     <>
+    {console.log("CLASS INFO ON REGISTRATION PAGE: ", classInfo)}
       <ContentContainer customColor="#EFF9FF">
         <Container>
           <RegistrationInfo classInfo={classInfo} />

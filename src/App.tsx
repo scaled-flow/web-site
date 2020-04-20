@@ -23,10 +23,7 @@ const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Switch>
-          {/* there use to be two roots, but I moved the admin into client in order for it to work */}
           <Route path="/" render={props => <ClientRoot {...props} />} />
-        </Switch>
         <Footer />
       </Router>
     </ApolloProvider>

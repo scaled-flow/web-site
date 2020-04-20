@@ -53,3 +53,7 @@ h3 {
   object-fit: cover;
   border-radius: 50%;
 }
+
+.illuminated {
+  box-shadow: inset 4px 4px #6ba1d3b6, 4px 4px 4px 4px #365b7d9d;
+}

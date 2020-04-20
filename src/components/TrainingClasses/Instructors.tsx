@@ -1,39 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Container, Col, Row, Image } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 
-import { GetInstructors } from "../../graphQL/queries";
+import { GET_INSTRUCTORS } from "../../graphQL/queries";
 import { ConsultantProfile } from "../../graphQL/types";
 import "./TrainingClasses.css";
 
 interface Props {
-  classURL: string;
+  instructorIds: number[];
+  classType: string;
+  setIlluminator: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Instructors: React.FC<Props> = ({ classURL }) => {
-  const [classId, setClassId] = useState<number>(0);
-  const [classType, setClassType] = useState<string>("");
+const Instructors: React.FC<Props> = ({ instructorIds, classType, setIlluminator }) => {
   const [instructors, setInstructors] = useState<ConsultantProfile[]>([] as ConsultantProfile[]);
 
-  const { loading, error, data, refetch } = useQuery(GetInstructors(classId));
+  const { loading, error, data } = useQuery(GET_INSTRUCTORS, {variables: {ids: instructorIds}});
 
   useEffect(() => {
-    refetch();
-  }, [classId]);
-
-  useEffect(() => {
-    setInstructors(!loading ? data.consultant_profiles : []);
-  }, [loading, error, data]);
-
-  useEffect(() => {
-    if (classURL === "/training/scaled-agile") {
-      setClassId(1);
-      setClassType("SaFE");
-    } else {
-      setClassId(2);
-      setClassType("LeSS");
-    }
-  }, [classURL]);
+    !loading && !error && setInstructors(data.consultant_profiles)
+  },[loading, error, data])
 
   console.log(instructors);
   return (
@@ -46,7 +32,7 @@ const Instructors: React.FC<Props> = ({ classURL }) => {
         </Row>
         <Row>
           {instructors.map((instructor, i) => (
-            <Col md={4} className="text-center" key={i}>
+            <Col md={4} className="text-center" key={i} onTouchStartCapture={() => setIlluminator(instructor.consultant_profile_user_id)} onMouseEnter={() => setIlluminator(instructor.consultant_profile_user_id)} onMouseLeave={()=>{setIlluminator(0)}}>
               <h3>
                 {instructor.first_name} {instructor.last_name}
               </h3>

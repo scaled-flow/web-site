@@ -17,7 +17,7 @@ export interface ClassProfile {
 }
 
 export interface ConsultantProfile {
-  consultant_profile_user_id?: number;
+  consultant_profile_user_id: number;
   first_name?: string;
   last_name?: string;
   job_title?: string;
