@@ -1,24 +1,77 @@
-.dark-overlay-main {
+/* .dark-overlay-main {
   background: rgba(54, 91, 125, 0.3);
+} */
+
+@media(min-width: 1360px) { 
+  .header-main {
+  height: max-content;
+  width: 100%;
+  background-image: url("../../img/scaleflow.jpg");
+  background-position: 0 3rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-attachment: fixed;
+  padding: 20rem 0 4rem;
+}
 }
 
-.header-main {
-  height: fit-content;
-  background-image: url("../../img/scaleflow.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  padding: 80px 30px 30px;
+@media(max-width: 1360px) {
+  .header-main {
+    padding: 5rem 0 4rem;
+  }
+}
+
+@media(min-width: 1800px) {
+  .header-main {
+    padding: 25rem 0 5rem;
+  }
+}
+
+@media(min-width: 2200px) {
+  .header-main {
+    padding: 30rem 0 6rem;
+  }
+}
+
+@media(min-width: 2450px) {
+  .header-main {
+    padding: 35rem 0 7rem;
+  }
+}
+
+@media(min-width: 2750px) {
+  .header-main {
+    padding: 40rem 0 8rem;
+  }
+}
+
+@media(min-width: 3000px) {
+  .header-main {
+    padding: 45rem 0 9rem;
+  }
+}
+
+@media(min-width: 3325px) {
+  .header-main {
+    padding: 50rem 0 10rem;
+  }
+}
+
+@media(min-width: 3600px) {
+  .header-main {
+    padding: 55rem 0 15rem;
+  }
 }
 
 .hero {
   margin: 0 auto;
-  padding: 50px;
+  padding: 2rem;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 4px;
 }
-
+h1 {
+  font-size: 2rem;
+}
 h1,
 h2,
 h3,
@@ -33,13 +86,13 @@ p {
 }
 
 .hero h5 {
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .link-button {
   background-color: #2a92d8;
   color: #fff;
-  padding: 9px 15px;
+  padding: 0.7rem 0.5rem;
   border-radius: 4px;
 }
 
@@ -54,7 +107,7 @@ p {
 }
 
 .content {
-  margin: 10px 0 50px;
+  margin: 1rem 0 5rem;
 }
 
 .row-style {

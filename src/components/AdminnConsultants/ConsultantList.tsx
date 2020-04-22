@@ -20,7 +20,6 @@ const ConsultantList: React.FC<Props> = () => {
     setConsultants(temp);
   }, [loading, data]);
 
-  console.log(consultants);
   return (
     <>
       {consultants.map(consultant => (

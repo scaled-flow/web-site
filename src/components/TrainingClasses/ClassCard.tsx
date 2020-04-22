@@ -67,7 +67,7 @@ const ClassCard: React.FC<Props> = ({ classData, isOnline, isOnlineText }) => {
         </Col>
         <Col xs={2}>
           <Link
-            to={`/training/class/${classData.class_profile.class_profile_id}/${
+            to={`/register/${classData.class_profile.class_profile_id}/${
               classData.class_schedule.class_schedule_id
             }/${classData.consultant_profile.consultant_profile_user_id}/${encodeURI(
               classData.class_profile.class_title

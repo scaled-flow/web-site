@@ -1,5 +1,4 @@
 import gql from "graphql-tag";
-import { Transaction } from "../pages/client/ClassRegistrationPage";
 
 export const INSERT_MAIN_PAGE_HEADER = gql`
   mutation InsertMainPageHeader(
