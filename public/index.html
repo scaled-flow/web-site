@@ -28,7 +28,7 @@
   <script>
     !function () {
       var analytics = window.analytics = window.analytics || []; if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
-      analytics.invoked = !0; analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on"]; analytics.factory = function (t) { return function () { var e = Array.prototype.slice.call(arguments); e.unshift(t); analytics.push(e); return analytics } }; for (var t = 0; t < analytics.methods.length; t++) { var e = analytics.methods[t]; analytics[e] = analytics.factory(e) } analytics.load = function (t, e) { var n = document.createElement("script"); n.type = "text/javascript"; n.async = !0; n.src = "https://cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js"; var a = document.getElementsByTagName("script")[0]; a.parentNode.insertBefore(n, a); analytics._loadOptions = e }; analytics.SNIPPET_VERSION = "4.1.0";
+        analytics.invoked = !0; analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on"]; analytics.factory = function (t) { return function () { var e = Array.prototype.slice.call(arguments); e.unshift(t); analytics.push(e); return analytics } }; for (var t = 0; t < analytics.methods.length; t++) { var e = analytics.methods[t]; analytics[e] = analytics.factory(e) } analytics.load = function (t, e) { var n = document.createElement("script"); n.type = "text/javascript"; n.async = !0; n.src = "https://cdn.segment.com/analytics.js/v1/" + t + "/analytics.min.js"; var a = document.getElementsByTagName("script")[0]; a.parentNode.insertBefore(n, a); analytics._loadOptions = e }; analytics.SNIPPET_VERSION = "4.1.0";
         analytics.load("BcDbsH69LxVtuTnu1Y9NE9IykakYoFNG"); //TODO - add Scaled Flow account key here
         analytics.page();
       }
@@ -56,11 +56,9 @@
   <!-- start Gist JS code-->
   <script>
     //detecting if "cookies" preference has been selected and modal has disappeared
-    let modalGone = JSON.parse(localStorage.getItem("cookies")) 
-    //rechecks local storage after user has clicked to select their preference 
-    window.addEventListener("click", function(){
-      modalGone = JSON.parse(localStorage.getItem("cookies")) 
-      if (modalGone !== null) {
+    let modalGone = JSON.parse(localStorage.getItem("cookies"))
+
+    function displayChatWidget() {
       (function (d, h, w) {
         var gist = w.gist = w.gist || [];
         gist.methods = ['trackPageView', 'identify', 'track', 'setAppId'];
@@ -86,6 +84,18 @@
           gist.trackPageView()
       })(document, 'head', window);
     }
+
+    //checks local storage at page load to see if cookie preference has already been selected 
+    if (modalGone !== null) {
+      displayChatWidget();
+    }
+
+    //rechecks local storage after user has clicked to select their preference 
+    window.addEventListener("click", function () {
+      modalGone = JSON.parse(localStorage.getItem("cookies"))
+      if (modalGone !== null) {
+        displayChatWidget();
+      }
     })
 
   </script><!-- end Gist JS code-->
