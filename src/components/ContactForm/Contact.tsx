@@ -82,7 +82,7 @@ const Contact: React.FC<Props> = () => {
 
   return (
     <>
-      <div className="contact-form">
+      <div className="contact-info-box">
         <Form>
           <Row>
             <Col>
