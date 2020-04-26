@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import './Forms.css'
 
-const AddImage: React.FC = () => {
+interface AddImageProps {
+    setImageURL: React.Dispatch<React.SetStateAction<string>>
+}
+
+const AddImage: React.FC<AddImageProps> = ({setImageURL}) => {
     const PreSignerURL = "https://api.testscaledflow.com/v0/upload"
-    const [imageUrl, setImageUrl] = useState('')
     const [image, setImage] = useState({} as File)
 
     const fileChangedHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +24,7 @@ const AddImage: React.FC = () => {
             xhr.onload = () => {
                 if (xhr.status === 200) {
                     stateSetter(`http://www.testscaledflow.com/${image.name}`)
+                    setImage({} as File)
                 }
             }
             xhr.onerror = () => {
@@ -44,7 +48,7 @@ const AddImage: React.FC = () => {
 
     const uploadHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
-        fileUploader(setImageUrl)
+        fileUploader(setImageURL)
         console.log("Upload handled")
     }
 
@@ -55,12 +59,9 @@ const AddImage: React.FC = () => {
     }, [image])
     return (
         <>
-
             <input type="file" onChange={fileChangedHandler} accept="image/*" />
-            <input type="text" placeholder="image description" />
             <button disabled={typeof image.name === 'undefined'} onClick={uploadHandler}>Upload!</button>
             {typeof image.name !== 'undefined' && <img className="preview" height='251' src={URL.createObjectURL(image)} alt="recently uploaded image" />}
-
         </>
     )
 }

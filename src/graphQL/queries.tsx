@@ -262,6 +262,7 @@ export const GET_ALL_CONSULTANTS = gql`
           class_image
         }
       }
+      photos
     }
   }
 `;
