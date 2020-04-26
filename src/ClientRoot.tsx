@@ -33,8 +33,7 @@ const ClientRoot: React.FC<Props> = () => {
         <Route path="/admin" render={props => <AdminAuthWrapper {...props} />} />
         <Route path="/about" render={props => <AboutPage {...props} />} />
         <Route path="/assessment" render={props => <AssessmentsPage {...props} />} />
-        <Route path="/training/scaled-agile" render={props => <TrainingPage {...props} />} />
-        <Route path="/training/LeSS" render={props => <TrainingPage {...props} />} />
+        <Route path="/training/:id" render={props => <TrainingPage {...props} />} />
         {/* <Route path="/blog" render={props => <BlogPage {...props} />} /> */}
         <Route
           path="/blog/:blogHeadline/:blogDate/:blogID"
@@ -43,7 +42,7 @@ const ClientRoot: React.FC<Props> = () => {
         <Route path="/services" render={props => <ServicesPage {...props} />} />
         <Route path="/contact" render={props => <ContactPage {...props} />} />
         <Route
-          path="/training/class/:classId/:scheduleID/:consultantId/:className/:isOnline"
+          path="/register/:classId/:scheduleID/:consultantId/:className/:isOnline"
           render={props => (
             <ClassRegistrationPage
               classId={props.match.params.classId}

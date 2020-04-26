@@ -8,7 +8,7 @@ import less from "../../img/less.png";
 interface Props {
   title: string;
   description: string;
-  type: "SA" | "LeSS";
+  type: string;
 }
 
 const TrainingHeader: React.FC<Props> = ({ title, description, type }) => {

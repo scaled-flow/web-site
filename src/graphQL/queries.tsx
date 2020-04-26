@@ -1,5 +1,73 @@
 import gql from "graphql-tag";
 
+export const GET_CLASS_TYPES = gql`
+  query GetClassTypes {
+    class_types {
+      class_type_id
+      class_type_full_name
+      class_type_abbreviation
+    }
+  }
+`
+
+export const GET_CLASSES_BY_TYPE = gql`
+  query GetClassesByType($class_type_abbr: String!) {
+    consultant_profiles_link_class_profiles_link_class_schedules(where: {class_profile: {class_type: {class_type_abbreviation: {_eq: $class_type_abbr}}}}) {
+      class_profile {
+        class_desc
+        class_title
+        class_profile_id
+        class_image
+      }
+      class_schedule {
+        class_end_date
+        class_end_time
+        class_in_person_city
+        class_in_person_state
+        class_is_online
+        class_is_in_person
+        class_start_date
+        class_start_time
+        class_schedule_id
+      }
+      consultant_profile {
+        consultant_profile_user_id
+        profile_photo_url
+        profile_photo_alt_text
+      }
+    }
+  }
+`
+
+export const GET_UPCOMING_CLASSES_BY_TYPE = gql`
+  query GetUpcomingClassesByType($class_type_abbr: String!, $today: date!) {
+    consultant_profiles_link_class_profiles_link_class_schedules(where: {class_schedule: {class_start_date: {_gte: $today}}, class_profile: {class_type: {class_type_abbreviation: {_eq: $class_type_abbr}}}}) {
+      class_profile {
+        class_desc
+        class_title
+        class_profile_id
+        class_image
+      }
+      class_schedule {
+        class_end_date
+        class_end_time
+        class_in_person_city
+        class_in_person_state
+        class_is_online
+        class_is_in_person
+        class_start_date
+        class_start_time
+        class_schedule_id
+      }
+      consultant_profile {
+        consultant_profile_user_id
+        profile_photo_url
+        profile_photo_alt_text
+      }
+    }
+  }
+`
+
 export const GET_IN_PERSON_SAFE_CLASSES = gql`
   query GetInPersonSafeClasses {
     consultant_profiles_link_class_profiles_link_class_schedules(
@@ -308,20 +376,60 @@ export const GetCurrentBlog = (id: string) =>
 
 export const GetInstructors = (id: number) =>
   gql`
-    query MyQuery {
-      consultant_profiles(
-        where: {
-          counsultant_profiles_link_class_profiles: { class_profile: { class_type: { class_type_id: { _eq: ${id} } } } }
+  query GetInstructors($ids: [Int!]) {
+    consultant_profiles(where: {consultant_profile_user_id: {_in: $ids}}) {
+      email
+      first_name
+      job_title
+      last_name
+      phone
+      profile_description
+      profile_photo_alt_text
+      profile_photo_url
+      consultant_profile_user_id
+    }
+  }
+  `;
+
+export const GET_INSTRUCTORS = gql`
+  query GetInstructors($ids: [Int!]) {
+    consultant_profiles(where: {consultant_profile_user_id: {_in: $ids}}) {
+      email
+      first_name
+      job_title
+      last_name
+      phone
+      profile_description
+      profile_photo_alt_text
+      profile_photo_url
+      consultant_profile_user_id
+    }
+  }
+`
+
+export const GET_TYPE_BY_ABBR = gql`
+  query Get($abbr: String!) {
+    class_types(where: {class_type_abbreviation: {_eq: $abbr}}) {
+      class_type_abbreviation
+      class_type_full_name
+      class_type_id
+      class_type_tag_line
+    }
+  }
+`
+
+export const GET_CLASS_TYPES_BY_CONSULTANT_ID = gql`
+  query MyQuery($consultant_id: Int!) {
+    counsultant_profiles_link_class_profiles(where: {consultant_profile: {consultant_profile_user_id: {_eq: $consultant_id}}}) {
+      class_profile {
+        class_type {
+          class_type_abbreviation
+          class_type_full_name
+          class_type_id
+          class_type_tag_line
         }
-      ) {
-        profile_photo_url
-        profile_photo_alt_text
-        profile_description
-        phone
-        last_name
-        job_title
-        first_name
-        email
+        class_type_id_fk
       }
     }
-  `;
+  }
+`
