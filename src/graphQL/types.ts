@@ -26,15 +26,17 @@ export interface ConsultantProfile {
   profile_photo_alt_text?: string;
   phone?: string;
   email?: string;
+  photos?: {url: string, alt_text: string}[];
 }
 
 export interface ConsultantProfileLinkClassProfile {
-  consultant_profile_user_id?: number;
+  consultant_profile_user_id: number;
   first_name?: string;
   last_name?: string;
   job_title?: string;
   profile_description?: string;
   profile_photo_url?: string;
+  profile_photo_alt_text?: string;
   phone?: string;
   email?: string;
   class_profile?: ClassProfile[];
