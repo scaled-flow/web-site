@@ -65,7 +65,7 @@ const Contact: React.FC<Props> = () => {
         email: data.email
       });
     }
-    if (preference === false){
+    if (preference === false) {
     }
     fetch("https://t5oilhwxk3.execute-api.us-east-2.amazonaws.com/dev/test", {
       method: "POST",
@@ -82,49 +82,68 @@ const Contact: React.FC<Props> = () => {
 
   return (
     <>
-      <div className="contact-form">
+      <div className="contact-info-box">
         <Form>
           <Row>
             <Col>
-              <FormInput
-                title="First Name"
-                cb={dispatch}
-                action="fName"
-                type="text"
-              />
-              <FormInput
-                title="Last Name"
-                cb={dispatch}
-                action="lName"
-                type="text"
-              />
-              <FormInput
-                title="Email"
-                cb={dispatch}
-                action="email"
-                type="email"
-              />
-              <FormInput
-                title="Phone"
-                cb={dispatch}
-                action="phone"
-                type="phone"
-              />
-              <FormTextarea
-                title="Message"
-                rows={3}
-                action="message"
-                cb={dispatch}
-              />
-              <Button
-                className="mt-2 mb-2"
-                onClick={() => {
-                  console.log(state);
-                  sendContactData(state);
-                }}
-              >
-                Submit
-              </Button>
+              <h3 style={{ textAlign: "center" }}>Please fill out this form to contact us</h3>
+              <hr />
+              <Row>
+                <Col>
+                  <FormInput
+                    placeholder="First Name"
+                    cb={dispatch}
+                    action="fName"
+                    type="text"
+                  />
+                  <FormInput
+                    placeholder="Last Name"
+                    cb={dispatch}
+                    action="lName"
+                    type="text"
+                  />
+                </Col>
+                <Col>
+                  <FormInput
+                    placeholder="Email"
+                    cb={dispatch}
+                    action="email"
+                    type="email"
+                  />
+                  <FormInput
+                    placeholder="Phone"
+                    cb={dispatch}
+                    action="phone"
+                    type="phone"
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col style={{
+                  marginTop: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                  <FormTextarea
+                    placeholder="Message"
+                    rows={2}
+                    action="message"
+                    cb={dispatch}
+                  />
+                  <Button
+                    style={{width: "100%", marginTop: "20px"}}
+                    className="mt-2 mb-2"
+                    onClick={() => {
+                      console.log(state);
+                      sendContactData(state);
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Form>

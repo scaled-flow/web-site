@@ -4,6 +4,7 @@ import "./Header.css";
 
 interface Props {
   title: string;
+  className?: string;
 }
 
 const Header: React.FC<Props> = ({ title }: Props) => {

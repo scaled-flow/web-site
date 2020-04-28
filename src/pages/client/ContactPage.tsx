@@ -17,11 +17,11 @@ const ContactPage: React.FC<Props> = ({ ...props }: Props) => {
         <Container>
           <Row>
             <Col className="text-center">
-              <h3 style={{ marginBottom: 20 }}>Let me know how I can help with your training or coaching needs.</h3>
+              <h2 style={{ marginBottom: 20 }}>Let me know how I can help with your training or coaching needs.</h2>
             </Col>
           </Row>
           <Row>
-            <Col md={{ span: 4, order: 1 }} sm={{ span: 12, order: 2 }} className="contact-info-box">
+            <Col md={{ span: 4, order: 1 }} sm={{ span: 12, order: 1 }} className="contact-info-box">
               <h3>Get In Touch</h3>
               <p>For training or Coaching.</p>
               <h3>Email</h3>
@@ -29,7 +29,7 @@ const ContactPage: React.FC<Props> = ({ ...props }: Props) => {
               <h3>Phone</h3>
               <p>(651) 358-1072</p>
             </Col>
-            <Col md={{ span: 8, order: 2 }} sm={{ span: 12, order: 1 }}>
+            <Col md={{ span: 8, order: 2 }} sm={{ span: 12, order: 2 }}>
               <Contact />
             </Col>
           </Row>
