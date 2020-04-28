@@ -2,7 +2,7 @@ import React, { Dispatch } from "react";
 import { Form } from "react-bootstrap";
 
 interface Props {
-  title: string;
+  title?: string;
   cb: any;
   action: string;
   type: string;
