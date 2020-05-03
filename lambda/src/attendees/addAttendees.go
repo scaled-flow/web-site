@@ -56,6 +56,22 @@ func addAttendees(event events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 
 	dbinfo := fmt.Sprintf("host=%s dbname=%s user=%s password=%s port=%s sslmode=disable", dbhost, dbname, dbuser, dbpass, dbport)
 	db, err := sql.Open("postgres", dbinfo)
+
+	var head bool
+	head = false
+	log.Println("Headers:")
+	for key, value := range event.Headers {
+		if key == "sfHeader" {
+			head = true
+		}
+		log.Println("%s: %s", key, value)
+	}
+
+	if head != true {
+		//err = i really am not sure so I did it in a questionable way	
+		return &events.APIGatewayProxyResponse{StatusCode: 502, Body: fmt.Sprintf("You're not my real dad")}, nil
+	}
+
 	if err != nil {
 		log.Println("Unable to connect to database")
 	}
@@ -92,4 +108,5 @@ func addAttendees(event events.APIGatewayProxyRequest) (*events.APIGatewayProxyR
 
 	transactionData, _ := json.Marshal(transaction)
 	return &events.APIGatewayProxyResponse{StatusCode: 200, Headers: map[string]string{"Access-Control-Allow-Origin": "*"}, Body: string(transactionData)}, nil
+
 }

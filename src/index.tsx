@@ -10,7 +10,9 @@ import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
 
 // Basic connection to AWS
-fetch("https://t5oilhwxk3.execute-api.us-east-2.amazonaws.com/dev/test").then(res => {
+fetch("https://t5oilhwxk3.execute-api.us-east-2.amazonaws.com/dev/test",{
+    headers: { 'sfHeader': 'header' }
+}).then(res => {
     console.log(res)
 }).catch(err => {
     console.log(err)

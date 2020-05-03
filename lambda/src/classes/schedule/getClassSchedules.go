@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"net/http"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -54,7 +55,8 @@ type ConsultantClassProfile struct {
 	ClassEndTime                    string  `db:"class_end_time,omitempty",json:"class_end_time,omitempty"`
 }
 
-func getClassSchedules() (events.APIGatewayProxyResponse, error) {
+
+func getClassSchedules(event events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	dbname := os.Getenv("postgres_db_name")
 	dbhost := os.Getenv("postgres_host")
 	dbport := os.Getenv("postgres_port")
@@ -62,6 +64,23 @@ func getClassSchedules() (events.APIGatewayProxyResponse, error) {
 	dbpass := os.Getenv("postgres_user_pass")
 	dbinfo := fmt.Sprintf("host=%s dbname=%s user=%s password=%s port=%s sslmode=disable", dbhost, dbname, dbuser, dbpass, dbport)
 	db, err := sql.Open("postgres", dbinfo)
+
+	var head bool
+	head = false
+	log.Println("Headers:")
+	for key, value := range event.Headers {
+		if key == "sfHeader" {
+			if value == "header" {
+				head = true
+			}
+		}
+		log.Println("%s: %s", key, value)
+	}
+
+	if head != true {
+		return &events.APIGatewayProxyResponse{StatusCode: 502, Body: fmt.Sprintf("You're not my real dad")}, nil
+	}
+
 	if err != nil {
 		log.Println("Unable to connect to database")
 	}

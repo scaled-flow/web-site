@@ -1,3 +1,5 @@
 export default {
     REACT_APP_ADMIN_KEY : process.env.REACT_APP_ADMIN_KEY || "",
+    REACT_APP_ALLOWED_STRING: process.env.REACT_APP_ALLOWED_STRING || "",
+    REACT_APP_RESTRICTED_STRING: process.env.REACT_APP_RESTRICTED_STRING || "",
   }

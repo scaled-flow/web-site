@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./bootstrap.css";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import config from './config';
 
 // graphql
 import { createApolloClient } from "./graphQL/createApolloClient";
@@ -37,7 +38,7 @@ const App: React.FC = () => {
   switch (isNotAuthenticated) {
     case false:
       return (
-        <ApolloProvider client={createApolloClient('admin')}>
+        <ApolloProvider client={createApolloClient(config.REACT_APP_ALLOWED_STRING)}>
           <Router>
             <Switch>
               {/* there use to be two roots, but I moved the admin into client in order for it to work */}
@@ -49,7 +50,7 @@ const App: React.FC = () => {
       );
     case true:
       return (
-        <ApolloProvider client={createApolloClient('user')}>
+        <ApolloProvider client={createApolloClient(config.REACT_APP_RESTRICTED_STRING)}>
           <Router>
             <Switch>
               {/* there use to be two roots, but I moved the admin into client in order for it to work */}
