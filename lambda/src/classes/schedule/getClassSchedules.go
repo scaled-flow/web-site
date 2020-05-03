@@ -65,7 +65,7 @@ func getClassSchedules(event events.APIGatewayProxyRequest) (events.APIGatewayPr
 	dbinfo := fmt.Sprintf("host=%s dbname=%s user=%s password=%s port=%s sslmode=disable", dbhost, dbname, dbuser, dbpass, dbport)
 	db, err := sql.Open("postgres", dbinfo)
 
-	var head bool
+	/*var head bool
 	head = false
 	log.Println("Headers:")
 	for key, value := range event.Headers {
@@ -79,7 +79,7 @@ func getClassSchedules(event events.APIGatewayProxyRequest) (events.APIGatewayPr
 
 	if head != true {
 		return &events.APIGatewayProxyResponse{StatusCode: 502, Body: fmt.Sprintf("You're not my real dad")}, nil
-	}
+	}*/
 
 	if err != nil {
 		log.Println("Unable to connect to database")
