@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
+"@analytics/cookie-utils@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@analytics/cookie-utils/-/cookie-utils-0.2.3.tgz#e6ab923f88d89f7b02da0cfab585ff193977052f"
+  integrity sha512-RiMAVpSluRbWb2hlT9wMJ0r2l+MUZzScYjY+w2iWRzjOr9Zzzs4tYzJT6Sd94PDz3LzCuf4aGOwS6pkKXTEBLw==
+
+"@analytics/storage-utils@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@analytics/storage-utils/-/storage-utils-0.2.4.tgz#b373fc1c3910c201c3020f014c8bffd41cfc3f94"
+  integrity sha512-VHRggJbRY8vHIADWVwbq9cZux0L9LdmlN31XA3daVAI4gMkKdQEocxB7KqGDt6SfIJ3NYi/qh1nRJGooYmTBiA==
+  dependencies:
+    "@analytics/cookie-utils" "^0.2.3"
+
 "@apollo/client@^3.0.0-beta.41":
   version "3.0.0-beta.41"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.41.tgz#37769f95d4829f2af884e76442401a31ac9d9238"
@@ -2736,6 +2748,21 @@ amazon-cognito-identity-js@^3.2.5:
     crypto-js "3.1.9-1"
     js-cookie "^2.1.4"
 
+analytics-utils@^0.2.1:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/analytics-utils/-/analytics-utils-0.2.2.tgz#09729ba7514b81b3ce58f12b8eaad32926b58b6a"
+  integrity sha512-fdbc+MeoNrkwCAbGD/qgedyvRbPnImmWiInAgZ51KpINmKITpdtWV+6riHVA1YBSrb8IyYlfxn98IeWyN9a0+Q==
+  dependencies:
+    "@analytics/storage-utils" "^0.2.4"
+    dlv "^1.1.3"
+
+analytics@^0.3.1:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/analytics/-/analytics-0.3.5.tgz#1c2da1912ec9f89c5bd07e9a7a195c5630bfe1c5"
+  integrity sha512-ydKT6ukiuoruA3iUWW5x0fzKjjiP2F+YS/T6V4bf/ct6hEK8vv/RrLB98h3uafZRpvU4MmtMv94H+au8ohY5/Q==
+  dependencies:
+    analytics-utils "^0.2.1"
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
@@ -3062,7 +3089,14 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.0.tgz#24390e6ad61386b0a747265754d2a17219de862c"
   integrity sha512-Uvq6hVe90D0B2WEnUqtdgY1bATGz3mw33nH9Y+dmA+w5DHvUmBgkr5rM/KCHpCsiFNRUfokW/szpPPgMK2hm4A==
 
-axios@*, axios@^0.19.0, axios@^0.19.2:
+axios@*, axios@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
+  dependencies:
+    follow-redirects "^1.10.0"
+
+axios@^0.19.0:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
   integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
@@ -4427,7 +4461,7 @@ debug@=3.1.0:
   dependencies:
     ms "2.0.0"
 
-debug@^3.0.0, debug@^3.1.1, debug@^3.2.5, debug@^3.2.6:
+debug@^3.1.1, debug@^3.2.5, debug@^3.2.6:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
   integrity sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==
@@ -4596,6 +4630,11 @@ dir-glob@2.0.0:
     arrify "^1.0.1"
     path-type "^3.0.0"
 
+dlv@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/dlv/-/dlv-1.1.3.tgz#5c198a8a11453596e751494d49874bc7732f2e79"
+  integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
+
 dns-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dns-equal/-/dns-equal-1.0.0.tgz#b39e7f1da6eb0a75ba9c17324b34753c47e0654d"
@@ -4726,7 +4765,7 @@ dotenv-expand@5.1.0:
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
   integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
 
-dotenv@8.2.0:
+dotenv@8.2.0, dotenv@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
@@ -5530,12 +5569,10 @@ follow-redirects@1.5.10:
   dependencies:
     debug "=3.1.0"
 
-follow-redirects@^1.0.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.9.0.tgz#8d5bcdc65b7108fe1508649c79c12d732dcedb4f"
-  integrity sha512-CRcPzsSIbXyVDl0QI01muNDu69S8trU4jArW9LpOt2WtC6LyUJetcIrmfHsRBx7/Jb6GHJUiuqyYxPooFfNt6A==
-  dependencies:
-    debug "^3.0.0"
+follow-redirects@^1.0.0, follow-redirects@^1.10.0:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.1.tgz#5f69b813376cee4fd0474a3aba835df04ab763b7"
+  integrity sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
 
 for-in@^0.1.3:
   version "0.1.8"
